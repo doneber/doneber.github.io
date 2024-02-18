@@ -1,4 +1,6 @@
 ---
+import Navbar from "@/components/Navbar.astro";
+
 const { title } = Astro.props;
 ---
 
@@ -43,7 +45,7 @@ const { title } = Astro.props;
     </style>
   </head>
   <body>
-    <!-- <Navbar /> -->
+    <Navbar />
     <slot />
   </body>
 </html>
