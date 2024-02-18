@@ -1,3 +1,7 @@
+---
+import Navbar from '../components/navbar.astro'
+---
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -25,28 +29,7 @@
     </style>
   </head>
   <body>
-    <nav>
-      <ul style="padding-left: 1rem; display: flex; gap: 2rem; flex-wrap: wrap">
-        <li>
-          <a href="/">Inicio</a>
-        </li>
-        <li>
-          <a href="https://doneber.dev/blog">Mi Blog</a>
-        </li>
-        <li>
-          <a href="https://flowcv.com/resume/eevk7vfmfl">CV</a>
-        </li>
-        <li>
-          <a href="/portfolio.html">Portafolio</a>
-        </li>
-        <li>
-          <a href="/about.html">Sobre mí</a>
-        </li>
-        <li>
-          <a href="/setup.html">Setup</a>
-        </li>
-      </ul>
-    </nav>
+    <Navbar />
     <main>
       <section>
         <h1>Doneber</h1>
