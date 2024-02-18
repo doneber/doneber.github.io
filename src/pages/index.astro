@@ -1,117 +1,89 @@
 ---
-import Navbar from '../components/navbar.astro'
+import Layout from '../layouts/Layout.astro'
 ---
 
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>doneberdev</title>
-    <style>
-      * {
-        font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
-      }
-      body {
-        background-color: #fefefe;
-        margin: 40px auto;
-        max-width: 650px;
-        line-height: 1.6;
-        font-size: 18px;
-        color: #444;
-        padding: 0 10px;
-      }
-      h1,
-      h2,
-      h3 {
-        line-height: 1.2;
-      }
-    </style>
-  </head>
-  <body>
-    <Navbar />
-    <main>
-      <section>
-        <h1>Doneber</h1>
-        <img src="https://avatars.githubusercontent.com/u/52986565?v=4" width="120" alt="Foto de perfil" style="border-radius: 100%;">
-        <p>
-          Programo cosas y hago videos.
-        </p>
-        <ul>
-          <li>
-            GitHub:
-            <a href="http://github.com/doneber" target="_blank"
-              >github.com/doneber</a
-            >
-          </li>
-          <li>
-            Twitter:
-            <a href="http://twitter.com/@doneberdev" target="_blank"
-              >twitter.com/@doneberdev</a
-            >
-          </li>
-        </ul>
-      </section>
-      <section>
-        <h2>Comunidad</h2>
-        <ul>
-          <li>
-            YouTube (Principal):
-            <a href="http://youtube.com/@doneber" target="_blank"
-              >youtube.com/@doneber</a
-            >
-          </li>
-          <li>
-            YouTube (Secundaria):
-            <a href="http://youtube.com/@donebercode" target="_blank"
-              >youtube.com/@donebercode</a
-            >
-          </li>
-          <li>
-            TikTok (Principal):
-            <a href="http://youtube.com/@doneber" target="_blank"
-              >tiktok.com/@doneber.dev</a
-            >
-          </li>
-          <li>
-            TikTok (Secundaria):
-            <a href="http://youtube.com/@donebercode" target="_blank"
-              >tiktok.com/@doneberdev</a
-            >
-          </li>
-          <li>Discord: <a href="https://discord.com/invite/5ak7sZpC4t">Servidor de Discord</a></li>
-        </ul>
-      </section>
-      <section>
-        <h2>Mis artículos recientes</h2>
-        <ul>
-          <li>
-            <a href="https://doneber.dev/blog/crear-contenido-sobre-programaci%C3%B3n/">Crear contenido sobre Programación</a>
-          </li>
-          <li>
-            <a href="https://doneber.dev/blog/necesitas-practicar-tu-mecanografia/">Necesitas practicar tu mecanografia</a>
-          </li>
-        </ul>
-      </section>
-      <section>
-        <h2>Videos recientes</h2>
-        <ul>
-          <li>
-            <a href="">Creación de Contenido</a>
-          </li>
-          <li>
-            <a href="">Escribe mas rápido</a>
-          </li>
-        </ul>
-      </section>
-      <section>
-        <h2>Contacto</h2>
-        <p>
-          <a href="mailto:contact@doneber.dev" target="_blank"
-            >contact@doneber.dev</a
+<Layout title="Home - doneber.dev">
+  <main>
+    <section>
+      <h1>Doneber</h1>
+      <img src="https://avatars.githubusercontent.com/u/52986565?v=4" width="120" alt="Foto de perfil" style="border-radius: 100%;">
+      <p>
+        Programo cosas y hago videos.
+      </p>
+      <ul>
+        <li>
+          GitHub:
+          <a href="http://github.com/doneber" target="_blank"
+            >github.com/doneber</a
           >
-        </p>
-      </section>
-    </main>
-  </body>
-</html>
+        </li>
+        <li>
+          Twitter:
+          <a href="http://twitter.com/@doneberdev" target="_blank"
+            >twitter.com/@doneberdev</a
+          >
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Comunidad</h2>
+      <ul>
+        <li>
+          YouTube (Principal):
+          <a href="http://youtube.com/@doneber" target="_blank"
+            >youtube.com/@doneber</a
+          >
+        </li>
+        <li>
+          YouTube (Secundaria):
+          <a href="http://youtube.com/@donebercode" target="_blank"
+            >youtube.com/@donebercode</a
+          >
+        </li>
+        <li>
+          TikTok (Principal):
+          <a href="http://youtube.com/@doneber" target="_blank"
+            >tiktok.com/@doneber.dev</a
+          >
+        </li>
+        <li>
+          TikTok (Secundaria):
+          <a href="http://youtube.com/@donebercode" target="_blank"
+            >tiktok.com/@doneberdev</a
+          >
+        </li>
+        <li>Discord: <a href="https://discord.com/invite/5ak7sZpC4t">Servidor de Discord</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Mis artículos recientes</h2>
+      <ul>
+        <li>
+          <a href="https://doneber.dev/blog/crear-contenido-sobre-programaci%C3%B3n/">Crear contenido sobre Programación</a>
+        </li>
+        <li>
+          <a href="https://doneber.dev/blog/necesitas-practicar-tu-mecanografia/">Necesitas practicar tu mecanografia</a>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Videos recientes</h2>
+      <ul>
+        <li>
+          <a href="">Creación de Contenido</a>
+        </li>
+        <li>
+          <a href="">Escribe mas rápido</a>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Contacto</h2>
+      <p>
+        <a href="mailto:contact@doneber.dev" target="_blank"
+          >contact@doneber.dev</a
+        >
+      </p>
+    </section>
+  </main>
+</Layout>

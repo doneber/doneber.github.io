@@ -1,108 +1,77 @@
 ---
-import Navbar from '../components/navbar.astro'
+import Layout from "../layouts/Layout.astro";
 ---
 
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>doneberdev</title>
-    <style>
-      * {
-        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-          "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol,
-          "Noto Color Emoji";
-      }
-      body {
-        background-color: #fefefe;
-        margin: 40px auto;
-        max-width: 650px;
-        line-height: 1.6;
-        font-size: 18px;
-        color: #444;
-        padding: 0 10px;
-      }
-      h1,
-      h2,
-      h3 {
-        line-height: 1.2;
-      }
-    </style>
-  </head>
-  <body>
-    <Navbar />
-    <main>
-      <h1>Sobre mí</h1>
-      <img
-        src="https://avatars.githubusercontent.com/u/52986565?v=4"
-        width="120"
-        alt="Foto de perfil"
-        style="border-radius: 100%"
-      />
-      <section id="about-me">
-        <p>Mi nombre es Eber, soy un apasionado <strong>desarrollador de software</strong> con
-          un enfoque especial en tecnologías JavaScript. Me dedico a crear
-          contenido educativo y de valor en las redes sociales más populares,
-          buscando siempre compartir conocimiento y fomentar el aprendizaje
-          colaborativo.
-        </p>
-        <h3>Experiencia Profesional</h3>
-        <p>
-          He tenido la oportunidad de trabajar en
-          <strong>la institución X</strong> como desarrollador fullstack, donde
-          profundicé mi experiencia en tecnologías como JavaScript, NodeJs,
-          React, Next.js y Nest.js, además de fortalecer mis habilidades en
-          control de versiones con Git y GitHub.
-        </p>
-        <h3>Educación y Formación</h3>
-        <p>
-          Mi formación académica incluye una
-          <strong>licenciatura en Informática</strong>, donde adquirí una base
-          sólida en principios de programación, sistemas de información y
-          desarrollo de software.
-        </p>
-        <h3>Habilidades y Especializaciones</h3>
-        <ul>
-          <li>JavaScript</li>
-          <li>Git</li>
-          <li>NodeJs</li>
-          <li>GitHub</li>
-          <li>React</li>
-          <li>Autodidacta</li>
-          <li>Next.js</li>
-          <li>Nest.js</li>
-          <li>Empatía</li>
-        </ul>
-        <h3>Intereses Personales y Profesionales</h3>
-        <p>
-          En mi tiempo libre, disfruto practicar
-          <strong>Volleyball y ejercitarme en el gimnasio</strong>. Estas
-          actividades no solo me ayudan a mantenerme en forma, sino también a
-          cultivar la disciplina y el trabajo en equipo, cualidades esenciales
-          tanto en el deporte como en el desarrollo de software.
-        </p>
-        <h3>Motivaciones y Objetivos</h3>
-        <p>
-          Mi principal motivación es <strong>crear una comunidad</strong> donde
-          el aprendizaje colaborativo y el crecimiento personal y profesional
-          sean los pilares fundamentales. Aspiro a ser un catalizador para que
-          más personas puedan alcanzar sus objetivos en el ámbito tecnológico.
-        </p>
-        <h3>Filosofía Personal</h3>
-        <p>
-          Creo firmemente que
-          <strong>"la disciplina supera el talento natural"</strong>. El
-          esfuerzo constante y el compromiso con la mejora continua son claves
-          para alcanzar cualquier meta.
-        </p>
-        <h3>Contacto</h3>
-        <p>
-          Para colaboraciones o consultas, no dudes en contactarme a
-          <a href="mailto:contact@doneber.dev">contact@doneber.dev</a>.
-        </p>
-      </section>
-    </main>
-  </body>
-</html>
+<Layout title="Sobre mí - doneber.dev">
+  <main>
+    <h1>Sobre mí</h1>
+    <img
+      src="https://avatars.githubusercontent.com/u/52986565?v=4"
+      width="120"
+      alt="Foto de perfil"
+      style="border-radius: 100%"
+    />
+    <section id="about-me">
+      <p>
+        Mi nombre es Eber, soy un apasionado <strong
+          >desarrollador de software</strong
+        > con un enfoque especial en tecnologías JavaScript. Me dedico a crear contenido
+        educativo y de valor en las redes sociales más populares, buscando siempre
+        compartir conocimiento y fomentar el aprendizaje colaborativo.
+      </p>
+      <h3>Experiencia Profesional</h3>
+      <p>
+        He tenido la oportunidad de trabajar en
+        <strong>la institución X</strong> como desarrollador fullstack, donde profundicé
+        mi experiencia en tecnologías como JavaScript, NodeJs, React, Next.js y Nest.js,
+        además de fortalecer mis habilidades en control de versiones con Git y GitHub.
+      </p>
+      <h3>Educación y Formación</h3>
+      <p>
+        Mi formación académica incluye una
+        <strong>licenciatura en Informática</strong>, donde adquirí una base
+        sólida en principios de programación, sistemas de información y
+        desarrollo de software.
+      </p>
+      <h3>Habilidades y Especializaciones</h3>
+      <ul>
+        <li>JavaScript</li>
+        <li>Git</li>
+        <li>NodeJs</li>
+        <li>GitHub</li>
+        <li>React</li>
+        <li>Autodidacta</li>
+        <li>Next.js</li>
+        <li>Nest.js</li>
+        <li>Empatía</li>
+      </ul>
+      <h3>Intereses Personales y Profesionales</h3>
+      <p>
+        En mi tiempo libre, disfruto practicar
+        <strong>Volleyball y ejercitarme en el gimnasio</strong>. Estas
+        actividades no solo me ayudan a mantenerme en forma, sino también a
+        cultivar la disciplina y el trabajo en equipo, cualidades esenciales
+        tanto en el deporte como en el desarrollo de software.
+      </p>
+      <h3>Motivaciones y Objetivos</h3>
+      <p>
+        Mi principal motivación es <strong>crear una comunidad</strong> donde el
+        aprendizaje colaborativo y el crecimiento personal y profesional sean los
+        pilares fundamentales. Aspiro a ser un catalizador para que más personas
+        puedan alcanzar sus objetivos en el ámbito tecnológico.
+      </p>
+      <h3>Filosofía Personal</h3>
+      <p>
+        Creo firmemente que
+        <strong>"la disciplina supera el talento natural"</strong>. El esfuerzo
+        constante y el compromiso con la mejora continua son claves para
+        alcanzar cualquier meta.
+      </p>
+      <h3>Contacto</h3>
+      <p>
+        Para colaboraciones o consultas, no dudes en contactarme a
+        <a href="mailto:contact@doneber.dev">contact@doneber.dev</a>.
+      </p>
+    </section>
+  </main>
+</Layout>

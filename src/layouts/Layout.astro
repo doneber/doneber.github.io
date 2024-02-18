@@ -1,0 +1,51 @@
+---
+import Navbar from "../components/Navbar.astro";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <style>
+      * {
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Roboto,
+          Helvetica Neue,
+          Arial,
+          Noto Sans,
+          sans-serif,
+          "Apple Color Emoji",
+          "Segoe UI Emoji",
+          Segoe UI Symbol,
+          "Noto Color Emoji";
+      }
+      body {
+        background-color: #fefefe;
+        margin: 40px auto;
+        max-width: 650px;
+        line-height: 1.6;
+        font-size: 18px;
+        color: #444;
+        padding: 0 10px;
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.2;
+      }
+    </style>
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+  </body>
+</html>
