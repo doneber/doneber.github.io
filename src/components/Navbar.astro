@@ -1,15 +1,29 @@
 ---
 import ThemeIcon from "@/components/ThemeIcon.astro";
+import Link from "@/components/Link.astro";
 ---
 
-<nav style="display: flex; gap: 2rem;">
-  <div style="display: flex; gap: 2rem; flex-wrap: wrap">
-    <a href="/">Inicio</a>
-    <a href="/blog">Blog</a>
-    <a href="/portfolio">Portafolio</a>
-    <a href="/about">Sobre mí</a>
-    <a href="/setup">Mi Setup</a>
-    <a href="https://flowcv.com/resume/eevk7vfmfl">CV</a>
+<nav>
+  <div>
+    <Link href="/">Inicio</Link>
+    <Link href="/blog">Blog</Link>
+    <Link href="/portfolio">Portafolio</Link>
+    <Link href="/about">Sobre mí</Link>
+    <Link href="/setup">Mi Setup</Link>
+    <Link href="https://flowcv.com/resume/eevk7vfmfl">CV</Link>
   </div>
   <ThemeIcon />
 </nav>
+
+<style>
+  nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    div {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+  }
+</style>
