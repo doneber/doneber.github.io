@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import LayoutBlog from "@/layouts/LayoutBlog.astro";
+import Layout from "@/layouts/Layout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
@@ -8,7 +8,7 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<LayoutBlog title={title} description={description}>
+<Layout title={title} description={description}>
 
   <main>
     <article>
@@ -17,6 +17,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       </div>
       <div class="prose">
         <div class="title">
+          <h1>{title}</h1>
           <div class="date">
             <FormattedDate date={pubDate} />
             {
@@ -27,11 +28,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
               )
             }
           </div>
-          <h1>{title}</h1>
           <hr />
         </div>
         <slot />
       </div>
     </article>
   </main>
-</LayoutBlog>
+</Layout>
