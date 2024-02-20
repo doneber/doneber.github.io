@@ -29,15 +29,31 @@ const { title, description } = Astro.props;
           Segoe UI Symbol,
           "Noto Color Emoji";
       }
-      body {
-        background-color: #fefefe;
+
+      :root {
+        --var-primary-color-bg: #fefefe;
+        --var-primary-color-text: #444;
+      }
+
+      html {
         margin: 40px auto;
         max-width: 650px;
         line-height: 1.6;
         font-size: 18px;
-        color: #444;
         padding: 0 10px;
+
+        background-color: var(--var-primary-color-bg);
+        color: var(--var-primary-color-text);
+
       }
+      html.dark {
+        --var-primary-color-bg: #222;
+        --var-primary-color-text: #eee;
+        a {
+          color: var(--var-primary-color-text);
+       }
+      }
+
       h1,
       h2,
       h3 {
