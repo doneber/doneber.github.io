@@ -1,0 +1,26 @@
+---
+import { languages } from "@/i18n/ui";
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+} from "@/i18n/utils.ts";
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+
+---
+
+{
+  Object.entries(languages).map(([langPrefix]) => {     
+    if (langPrefix == lang) return <></>
+    return (<a href={translatePath("/", langPrefix)}>{langPrefix.toUpperCase()}</a>)
+  })
+
+}
+
+<style>
+  /* TODO: Use a CSS rule global */
+  a {
+    text-underline-offset: 5px;
+  } 
+</style>

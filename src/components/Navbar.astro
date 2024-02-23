@@ -4,6 +4,7 @@ import Link from "@/components/Link.astro";
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
 import { getLangFromUrl, useTranslations} from '@/i18n/utils.ts'
+import LanguagePicker from "./LanguagePicker.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -21,17 +22,19 @@ const { currentLocale } = Astro;
     |
     <Link href="https://flowcv.com/resume/eevk7vfmfl">CV</Link>
   </div>
-  <ThemeIcon />
+  <div>
+    <LanguagePicker />
+    <ThemeIcon />
+  </div>
 </nav>
 
 <style>
   nav {
     display: flex;
     justify-content: space-between;
-    gap: 2rem;
     div {
       display: flex;
-      gap: 2rem;
+      gap: 1.3rem;
       flex-wrap: wrap;
     }
   }
