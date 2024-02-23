@@ -1,0 +1,64 @@
+---
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<main>
+  <h1>{i18n.ABOUT.TITLE}</h1>
+  <img
+    src="https://avatars.githubusercontent.com/u/52986565?v=4"
+    width="120"
+    alt="Foto de perfil"
+    style="border-radius: 100%"
+  />
+  <section id="about-me">
+    <p>
+      {i18n.ABOUT.DESCRIPTION}
+    </p>
+    <h3>
+      {i18n.ABOUT.PROFESIONAL_EXPERIENCE_TITLE}
+    </h3>
+    <p>
+      {i18n.ABOUT.PROFESIONAL_EXPERIENCE_DESCRIPTION}
+    </p>
+    <h3>{i18n.ABOUT.EDUCATION_TITLE}</h3>
+    <p>
+      {i18n.ABOUT.EDUCATION_DESCRIPTION}
+    </p>
+    <h3>{i18n.ABOUT.SKILLS_TITLE}</h3>
+    <ul>
+      <li>JavaScript</li>
+      <li>Git</li>
+      <li>NodeJs</li>
+      <li>GitHub</li>
+      <li>React</li>
+      <li>Autodidacta</li>
+      <li>Next.js</li>
+      <li>Nest.js</li>
+      <li>Empatía</li>
+    </ul>
+    <h3>
+      {i18n.ABOUT.PROFESIONAL_PERSONAL_INTERESTS_TITLE}
+    </h3>
+    <p>
+      {i18n.ABOUT.PROFESIONAL_PERSONAL_INTERESTS_DESCRIPTION}
+    </p>
+    <h3>{i18n.ABOUT.MOTIVATION_OBJECTIVES_TITLE}</h3>
+    <p>
+      {i18n.ABOUT.MOTIVATION_OBJECTIVES_DESCRIPTION}
+    </p>
+    <h3>
+      {i18n.ABOUT.PERSONAL_PHILOSOPHY_TITLE}
+    </h3>
+    <p>
+      {i18n.ABOUT.PERSONAL_PHILOSOPHY_DESCRIPTION}
+    </p>
+    <h3>{i18n.ABOUT.CONTACT_TITLE}</h3>
+    <p>
+      {i18n.ABOUT.CONTACT_DESCRIPTION}
+      <a href="mailto:contact@doneber.dev">contact@doneber.dev</a>.
+    </p>
+  </section>
+</main>

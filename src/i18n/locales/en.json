@@ -1,0 +1,75 @@
+{
+  "HOME": {
+    "SHORT_DESCRIPTION": "I code and make videos.",
+    "BLOG_TITLE": "Recent posts",
+    "VIDEOS_TITLE": "Recent videos",
+    "COMMUNITY_TITLE": "Community",
+    "CONTACT_TITLE": "Contact"
+  },
+  "PORTFOLIO": {
+    "ROL_NAME": "Fullstack Javascript Web Developer",
+    "SHORT_DESCRIPTION": "I specialize in frontend with Vuejs and Javascript🍦 ecosystem. I like to follow good coding practices 📄. I also create content in my social networks 💻.",
+    "EXPERIENCE_TITLE": "Experience",
+    "EXPERIENCE_LIST": [
+      {
+        "TITLE_JOB": "Software Developer",
+        "DESCRIPTION_JOB": "Fullstack javascript developer fulltime"
+      },
+      {
+        "TITLE_JOB": "Teaching Assistant",
+        "DESCRIPTION_JOB": "Teacher of Introduction to Programming, Structured, Modular and Object Programming."
+      }
+    ]
+  },
+  "ABOUT": {
+    "TITLE": "About me",
+    "DESCRIPTION": "My name is Eber, I am a passionate software developer with a special focus on JavaScript technologies. I am dedicated to creating educational and valuable content on the most popular social networks, always seeking to share knowledge and encourage collaborative learning.",
+    "PROFESIONAL_EXPERIENCE_TITLE": "Professional experience",
+    "PROFESIONAL_EXPERIENCE_DESCRIPTION": "I have had the opportunity to work at the Electronic Government and Information and Communication Technologies Agency as a fullstack developer, where I deepened my experience in technologies such as JavaScript, NodeJs, React, Next.js and Nest.js, in addition to strengthening my control skills. of versions with Git and GitHub.",
+    "EDUCATION_TITLE": "Education",
+    "EDUCATION_DESCRIPTION": "My academic background includes a bachelor's degree in Computer Science, where I acquired a solid foundation in programming principles, information systems, and software development.",
+    "SKILLS_TITLE": "Skills and Specializations",
+    "PROFESIONAL_PERSONAL_INTERESTS_TITLE": "Personal and Professional Interests",
+    "PROFESIONAL_PERSONAL_INTERESTS_DESCRIPTION": "En mi tiempo libre, disfruto practicar Volleyball y ejercitarme en el gimnasio. Estas actividades no solo me ayudan a mantenerme en forma, sino también a cultivar la disciplina y el trabajo en equipo, cualidades esenciales tanto en el deporte como en el desarrollo de software.",
+    "MOTIVATION_OBJECTIVES_TITLE": "Motivations and Objectives",
+    "MOTIVATION_OBJECTIVES_DESCRIPTION": "My main motivation is to create a community where collaborative learning and personal and professional growth are the fundamental pillars. I aspire to be a catalyst so that more people can achieve their goals in the technological field.",
+    "PERSONAL_PHILOSOPHY_TITLE": "Personal Philosophy",
+    "PERSONAL_PHILOSOPHY_DESCRIPTION": "I firmly believe that 'discipline trumps natural talent.' Constant effort and commitment to continuous improvement are key to achieving any goal.",
+    "CONTACT_TITLE": "Contact",
+    "CONTACT_DESCRIPTION": "For collaborations or inquiries, do not hesitate to contact me at"
+  },
+  "SETUP": {
+    "TITLE": "Setup",
+    "COMPONENTS": [
+      {
+        "TITLE_COMPONENT":"Wooden Desk",
+        "DESCRIPTION_COMPONENT":"Connection with nature and solid support for my devices."
+      },
+      {
+        "TITLE_COMPONENT":"LG Retro Monitor",
+        "DESCRIPTION_COMPONENT":"124x768 pixels, perfect for all my viewing needs."
+      },
+      {
+        "TITLE_COMPONENT":"Teclado y Mouse",
+        "DESCRIPTION_COMPONENT":"Durable and reliable, they withstand intensive daily use."
+      },
+      {
+        "TITLE_COMPONENT":"Simple Headphones",
+        "DESCRIPTION_COMPONENT":"Immersive sound quality for programming, listening to music or watching movies."
+      },
+      {
+        "TITLE_COMPONENT":"Laptop with i3 Processor",
+        "DESCRIPTION_COMPONENT":"Equipped for performance with 4GB of RAM, multiple connections and integrated camera."
+      },
+      {
+        "TITLE_COMPONENT":"Linux Arch Distribution",
+        "DESCRIPTION_COMPONENT":"Resource optimization with a lightweight and efficient interface."
+      },
+      {
+        "TITLE_COMPONENT":"Plastic Beer Chair",
+        "DESCRIPTION_COMPONENT":"Comfort without luxury, ideal for long hours of work."
+      }
+    ],
+    "MESSAGE": "This setup, although simple, has allowed me to develop projects, learn and create content effectively. The important thing is not the cost, but how you use it!"
+  }
+}

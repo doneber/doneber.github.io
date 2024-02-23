@@ -1,0 +1,26 @@
+---
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<main>
+  <h1>{i18n.SETUP.TITLE}</h1>
+  <img src="/images/mi-setup-2023.webp" width="450" alt="mi setup 2023" />
+  <section id="mi-setup">
+    <ul>
+      {
+        i18n.SETUP.COMPONENTS.map((comp) => (
+          <li>
+            <strong>{comp.TITLE_COMPONENT}:</strong>{" "}
+            {comp.DESCRIPTION_COMPONENT}
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      {i18n.SETUP.MESSAGE}
+    </p>
+  </section>
+</main>

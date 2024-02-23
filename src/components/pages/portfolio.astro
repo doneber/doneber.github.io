@@ -1,0 +1,54 @@
+---
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<main>
+  <section>
+    <h1>Doneber</h1>
+    <h4>{i18n.PORTFOLIO.ROL_NAME}</h4>
+    <p>
+      {i18n.PORTFOLIO.SHORT_DESCRIPTION}
+    </p>
+  </section>
+  <section>
+    <h2>{i18n.PORTFOLIO.EXPERIENCE_TITLE}</h2>
+    <ul>
+      {
+        i18n.PORTFOLIO.EXPERIENCE_LIST.map((exp) => (
+          <li>
+            <p>{exp.TITLE_JOB}</p>
+            <p>{exp.DESCRIPTION_JOB}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <section>
+    <h2>Proyectos</h2>
+    <ul>
+      <li>
+        <a href="https://hug.doneber.dev/">Hugs</a>
+        <p>Genera mensajes de felicitaciones personalizadas</p>
+      </li>
+      <li>
+        <a href="/">Website</a>
+        <p>Sitio web personal de @donberdev</p>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Sobre mí</h2>
+    <p>Mi nombre es Eber pero en mis redes sociales estoy como @doneberdev</p>
+  </section>
+  <section>
+    <h2>Contacto</h2>
+    <p>
+      <a href="mailto:contact@doneber.dev" target="_blank"
+        >contact@doneber.dev</a
+      >
+    </p>
+  </section>
+</main>

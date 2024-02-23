@@ -1,0 +1,75 @@
+{
+  "HOME": {
+    "SHORT_DESCRIPTION": "Programo cosas y hago videos.",
+    "BLOG_TITLE": "Artículos recientes",
+    "VIDEOS_TITLE": "Videos recientes",
+    "COMMUNITY_TITLE": "Comunidad",
+    "CONTACT_TITLE": "Contacto"
+  },
+  "PORTFOLIO": {
+    "ROL_NAME": "Desarrollador Web Fullstack Javascript",
+    "SHORT_DESCRIPTION": "Me especializo en el frontend con el ecosistema de Vuejs y Javascript🍦. Me gusta seguir buenas prácticas de código 📄. Además creo contenido en mis redes sociales 💻.",
+    "EXPERIENCE_TITLE": "Experiencia",
+    "EXPERIENCE_LIST": [
+      {
+        "TITLE_JOB": "Desarrollador de Software",
+        "DESCRIPTION_JOB": "Desarrollador fullstack javascript fulltime"
+      },
+      {
+        "TITLE_JOB": "Docente Auxiliar",
+        "DESCRIPTION_JOB": "Docente de Introducción a la Programación, Programación Estructurada, Modular, a Objetos"
+      }
+    ]
+  },
+  "ABOUT": {
+    "TITLE": "Sobre mí",
+    "DESCRIPTION": "Mi nombre es Eber, soy un apasionado desarrollador de software con un enfoque especial en tecnologías JavaScript. Me dedico a crear contenido educativo y de valor en las redes sociales más populares, buscando siempre compartir conocimiento y fomentar el aprendizaje colaborativo",
+    "PROFESIONAL_EXPERIENCE_TITLE": "Experiencia Profesional",
+    "PROFESIONAL_EXPERIENCE_DESCRIPTION": "He tenido la oportunidad de trabajar en la Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación como desarrollador fullstack, donde profundicé mi experiencia en tecnologías como JavaScript, NodeJs, React, Next.js y Nest.js, además de fortalecer mis habilidades en control de versiones con Git y GitHub.",
+    "EDUCATION_TITLE": "Educación",
+    "EDUCATION_DESCRIPTION": "Mi formación académica incluye una licenciatura en Informática, donde adquirí una base sólida en principios de programación, sistemas de información y desarrollo de software.",
+    "SKILLS_TITLE": "Habilidades y Especializaciones",
+    "PROFESIONAL_PERSONAL_INTERESTS_TITLE": "Intereses Personales y Profesionales",
+    "PROFESIONAL_PERSONAL_INTERESTS_DESCRIPTION": "En mi tiempo libre, disfruto practicar Volleyball y ejercitarme en el gimnasio. Estas actividades no solo me ayudan a mantenerme en forma, sino también a cultivar la disciplina y el trabajo en equipo, cualidades esenciales tanto en el deporte como en el desarrollo de software.",
+    "MOTIVATION_OBJECTIVES_TITLE": "Motivaciones y Objetivos",
+    "MOTIVATION_OBJECTIVES_DESCRIPTION": "Mi principal motivación es crear una comunidad donde el aprendizaje colaborativo y el crecimiento personal y profesional sean los pilares fundamentales. Aspiro a ser un catalizador para que más personas puedan alcanzar sus objetivos en el ámbito tecnológico.",
+    "PERSONAL_PHILOSOPHY_TITLE": "Filosofía Personal",
+    "PERSONAL_PHILOSOPHY_DESCRIPTION": "Creo firmemente que 'la disciplina supera el talento natural'. El esfuerzo constante y el compromiso con la mejora continua son claves para alcanzar cualquier meta.",
+    "CONTACT_TITLE": "Contacto",
+    "CONTACT_DESCRIPTION": "Para colaboraciones o consultas, no dudes en contactarme a"
+  },
+  "SETUP": {
+    "TITLE": "Setup",
+    "COMPONENTS": [
+      {
+        "TITLE_COMPONENT":"Escritorio de Madera",
+        "DESCRIPTION_COMPONENT":"Conexión con la naturaleza y soporte sólido para mis dispositivos."
+      },
+      {
+        "TITLE_COMPONENT":"Monitor LG Retro",
+        "DESCRIPTION_COMPONENT":"124x768 píxeles, perfecto para todas mis necesidades de visualización."
+      },
+      {
+        "TITLE_COMPONENT":"Teclado y Mouse",
+        "DESCRIPTION_COMPONENT":"Duraderos y confiables, soportan el uso diario intensivo."
+      },
+      {
+        "TITLE_COMPONENT":"Auriculares Simples",
+        "DESCRIPTION_COMPONENT":"Calidad de sonido inmersiva para programar, escuchar música o ver películas."
+      },
+      {
+        "TITLE_COMPONENT":"Laptop con Procesador i3",
+        "DESCRIPTION_COMPONENT":"Equipada para el rendimiento con 4GB de RAM, múltiples conexiones y cámara integrada."
+      },
+      {
+        "TITLE_COMPONENT":"Distribución de Arch de Linux",
+        "DESCRIPTION_COMPONENT":"Optimización de recursos con una interfaz ligera y eficiente."
+      },
+      {
+        "TITLE_COMPONENT":"Silla de Plástico Cervecera",
+        "DESCRIPTION_COMPONENT":"Comodidad sin lujos, ideal para largas horas de trabajo."
+      }
+    ],
+    "MESSAGE": "Este setup, aunque sencillo, me ha permitido desarrollar proyectos, aprender y crear contenido efectivamente. ¡Lo importante no es el costo, sino cómo lo utilizas!"
+  }
+}

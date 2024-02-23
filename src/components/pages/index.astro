@@ -1,0 +1,113 @@
+---
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<main>
+  <section>
+    <h1>Eber Lopez</h1>
+    <img
+      src="/images/profile.webp"
+      width="120"
+      alt="Foto de perfil"
+      style="border-radius: 100%;"
+    />
+    <p>{i18n.HOME.SHORT_DESCRIPTION}</p>
+    <ul>
+      <li>
+        GitHub:
+        <a href="http://github.com/doneber" target="_blank"
+          >/doneber</a
+        >
+      </li>
+      <li>
+        YouTube:
+        <ul>
+          <li>
+            <a href="http://youtube.com/@doneber" target="_blank"
+              >@doneber</a
+            >
+          </li>
+          <li>
+            <a href="http://youtube.com/@donebercode" target="_blank"
+              >@donebercode</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        TikTok:
+        <ul>
+          <li>
+            <a href="http://tiktok.com/@doneberdev" target="_blank"
+              >@doneberdev</a
+            >
+          </li>
+          <li>
+            <a href="http://tiktok.com/@donebercode" target="_blank"
+              >@donebercode</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        Twitter:
+        <a href="http://twitter.com/@doneberdev" target="_blank"
+          >@doneberdev</a
+        >
+      </li>
+      <li>
+        Instagram:
+        <a href="http://instagram.com/doneberdev" target="_blank"
+          >/doneberdev</a
+        >
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>{i18n.HOME.BLOG_TITLE}</h2>
+    <ul>
+      <li>
+        <a
+          href="https://doneber.dev/blog/creando-la-pagina-web-personal-perfecta"
+          >Creando la página web personal perfecta</a
+        >
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>{i18n.HOME.VIDEOS_TITLE}</h2>
+    <ul>
+      <li>
+        <a href="https://youtu.be/ZS8YIceH68I?si=X2hYTRibZ6XY39Md"
+          >Programar y hacer Videos de desarrollo: Mi experiencia</a
+        >
+      </li>
+      <li>
+        <a href="https://youtu.be/ShsK-Cb3RCw?si=Qew2YEPu0KsX4iCG"
+          >Mi PC de Ensueño, el Setup Perfecto para programar</a
+        >
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>{i18n.HOME.COMMUNITY_TITLE}</h2>
+    <ul>
+      <li>
+        Discord: <a href="https://discord.com/invite/5ak7sZpC4t"
+          >Servidor de Discord</a
+        >
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>{i18n.HOME.CONTACT_TITLE}</h2>
+    <p>
+      <a href="mailto:contact@doneber.dev" target="_blank"
+        >contact@doneber.dev</a
+      >
+    </p>
+  </section>
+</main>
