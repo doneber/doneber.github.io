@@ -1,14 +1,17 @@
 ---
 import Navbar from "@/components/Navbar.astro";
 import Footer from "@/components/Footer.astro";
-import BaseHead from '@/components/BaseHead.astro';
+import BaseHead from "@/components/BaseHead.astro";
 // import { ViewTransitions } from "astro:transitions";
 
 const { title, description } = Astro.props;
+
+const { currentLocale } = Astro;
+
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={currentLocale}>
   <head>
     <BaseHead title={title} description={description} />
     <!-- TODO: fix View transitions to enable dark theme -->
@@ -46,14 +49,13 @@ const { title, description } = Astro.props;
 
         background-color: var(--var-primary-color-bg);
         color: var(--var-primary-color-text);
-
       }
       html.dark {
         --var-primary-color-bg: #222;
         --var-primary-color-text: #eee;
         a {
           color: var(--var-primary-color-text);
-       }
+        }
       }
 
       h1,
