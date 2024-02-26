@@ -2,15 +2,42 @@
 import { getI18N } from "@/i18n";
 import { getCollection } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
+import { parseStringPromise } from "xml2js";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 
-const NUMBER_LAST_PAGES = 4
+// blog
+const NUMBER_LAST_POSTS = 4;
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, NUMBER_LAST_PAGES);
+  .slice(0, NUMBER_LAST_POSTS);
+
+// youtube videos
+const ID_CHANNEL_PRIMARY = "UCKMWXwHYoy920OFEN_BM5VQ";
+const ID_CHANNEL_SECONDARY = "UCRC7LM5vAZMxS8LSo0PKZng";
+const NUMBER_LAST_YT_VIDEOS = 3;
+
+const feedUrl = (id: string) =>
+  `https://www.youtube.com/feeds/videos.xml?channel_id=${id}`;
+
+async function loadFeed(feedUrl: string) {
+  const response = await fetch(feedUrl);
+  const xmlData = await response.text();
+  const jsonData = await parseStringPromise(xmlData);
+  return jsonData.feed.entry
+    .map((entry: any) => ({
+      title: entry.title[0],
+      link: entry.link[0].$.href,
+      // published: entry.published[0],
+    }))
+    .slice(0, NUMBER_LAST_YT_VIDEOS);
+}
+
+// TODO: use types
+const videosYoutubePrimary = await loadFeed(feedUrl(ID_CHANNEL_PRIMARY)) as any;
+const videosYoutubeSecondary = await loadFeed(feedUrl(ID_CHANNEL_SECONDARY)) as any;
 ---
 
 <main>
@@ -84,17 +111,29 @@ const posts = (await getCollection("blog"))
   </section>
   <section>
     <h2>{i18n.HOME.VIDEOS_TITLE}</h2>
+    <h3>Canal primario</h3>
     <ul>
-      <li>
-        <a href="https://youtu.be/ZS8YIceH68I?si=X2hYTRibZ6XY39Md"
-          >Programar y hacer Videos de desarrollo: Mi experiencia</a
-        >
-      </li>
-      <li>
-        <a href="https://youtu.be/ShsK-Cb3RCw?si=Qew2YEPu0KsX4iCG"
-          >Mi PC de Ensueño, el Setup Perfecto para programar</a
-        >
-      </li>
+      {
+        videosYoutubePrimary.map((video: any, index: number) => (
+          <li>
+            <a href={video.link} target="_blank" rel="noopener noreferrer">
+              {video.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <h3>Canal secundario</h3>
+    <ul>
+      {
+        videosYoutubeSecondary.map((video: any, index: number) => (
+          <li>
+            <a href={video.link} target="_blank" rel="noopener noreferrer">
+              {video.title}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
   <section>
