@@ -7,7 +7,6 @@ import BaseHead from "@/components/BaseHead.astro";
 const { title, description } = Astro.props;
 
 const { currentLocale } = Astro;
-
 ---
 
 <!doctype html>
@@ -64,6 +63,18 @@ const { currentLocale } = Astro;
         line-height: 1.2;
       }
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WJSJQ78QYQ"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-WJSJQ78QYQ");
+    </script>
   </head>
   <body>
     <Navbar />
