@@ -1,0 +1,83 @@
+---
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a href={href}>
+  <span>
+    <slot />
+  </span>
+</a>
+
+<style>
+  a {
+
+    background: linear-gradient(
+      45deg,
+      #007a65,
+      #7f0e7f,
+      #e3859b,
+      #007a65,
+      #7f0e7f,
+      #e3859b,
+      #007a65,
+      #7f0e7f,
+      #e3859b
+    );
+    background-color: #007a65;
+    background-size: 400% 400%;
+    background-position: 0 100%;
+    text-decoration: none;
+    border-radius: 7px;
+    display: flex;
+    width: fit-content;
+    animation: gradient 4s infinite linear;
+
+    & span {
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
+      margin: 1px;
+      border-radius: 6px;
+      padding: 0 0.5em;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  a:hover {
+    animation-play-state: paused;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+
+    & span {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0 100%;
+    }
+
+    100% {
+      background-position: 100% 0;
+    }
+  }
+
+  html.dark {
+    & a span {
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+
+    & a:hover {
+      animation-play-state: paused;
+      box-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
+
+      & span {
+        background-color: rgba(0, 0, 0, 0.15);
+        margin: 1px;
+      }
+    }
+  }
+</style>

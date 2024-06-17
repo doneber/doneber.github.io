@@ -1,6 +1,7 @@
 ---
 import ThemeIcon from "@/components/ThemeIcon.astro";
 import Link from "@/components/Link.astro";
+import PortfolioLink from "@/components/PortfolioLink.astro";
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
 import { getLangFromUrl, useTranslations} from '@/i18n/utils.ts'
@@ -16,7 +17,7 @@ const { currentLocale } = Astro;
   <div>
     <Link href={getRelativeLocaleUrl(currentLocale ?? '', '')}>{ t('nav.home') }</Link>
     <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'blog')}>{ t('nav.blog') }</Link>
-    <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'portfolio')}>{ t('nav.portfolio') }</Link>
+    <PortfolioLink href={getRelativeLocaleUrl(currentLocale ?? '', 'portfolio')}>{ t('nav.portfolio') }</PortfolioLink>
     <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'about')}>{ t('nav.about') }</Link>
     <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'setup')}>{ t('nav.setup') }</Link>
     |
