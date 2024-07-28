@@ -17,11 +17,9 @@ const { currentLocale } = Astro;
   <div>
     <Link href={getRelativeLocaleUrl(currentLocale ?? '', '')}>{ t('nav.home') }</Link>
     <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'blog')}>{ t('nav.blog') }</Link>
-    <PortfolioLink href={getRelativeLocaleUrl(currentLocale ?? '', 'portfolio')}>{ t('nav.portfolio') }</PortfolioLink>
     <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'about')}>{ t('nav.about') }</Link>
     <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'setup')}>{ t('nav.setup') }</Link>
-    |
-    <Link href="https://flowcv.com/resume/eevk7vfmfl">CV</Link>
+    <PortfolioLink href={getRelativeLocaleUrl(currentLocale ?? '', 'portfolio')}>{ t('nav.portfolio') }</PortfolioLink>
   </div>
   <div>
     <LanguagePicker />
