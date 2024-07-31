@@ -65,5 +65,31 @@ const i18n = getI18N({ currentLocale });
         color: #549eff;
       }
     }
+
+    & body:after {
+      content: '';
+      position: absolute;
+      width: 100vw;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      animation: dotScroll 6s linear infinite;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 2px, transparent 0);
+      background-size: calc(14.2857142857% - 1px) 100px;
+      background-position: -60px 0;
+    }
+
   }
+
+  @keyframes dotScroll {
+    from {
+      background-position-y: 0;
+    }
+
+    to {
+      background-position-y: 100px;
+    }
+  }
+
 </style>
