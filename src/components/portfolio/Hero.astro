@@ -1,0 +1,63 @@
+---
+import { getI18N } from "@/i18n";
+import EmailLogo from "@/components/icons/email.astro";
+import LinkedinLogo from "@/components/icons/linkedin.astro";
+import YoutubeLogo from "@/components/icons/youtube.astro";
+import GithubLogo from "@/components/icons/github.astro";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<section>
+  <h1>Eber Lopez</h1>
+  <h2 class="square-text">
+    {
+      i18n.PORTFOLIO.ROL_NAME.toUpperCase()
+        .split("")
+        .map((letter) => <span class={letter !== ' '? `square-text-letter`:''}>{letter}</span>)
+    }
+  </h2>
+  <p>
+    {i18n.PORTFOLIO.SHORT_DESCRIPTION}
+  </p>
+  <div class="social-media">
+    <a href="mailto:contact@doneber.dev"><EmailLogo /></a>
+    <a href="https://www.linkedin.com/in/doneberdev"><LinkedinLogo /></a>
+    <a href="https://youtube.com/doneber"><YoutubeLogo /></a>
+    <a href="https://github.com/doneber"><GithubLogo /></a>
+  </div>
+</section>
+
+<style>
+  section {
+    text-align: center;
+  }
+
+  
+  .square-text {
+    font-size: 3rem;
+    color: #9d77ea;
+    text-wrap: pretty;
+    margin: 0;
+  }
+
+  .square-text-letter {
+    padding: 0 0.4rem;
+    border: 1px solid rgb(255, 255, 255, 0.2);
+  }
+  .social-media {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    & * {
+      height: 1.5rem;
+      width: fit-content;
+    }
+    & *:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      transition: transform .2s;
+    }
+  }
+</style>

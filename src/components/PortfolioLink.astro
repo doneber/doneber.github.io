@@ -3,7 +3,7 @@ interface Props {
   href: string;
 }
 
-const isPortfolio = Astro.url.pathname !== "/portfolio/"
+const isPortfolio = !Astro.url.pathname.match(/\bportfolio\b/gi)
 const { href } = Astro.props;
 ---
 

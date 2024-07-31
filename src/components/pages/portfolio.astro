@@ -1,18 +1,13 @@
 ---
 import { getI18N } from "@/i18n";
+import HeroSection from "@/components/portfolio/Hero.astro"
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
 <main>
-  <section>
-    <h1>Doneber</h1>
-    <h4>{i18n.PORTFOLIO.ROL_NAME}</h4>
-    <p>
-      {i18n.PORTFOLIO.SHORT_DESCRIPTION}
-    </p>
-  </section>
+  <HeroSection />
   <section>
     <h2>{i18n.PORTFOLIO.EXPERIENCE_TITLE}</h2>
     <ul>
@@ -50,5 +45,25 @@ const i18n = getI18N({ currentLocale });
         >contact@doneber.dev</a
       >
     </p>
+    <a href="https://flowcv.com/resume/eevk7vfmfl" target="_blank">CV</a>
   </section>
 </main>
+
+<style>
+  * {
+    font-family: monospace;
+  }
+
+  html {
+    /* Always dark mode */
+    & body {
+      background: linear-gradient(#161e33, #10151d);
+
+      --var-primary-color-bg: #222;
+      --var-primary-color-text: #eee;
+      a {
+        color: #549eff;
+      }
+    }
+  }
+</style>

@@ -32,6 +32,7 @@ const { currentLocale } = Astro;
           "Segoe UI Emoji",
           Segoe UI Symbol,
           "Noto Color Emoji";
+          box-sizing: border-box;
       }
 
       :root {
@@ -39,7 +40,7 @@ const { currentLocale } = Astro;
         --var-primary-color-text: #444;
       }
 
-      html {
+      html body {
         margin: 40px auto;
         max-width: 650px;
         line-height: 1.6;
@@ -49,7 +50,8 @@ const { currentLocale } = Astro;
         background-color: var(--var-primary-color-bg);
         color: var(--var-primary-color-text);
       }
-      html.dark {
+
+      html.dark body {
         --var-primary-color-bg: #222;
         --var-primary-color-text: #eee;
         a {
