@@ -3,6 +3,7 @@ import { getI18N } from "@/i18n";
 import { getCollection } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import { parseStringPromise } from "xml2js";
+import SectionContainer from "../portfolio/SectionContainer.astro";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
@@ -41,7 +42,7 @@ const videosYoutubeSecondary = await loadFeed(feedUrl(ID_CHANNEL_SECONDARY)) as 
 ---
 
 <main>
-  <section>
+  <SectionContainer>
     <h1>Eber Lopez</h1>
     <img
       src="/images/profile.webp"
@@ -95,8 +96,8 @@ const videosYoutubeSecondary = await loadFeed(feedUrl(ID_CHANNEL_SECONDARY)) as 
         >
       </li>
     </ul>
-  </section>
-  <section>
+  </SectionContainer>
+  <SectionContainer>
     <h2>{i18n.HOME.BLOG_TITLE}</h2>
     <ul>
       {
@@ -108,8 +109,8 @@ const videosYoutubeSecondary = await loadFeed(feedUrl(ID_CHANNEL_SECONDARY)) as 
         ))
       }
     </ul>
-  </section>
-  <section>
+  </SectionContainer>
+  <SectionContainer>
     <h2>{i18n.HOME.VIDEOS_TITLE}</h2>
     <h3>Canal primario</h3>
     <ul>
@@ -135,8 +136,8 @@ const videosYoutubeSecondary = await loadFeed(feedUrl(ID_CHANNEL_SECONDARY)) as 
         ))
       }
     </ul>
-  </section>
-  <section>
+  </SectionContainer>
+  <SectionContainer>
     <h2>{i18n.HOME.COMMUNITY_TITLE}</h2>
     <ul>
       <li>
@@ -145,13 +146,13 @@ const videosYoutubeSecondary = await loadFeed(feedUrl(ID_CHANNEL_SECONDARY)) as 
         >
       </li>
     </ul>
-  </section>
-  <section>
+  </SectionContainer>
+  <SectionContainer>
     <h2>{i18n.HOME.CONTACT_TITLE}</h2>
     <p>
       <a href="mailto:contact@doneber.dev" target="_blank"
         >contact@doneber.dev</a
       >
     </p>
-  </section>
+  </SectionContainer>
 </main>

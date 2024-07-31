@@ -1,14 +1,17 @@
 ---
 import { getI18N } from "@/i18n";
-import HeroSection from "@/components/portfolio/Hero.astro"
+import Hero from "@/components/portfolio/Hero.astro"
+import SectionContainer from "../portfolio/SectionContainer.astro";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
 <main>
-  <HeroSection />
-  <section>
+  <SectionContainer>
+    <Hero />
+  </SectionContainer>
+  <SectionContainer>
     <h2>{i18n.PORTFOLIO.EXPERIENCE_TITLE}</h2>
     <ul>
       {
@@ -20,8 +23,8 @@ const i18n = getI18N({ currentLocale });
         ))
       }
     </ul>
-  </section>
-  <section>
+  </SectionContainer>
+  <SectionContainer>
     <h2>Proyectos</h2>
     <ul>
       <li>
@@ -33,12 +36,12 @@ const i18n = getI18N({ currentLocale });
         <p>Sitio web personal de @donberdev</p>
       </li>
     </ul>
-  </section>
-  <section>
+  </SectionContainer>
+  <SectionContainer>
     <h2>Sobre mí</h2>
     <p>Mi nombre es Eber pero en mis redes sociales estoy como @doneberdev</p>
-  </section>
-  <section>
+  </SectionContainer>
+  <SectionContainer>
     <h2>Contacto</h2>
     <p>
       <a href="mailto:contact@doneber.dev" target="_blank"
@@ -46,7 +49,7 @@ const i18n = getI18N({ currentLocale });
       >
     </p>
     <a href="https://flowcv.com/resume/eevk7vfmfl" target="_blank">CV</a>
-  </section>
+  </SectionContainer>
 </main>
 
 <style>

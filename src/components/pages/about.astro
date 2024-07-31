@@ -1,19 +1,20 @@
 ---
 import { getI18N } from "@/i18n";
+import SectionContainer from "../portfolio/SectionContainer.astro";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
 <main>
-  <h1>{i18n.ABOUT.TITLE}</h1>
-  <img
-    src="https://avatars.githubusercontent.com/u/52986565?v=4"
-    width="120"
-    alt="Foto de perfil"
-    style="border-radius: 100%"
-  />
-  <section id="about-me">
+  <SectionContainer id="about-me">
+    <h1>{i18n.ABOUT.TITLE}</h1>
+    <img
+      src="https://avatars.githubusercontent.com/u/52986565?v=4"
+      width="120"
+      alt="Foto de perfil"
+      style="border-radius: 100%"
+    />
     <p>
       {i18n.ABOUT.DESCRIPTION}
     </p>
@@ -60,5 +61,5 @@ const i18n = getI18N({ currentLocale });
       {i18n.ABOUT.CONTACT_DESCRIPTION}
       <a href="mailto:contact@doneber.dev">contact@doneber.dev</a>.
     </p>
-  </section>
+  </SectionContainer>
 </main>

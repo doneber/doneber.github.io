@@ -13,21 +13,28 @@ const t = useTranslations(lang);
 const { currentLocale } = Astro;
 ---
 
-<nav>
-  <div>
-    <Link href={getRelativeLocaleUrl(currentLocale ?? '', '')}>{ t('nav.home') }</Link>
-    <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'blog')}>{ t('nav.blog') }</Link>
-    <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'about')}>{ t('nav.about') }</Link>
-    <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'setup')}>{ t('nav.setup') }</Link>
-    <PortfolioLink href={getRelativeLocaleUrl(currentLocale ?? '', 'portfolio')}>{ t('nav.portfolio') }</PortfolioLink>
-  </div>
-  <div>
-    <LanguagePicker />
-    <ThemeIcon />
-  </div>
-</nav>
+<header>
+  <nav>
+    <div>
+      <Link href={getRelativeLocaleUrl(currentLocale ?? '', '')}>{ t('nav.home') }</Link>
+      <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'blog')}>{ t('nav.blog') }</Link>
+      <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'about')}>{ t('nav.about') }</Link>
+      <Link href={getRelativeLocaleUrl(currentLocale ?? '', 'setup')}>{ t('nav.setup') }</Link>
+      <PortfolioLink href={getRelativeLocaleUrl(currentLocale ?? '', 'portfolio')}>{ t('nav.portfolio') }</PortfolioLink>
+    </div>
+    <div>
+      <LanguagePicker />
+      <ThemeIcon />
+    </div>
+  </nav>
+</header>
 
 <style>
+  header {
+    margin: 40px auto;
+    max-width: 650px;
+  }
+
   nav {
     display: flex;
     justify-content: space-between;

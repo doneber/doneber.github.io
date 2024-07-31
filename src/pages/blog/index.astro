@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from 'astro:content';
 import FormattedDate from '@/components/FormattedDate.astro';
+import SectionContainer from "@/components/portfolio/SectionContainer.astro";
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
@@ -10,9 +11,9 @@ const posts = (await getCollection('blog')).sort(
 
 <Layout title="Sobre mí - doneber.dev">
 		<main>
+			<SectionContainer>
 			<h1>Publicaciones recientes</h1>
 			<p>Aquí estan mis últimas publicaciones</p>
-			<section>
 				<ul>
 					{
 						posts.map((post) => (
@@ -27,6 +28,6 @@ const posts = (await getCollection('blog')).sort(
 						))
 					}
 				</ul>
-			</section>
+			</SectionContainer>
 		</main>
 	</Layout>

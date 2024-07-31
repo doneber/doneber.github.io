@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import SectionContainer from "@/components/portfolio/SectionContainer.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -11,6 +12,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <Layout title={title} description={description}>
 
   <main>
+    <SectionContainer>
     <article>
       <div class="hero-image">
         {heroImage && <img width='100%' height='auto' src={heroImage} alt="" />}
@@ -33,5 +35,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         <slot />
       </div>
     </article>
+    </SectionContainer>
   </main>
 </Layout>
