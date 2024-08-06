@@ -7,19 +7,52 @@
     "CONTACT_TITLE": "Contact"
   },
   "PORTFOLIO": {
-    "ROL_NAME": "Fullstack Javascript Web Developer",
-    "SHORT_DESCRIPTION": "I specialize in frontend with Vuejs and Javascript🍦 ecosystem. I like to follow good coding practices 📄. I also create content in my social networks 💻.",
+    "ROL_NAME": "Fullstack Web Developer",
+    "SHORT_DESCRIPTION": "I have experience in the design, development and implementation of projects using agile methodologies. I manage the JavaScript ecosystem, including tools such as Nest, Next, among others.",
     "EXPERIENCE_TITLE": "Experience",
     "EXPERIENCE_LIST": [
       {
-        "TITLE_JOB": "Software Developer",
-        "DESCRIPTION_JOB": "Fullstack javascript developer fulltime"
+        "TITLE_JOB": "Fullstack Developer",
+        "DESCRIPTION_JOB": "I developed a publishing system for government entities and assisted in implementing the human resources system. I also optimized team organization and workflow.",
+        "COMPANY_NAME": "",
+        "LOCATION": "",
+        "START_DATE": "",
+        "END_DATE": ""
       },
       {
-        "TITLE_JOB": "Teaching Assistant",
-        "DESCRIPTION_JOB": "Teacher of Introduction to Programming, Structured, Modular and Object Programming."
+        "TITLE_JOB": "Programming Teaching Assistant",
+        "DESCRIPTION_JOB": "I taught Object-Oriented Programming and Structured and Modular Programming to over 200 students, using Java and C#. I also supported the development of student projects.",
+        "COMPANY_NAME": "",
+        "LOCATION": "",
+        "START_DATE": "",
+        "END_DATE": ""
       }
-    ]
+    ],
+    "PROJECTS_TITLE": "Projects",
+    "PROJECTS_LIST": [
+      {
+        "PROJECT_NAME": "LinkHub",
+        "DESCRIPTION": "Web link centralizer launched in 2024. It has been visited in 6 countries, and its development is documented on YouTube.",
+        "URL": "https://linkhub.doneber.dev",
+        "REPOSITORY": "https://github.com/username/linkhub",
+        "VIDEO_TUTORIAL": "https://youtube.com/playlist?list=PL1234567890"
+      },
+      {
+        "PROJECT_NAME": "Virtual Hug",
+        "DESCRIPTION": "Greeting message generator with 10,000 unique users and 69,000 visits across 71 countries.",
+        "URL": "https://hug.doneber.dev",
+        "REPOSITORY": "https://github.com/username/virtualhug"
+      },
+      {
+        "PROJECT_NAME": "Enfocate Academy",
+        "DESCRIPTION": "Programming course platform developed with Nuxt, Vue, and Vuetify. Includes elements of copywriting and UX/UI.",
+        "URL": "https://enfocate.doneber.dev",
+        "REPOSITORY": "https://github.com/username/enfocate-academy"
+      }
+    ],
+    "ABOUT_TITLE": "About Me",
+    "ABOUT_DESCRIPTION": "I’m Eber, a fullstack developer with experience in JavaScript, NodeJs, React, Next.js, and Nest.js. I studied Computer Science and create educational content on social media. In my free time, I enjoy playing volleyball, running, and sometimes going to the gym. My goal is to foster collaborative learning, and I firmly believe that discipline surpasses natural talent. Feel free to contact me for inquiries.",
+    "CONTACT_TITLE": "Contact"
   },
   "ABOUT": {
     "TITLE": "About me",
@@ -42,32 +75,32 @@
     "TITLE": "Setup",
     "COMPONENTS": [
       {
-        "TITLE_COMPONENT":"Wooden Desk",
-        "DESCRIPTION_COMPONENT":"Connection with nature and solid support for my devices."
+        "TITLE_COMPONENT": "Wooden Desk",
+        "DESCRIPTION_COMPONENT": "Connection with nature and solid support for my devices."
       },
       {
-        "TITLE_COMPONENT":"LG Retro Monitor",
-        "DESCRIPTION_COMPONENT":"124x768 pixels, perfect for all my viewing needs."
+        "TITLE_COMPONENT": "LG Retro Monitor",
+        "DESCRIPTION_COMPONENT": "124x768 pixels, perfect for all my viewing needs."
       },
       {
-        "TITLE_COMPONENT":"Teclado y Mouse",
-        "DESCRIPTION_COMPONENT":"Durable and reliable, they withstand intensive daily use."
+        "TITLE_COMPONENT": "Teclado y Mouse",
+        "DESCRIPTION_COMPONENT": "Durable and reliable, they withstand intensive daily use."
       },
       {
-        "TITLE_COMPONENT":"Simple Headphones",
-        "DESCRIPTION_COMPONENT":"Immersive sound quality for programming, listening to music or watching movies."
+        "TITLE_COMPONENT": "Simple Headphones",
+        "DESCRIPTION_COMPONENT": "Immersive sound quality for programming, listening to music or watching movies."
       },
       {
-        "TITLE_COMPONENT":"Laptop with i3 Processor",
-        "DESCRIPTION_COMPONENT":"Equipped for performance with 4GB of RAM, multiple connections and integrated camera."
+        "TITLE_COMPONENT": "Laptop with i3 Processor",
+        "DESCRIPTION_COMPONENT": "Equipped for performance with 4GB of RAM, multiple connections and integrated camera."
       },
       {
-        "TITLE_COMPONENT":"Linux Arch Distribution",
-        "DESCRIPTION_COMPONENT":"Resource optimization with a lightweight and efficient interface."
+        "TITLE_COMPONENT": "Linux Arch Distribution",
+        "DESCRIPTION_COMPONENT": "Resource optimization with a lightweight and efficient interface."
       },
       {
-        "TITLE_COMPONENT":"Plastic Beer Chair",
-        "DESCRIPTION_COMPONENT":"Comfort without luxury, ideal for long hours of work."
+        "TITLE_COMPONENT": "Plastic Beer Chair",
+        "DESCRIPTION_COMPONENT": "Comfort without luxury, ideal for long hours of work."
       }
     ],
     "MESSAGE": "This setup, although simple, has allowed me to develop projects, learn and create content effectively. The important thing is not the cost, but how you use it!"

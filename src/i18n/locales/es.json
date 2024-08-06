@@ -7,19 +7,52 @@
     "CONTACT_TITLE": "Contacto"
   },
   "PORTFOLIO": {
-    "ROL_NAME": "Desarrollador Web Fullstack Javascript",
-    "SHORT_DESCRIPTION": "Me especializo en el frontend con el ecosistema de Vuejs y Javascript🍦. Me gusta seguir buenas prácticas de código 📄. Además creo contenido en mis redes sociales 💻.",
+    "ROL_NAME": "Desarrollador Web Fullstack",
+    "SHORT_DESCRIPTION": "Tengo experiencia en el diseño, desarrollo e implementación de proyectos utilizando metodologías ágiles. Manejo el ecosistema de JavaScript, incluyendo herramientas como Nest, Next, entre otras.",
     "EXPERIENCE_TITLE": "Experiencia",
     "EXPERIENCE_LIST": [
       {
-        "TITLE_JOB": "Desarrollador de Software",
-        "DESCRIPTION_JOB": "Desarrollador fullstack javascript fulltime"
+        "TITLE_JOB": "Desarrollador Fullstack",
+        "DESCRIPTION_JOB": "Desarrollé un sistema de publicación para entidades gubernamentales y ayudé en la implementación del sistema de recursos humanos. También optimicé la organización y el flujo de trabajo del equipo.",
+        "COMPANY_NAME": "",
+        "LOCATION": "",
+        "START_DATE": "",
+        "END_DATE": ""
       },
       {
-        "TITLE_JOB": "Docente Auxiliar",
-        "DESCRIPTION_JOB": "Docente de Introducción a la Programación, Programación Estructurada, Modular, a Objetos"
+        "TITLE_JOB": "Docente Auxiliar de Programación",
+        "DESCRIPTION_JOB": "Enseñé Programación Orientada a Objetos y Programación Estructurada y Modular a más de 200 estudiantes, utilizando Java y C#. También apoyé en el desarrollo de los proyectos estudiantiles.",
+        "COMPANY_NAME": "",
+        "LOCATION": "",
+        "START_DATE": "",
+        "END_DATE": ""
       }
-    ]
+    ],
+    "PROJECTS_TITLE": "Proyectos",
+    "PROJECTS_LIST": [
+      {
+        "PROJECT_NAME": "LinkHub",
+        "DESCRIPTION": "Centralizador de enlaces web lanzado en 2024. Ha sido visitado en 6 países y su construcción está documentada en YouTube.",
+        "URL": "https://linkhub.doneber.dev",
+        "REPOSITORY": "https://github.com/username/linkhub",
+        "VIDEO_TUTORIAL": "https://youtube.com/playlist?list=PL1234567890"
+      },
+      {
+        "PROJECT_NAME": "Virtual Hug",
+        "DESCRIPTION": "Generador de mensajes de felicitación con 10.000 usuarios únicos y 69.000 visitas en 71 países.",
+        "URL": "https://hug.doneber.dev",
+        "REPOSITORY": "https://github.com/username/virtualhug"
+      },
+      {
+        "PROJECT_NAME": "Enfocate Academy",
+        "DESCRIPTION": "Plataforma de cursos de programación desarrollada con Nuxt, Vue y Vuetify. Incluye aspectos de copywriting y UX/UI.",
+        "URL": "https://enfocate.doneber.dev",
+        "REPOSITORY": "https://github.com/username/enfocate-academy"
+      }
+    ],
+    "ABOUT_TITLE": "Sobre mí",
+    "ABOUT_DESCRIPTION": "Soy Eber, un desarrollador fullstack con experiencia en JavaScript, NodeJs, React, Next.js y Nest.js. Estudié Informática y creo contenido educativo en redes sociales. En mi tiempo libre, practico volleyball, running y a veces voy al gimnasio. Mi objetivo es fomentar el aprendizaje colaborativo, y creo firmemente que la disciplina supera al talento natural. Para consultas, no dudes en contactarme.",
+    "CONTACT_TITLE": "Contacto"
   },
   "ABOUT": {
     "TITLE": "Sobre mí",
