@@ -1,0 +1,38 @@
+---
+interface Props {
+  job: string;
+  company: string;
+  description: string;
+}
+const { job, company, description } = Astro.props;
+---
+
+<h3>{company}</h3>
+<h4>{job}</h4>
+<p class="description">{description}</p>
+
+<style>
+  h3,
+  h4 {
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+  h4 {
+    font-size: 1rem
+  }
+  .description {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4em;
+    text-wrap: balance;
+    opacity: 0.8;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Número de líneas visibles antes de truncar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
