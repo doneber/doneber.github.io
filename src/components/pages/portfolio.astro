@@ -2,6 +2,7 @@
 import { getI18N } from "@/i18n";
 import Hero from "@/components/portfolio/Hero.astro"
 import SectionContainer from "../portfolio/SectionContainer.astro";
+import Projects from "@/components/portfolio/Projects.astro";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
@@ -25,18 +26,7 @@ const i18n = getI18N({ currentLocale });
     </ul>
   </SectionContainer>
   <SectionContainer>
-    <h2>{i18n.PORTFOLIO.PROJECTS_TITLE}</h2>
-    <ul>
-      {
-        i18n.PORTFOLIO.PROJECTS_LIST.map((project) => (
-          <li>
-            <p>{project.PROJECT_NAME}</p>
-            <p>{project.DESCRIPTION}</p>
-            <a href={project.URL}>{project.URL}</a>
-          </li>
-        ))
-      }
-    </ul>
+    <Projects />
   </SectionContainer>
   <SectionContainer>
     <h2>{i18n.PORTFOLIO.ABOUT_TITLE}</h2>
@@ -65,6 +55,7 @@ const i18n = getI18N({ currentLocale });
 
       --var-primary-color-bg: #222;
       --var-primary-color-text: #eee;
+      --primary: #9d77ea;
       a {
         color: #549eff;
       }

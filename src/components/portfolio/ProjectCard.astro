@@ -1,0 +1,77 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  logoPath: string;
+  url: string;
+}
+
+const { title, description, logoPath, url } = Astro.props;
+---
+
+<article>
+  <div class="container-card">
+    <div class="logo-container">
+      <img src={logoPath} width="auto" height="70" alt={`Logo de ${title}`} />
+    </div>
+    <h2 class="title">
+      {title}
+    </h2>
+    <div class="description-container">
+      <p class="description">{description}</p>
+    </div>
+    <footer>
+        <a href={url} class="link" target="_blank">Ir a la demo</a>
+      </footer>
+  </div>
+</article>
+
+<style>
+  article {
+    box-shadow: 0px 0px 2px var(--primary);
+    border-radius: 7px;
+    text-align: center;
+    max-width: 200px;
+  }
+
+  .container-card {
+    display: grid;
+    grid-template-rows: 120px 2em 4em 2em;
+    padding: 1rem;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .description-container {
+    /* background: green; */
+  }
+  .description {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4em;
+    text-wrap: balance;
+    opacity: 0.8;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Número de líneas visibles antes de truncar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .link {
+    color: var(--primary);
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+  }
+</style>

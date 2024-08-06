@@ -1,0 +1,30 @@
+---
+import { getI18N } from "@/i18n";
+import ProjectCard from "@/components/portfolio/ProjectCard.astro";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<h2>{i18n.PORTFOLIO.PROJECTS_TITLE}</h2>
+<div class="container">
+  {
+    i18n.PORTFOLIO.PROJECTS_LIST.map((project) => (
+      <ProjectCard
+        title={project.PROJECT_NAME}
+        description={project.DESCRIPTION}
+        logoPath={project.LOGO_PATH}
+        url={project.URL}
+      />
+    ))
+  }
+</div>
+
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+</style>

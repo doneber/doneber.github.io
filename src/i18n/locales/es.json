@@ -34,6 +34,7 @@
         "PROJECT_NAME": "LinkHub",
         "DESCRIPTION": "Centralizador de enlaces web lanzado en 2024. Ha sido visitado en 6 países y su construcción está documentada en YouTube.",
         "URL": "https://linkhub.doneber.dev",
+        "LOGO_PATH": "/images/projects/linkhub-logo.webp",
         "REPOSITORY": "https://github.com/username/linkhub",
         "VIDEO_TUTORIAL": "https://youtube.com/playlist?list=PL1234567890"
       },
@@ -41,12 +42,14 @@
         "PROJECT_NAME": "Virtual Hug",
         "DESCRIPTION": "Generador de mensajes de felicitación con 10.000 usuarios únicos y 69.000 visitas en 71 países.",
         "URL": "https://hug.doneber.dev",
+        "LOGO_PATH": "/images/projects/hug-logo.webp",
         "REPOSITORY": "https://github.com/username/virtualhug"
       },
       {
         "PROJECT_NAME": "Enfocate Academy",
         "DESCRIPTION": "Plataforma de cursos de programación desarrollada con Nuxt, Vue y Vuetify. Incluye aspectos de copywriting y UX/UI.",
         "URL": "https://enfocate.doneber.dev",
+        "LOGO_PATH": "/images/projects/uwuntu-logo.webp",
         "REPOSITORY": "https://github.com/username/enfocate-academy"
       }
     ],
