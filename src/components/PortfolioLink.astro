@@ -37,7 +37,6 @@ const { href } = Astro.props;
       #7f0e7f,
       #e3859b
     );
-    background-color: #007a65;
     background-size: 400% 400%;
     background-position: 0 100%;
     text-decoration: none;
@@ -47,20 +46,14 @@ const { href } = Astro.props;
     animation: gradient 4s infinite linear;
 
     & span {
-      color: white;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 6px;
-      text-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+      background-color: var(--var-primary-color-bg);
     }
   }
 
   a.special-button:hover {
-    animation-play-state: paused;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-
-    & span {
-      background: rgba(255, 255, 255, 0.05);
-    }
   }
 
   @keyframes gradient {
@@ -74,18 +67,8 @@ const { href } = Astro.props;
   }
 
   html.dark {
-    & a.special-button span {
-      background-color: rgba(0, 0, 0, 0.25);
-    }
-
     & a.special-button:hover {
-      animation-play-state: paused;
       box-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
-
-      & span {
-        background-color: rgba(0, 0, 0, 0.15);
-        margin: 1px;
-      }
     }
   }
 </style>
