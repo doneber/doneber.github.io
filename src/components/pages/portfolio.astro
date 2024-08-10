@@ -1,6 +1,6 @@
 ---
 import { getI18N } from "@/i18n";
-import Hero from "@/components/portfolio/Hero.astro"
+import Hero from "@/components/portfolio/Hero.astro";
 import SectionContainer from "../portfolio/SectionContainer.astro";
 import Projects from "@/components/portfolio/Projects.astro";
 import Experience from "@/components/portfolio/Experience.astro";
@@ -51,21 +51,6 @@ const i18n = getI18N({ currentLocale });
         color: #549eff;
       }
     }
-
-    & body:after {
-      content: '';
-      position: absolute;
-      width: 100vw;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      animation: dotScroll 6s linear infinite;
-      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 2px, transparent 0);
-      background-size: calc(14.2857142857% - 1px) 100px;
-      background-position: -60px 0;
-    }
-
   }
 
   @keyframes dotScroll {
@@ -77,5 +62,4 @@ const i18n = getI18N({ currentLocale });
       background-position-y: 100px;
     }
   }
-
 </style>
