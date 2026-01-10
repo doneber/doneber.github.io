@@ -1,0 +1,79 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+
+const { title, description } = Astro.props;
+const { currentLocale } = Astro;
+---
+
+<!doctype html>
+<html lang={currentLocale}>
+    <head>
+        <BaseHead title={title} description={description} />
+        <style>
+            * {
+                font-family:
+                    ui-sans-serif,
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    Segoe UI,
+                    Roboto,
+                    Helvetica Neue,
+                    Arial,
+                    Noto Sans,
+                    sans-serif,
+                    "Apple Color Emoji",
+                    "Segoe UI Emoji",
+                    Segoe UI Symbol,
+                    "Noto Color Emoji";
+                box-sizing: border-box;
+            }
+
+            :root {
+                --var-primary-color-bg: #fefefe;
+                --var-primary-color-text: #444;
+            }
+
+            html body {
+                line-height: 1.6;
+                font-size: 18px;
+                padding: 0 10px;
+
+                background-color: var(--var-primary-color-bg);
+                color: var(--var-primary-color-text);
+                margin: 0; /* Align with new full page layout potentially */
+            }
+
+            html.dark body {
+                --var-primary-color-bg: #222;
+                --var-primary-color-text: #eee;
+                a {
+                    color: #549eff;
+                }
+            }
+
+            h1,
+            h2,
+            h3 {
+                line-height: 1.2;
+            }
+        </style>
+        <!-- Google tag (gtag.js) -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-WJSJQ78QYQ"
+        ></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+
+            gtag("config", "G-WJSJQ78QYQ");
+        </script>
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
