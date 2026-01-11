@@ -1,16 +1,66 @@
 ---
 import BaseHead from "@/components/BaseHead.astro";
+import paperTexture from "@/assets/paper-texture.jpg";
 
 const { title, description } = Astro.props;
-
 const { currentLocale } = Astro;
-import paperTexture from "@/assets/paper-texture.jpg";
 ---
 
 <!doctype html>
 <html lang={currentLocale}>
     <head>
         <BaseHead title={title} description={description} />
+        <style is:global>
+            /* Modern CSS Reset */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+
+            * {
+                margin: 0;
+            }
+
+            html {
+                -webkit-text-size-adjust: 100%;
+                text-size-adjust: 100%;
+            }
+
+            body {
+                min-height: 100dvh;
+                line-height: 1.5;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            img,
+            picture,
+            video,
+            canvas,
+            svg {
+                display: block;
+                max-width: 100%;
+            }
+
+            input,
+            button,
+            textarea,
+            select {
+                font: inherit;
+            }
+
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                overflow-wrap: break-word;
+            }
+        </style>
+
         <style define:vars={{ paperTexture: `url("${paperTexture.src}")` }}>
             @font-face {
                 font-family: "Excalifont";
@@ -29,34 +79,31 @@ import paperTexture from "@/assets/paper-texture.jpg";
                 font-display: swap;
             }
 
-            * {
-                font-family: "Comic Shanns", cursive, sans-serif;
-                box-sizing: border-box;
-            }
-
             :root {
-                --var-primary-color-bg: #fefefe;
-                --var-primary-color-text: #444;
+                --primary-bg: #fefefe;
+                --primary-text: #444;
+                --link-color: #549eff;
             }
 
-            html body {
+            html {
+                font-family: "Comic Shanns", cursive, sans-serif;
+            }
+
+            body {
                 line-height: 1.6;
                 font-size: 18px;
-                padding: 0 10px;
-
-                background-color: var(--var-primary-color-bg);
-                color: var(--var-primary-color-text);
-                margin: 0; /* Align with new full page layout potentially */
+                padding-inline: 10px;
+                background-color: var(--primary-bg);
+                color: var(--primary-text);
                 position: relative;
+                display: grid;
+                place-items: center;
             }
 
             body::before {
                 content: "";
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+                inset: 0;
                 background-image: var(--paperTexture);
                 background-repeat: repeat;
                 opacity: 0.4;
@@ -64,12 +111,13 @@ import paperTexture from "@/assets/paper-texture.jpg";
                 z-index: -1;
             }
 
-            html.dark body {
-                --var-primary-color-bg: #222;
-                --var-primary-color-text: #eee;
-                a {
-                    color: #549eff;
-                }
+            html.dark {
+                --primary-bg: #222;
+                --primary-text: #eee;
+            }
+
+            html.dark a {
+                color: var(--link-color);
             }
 
             h1,
@@ -82,6 +130,7 @@ import paperTexture from "@/assets/paper-texture.jpg";
                 font-family: "Excalifont", sans-serif;
             }
         </style>
+
         <!-- Google tag (gtag.js) -->
         <script
             async
@@ -93,7 +142,6 @@ import paperTexture from "@/assets/paper-texture.jpg";
                 dataLayer.push(arguments);
             }
             gtag("js", new Date());
-
             gtag("config", "G-WJSJQ78QYQ");
         </script>
     </head>

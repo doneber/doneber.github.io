@@ -24,7 +24,14 @@ import youtube from "@/assets/social/youtube.svg";
 import avatar from "@/assets/avatar.png";
 
 import mainBorder from "@/assets/main-border.svg";
+import lineH1 from "@/assets/lines/line-horizontal-1.svg";
+import lineH2 from "@/assets/lines/line-horizontal-2.svg";
+import lineH3 from "@/assets/lines/line-horizontal-3.svg";
+import lineH4 from "@/assets/lines/line-horizontal-4.svg";
+import lineH5 from "@/assets/lines/line-horizontal-5.svg";
+import lineVertical from "@/assets/lines/line-vertical.svg";
 import BentoLayout from "@/layouts/BentoLayout.astro";
+import squareDraw from "@/assets/square-draw.svg";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
@@ -143,7 +150,11 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
           {
             projects.map((project) => (
               <a href={project.URL} target="_blank" class="project-item">
-                <img src={project.LOGO_PATH} alt={project.PROJECT_NAME} />
+                <img
+                  src={project.LOGO_PATH}
+                  alt={project.PROJECT_NAME}
+                  style={`background-image: url(${squareDraw.src})`}
+                />
                 <span>{project.PROJECT_NAME}</span>
               </a>
             ))
@@ -263,6 +274,12 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
 <style
   define:vars={{
     mainBorder: `url("${mainBorder.src}")`,
+    lineH1: `url("${lineH1.src}")`,
+    lineH2: `url("${lineH2.src}")`,
+    lineH3: `url("${lineH3.src}")`,
+    lineH4: `url("${lineH4.src}")`,
+    lineH5: `url("${lineH5.src}")`,
+    lineVertical: `url("${lineVertical.src}")`,
   }}
 >
   :root {
@@ -303,35 +320,65 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     grid-template-columns: 1.3fr 0.7fr;
     grid-template-rows: auto;
     gap: 0;
-    border: 24px solid transparent;
-    border-image: var(--mainBorder) 32 round;
+    /* border: 24px solid transparent;
+    border-image: var(--mainBorder) 32 round; */
     overflow: hidden;
-    transition:
-      background 0.3s,
-      border-color 0.3s;
   }
 
   .box {
     padding: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
+    border-bottom: none;
+    border-right: none;
     display: flex;
     flex-direction: column;
     position: relative;
   }
 
-  /* Remove right border for right column items */
-  .Menu,
-  .Projects,
-  .Social,
-  .Footer {
-    border-right: none;
+  /* Unique SVG borders for each box - no repetition */
+  .bio {
+    background-image: var(--lineH1), var(--lineVertical);
+    background-repeat: no-repeat;
+    background-position: bottom, right;
+    background-size:
+      100% auto,
+      auto 100%;
   }
 
-  /* Remove bottom border for last row items */
-  .videos,
-  .Footer {
-    border-bottom: none;
+  .Menu {
+    background-image: var(--lineH2);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% auto;
+  }
+
+  .Projects {
+    background-image: var(--lineH3);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% auto;
+  }
+
+  .blog {
+    background-image: var(--lineH4), var(--lineVertical);
+    background-repeat: no-repeat;
+    background-position: bottom, right;
+    background-size:
+      100% auto,
+      auto 100%;
+  }
+
+  .videos {
+    background-image: var(--lineVertical);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: auto 100%;
+  }
+
+  .Social {
+    background-image: var(--lineH5);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% auto;
   }
 
   /* Grid Areas */
@@ -409,6 +456,9 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     display: flex;
     align-items: center;
     justify-content: center;
+    align-items: center;
+    min-height: 50%;
+    transform: rotate(-4deg);
   }
   .see-more {
     position: absolute;
@@ -480,7 +530,10 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     border-radius: 12px;
     margin-bottom: 0.5rem;
     object-fit: cover;
-    background: var(--hover-bg);
+    /* background: var(--hover-bg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 7px;
   }
   .project-item span {
     font-size: 0.8rem;
@@ -598,7 +651,7 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     }
     .box {
       border-right: none;
-      border-bottom: 1px solid var(--border-color);
+      /* border-bottom: 1px solid var(--border-color); */
     }
   }
 </style>
