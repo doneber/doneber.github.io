@@ -12,22 +12,25 @@ import paperTexture from "@/assets/paper-texture.jpg";
     <head>
         <BaseHead title={title} description={description} />
         <style define:vars={{ paperTexture: `url("${paperTexture.src}")` }}>
+            @font-face {
+                font-family: "Excalifont";
+                src: url("../assets/fonts/Excalifont-Regular.woff2")
+                    format("woff2");
+                font-weight: normal;
+                font-style: normal;
+                font-display: swap;
+            }
+
+            @font-face {
+                font-family: "Comic Shanns";
+                src: url("../assets/fonts/comic-shanns.otf") format("opentype");
+                font-weight: normal;
+                font-style: normal;
+                font-display: swap;
+            }
+
             * {
-                font-family:
-                    ui-sans-serif,
-                    system-ui,
-                    -apple-system,
-                    BlinkMacSystemFont,
-                    Segoe UI,
-                    Roboto,
-                    Helvetica Neue,
-                    Arial,
-                    Noto Sans,
-                    sans-serif,
-                    "Apple Color Emoji",
-                    "Segoe UI Emoji",
-                    Segoe UI Symbol,
-                    "Noto Color Emoji";
+                font-family: "Comic Shanns", cursive, sans-serif;
                 box-sizing: border-box;
             }
 
@@ -71,8 +74,12 @@ import paperTexture from "@/assets/paper-texture.jpg";
 
             h1,
             h2,
-            h3 {
+            h3,
+            h4,
+            h5,
+            h6 {
                 line-height: 1.2;
+                font-family: "Excalifont", sans-serif;
             }
         </style>
         <!-- Google tag (gtag.js) -->

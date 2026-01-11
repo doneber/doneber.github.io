@@ -265,21 +265,6 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     mainBorder: `url("${mainBorder.src}")`,
   }}
 >
-  @font-face {
-    font-family: "Excalifont";
-    src: url("../../assets/fonts/Excalifont-Regular.woff2") format("woff2");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "Comic Shanns";
-    src: url("../../assets/fonts/comic-shanns.otf") format("opentype");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
   :root {
     --bg-page: #fcfcfc;
     --bg-container: #ffffff;
@@ -302,34 +287,9 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
   main {
     max-width: 1200px;
     margin: 0 auto;
-    font-family: "Comic Shanns", cursive, sans-serif;
-    color: var(--text-color);
     transition:
       background-color 0.3s,
       color 0.3s;
-  }
-
-  main h1,
-  main h2,
-  main h3,
-  main h4,
-  main h5,
-  main h6 {
-    font-family: "Excalifont", sans-serif;
-  }
-
-  main * {
-    font-family: "Comic Shanns", cursive, sans-serif;
-  }
-
-  /* Reset font for titles inside main to avoid the * selector overriding them if specificity is equal (it won't be with main h1 vs main *, but good to be safe by ordering) */
-  main h1,
-  main h2,
-  main h3,
-  main h4,
-  main h5,
-  main h6 {
-    font-family: "Excalifont", sans-serif;
   }
 
   /* Import a handwriting font if possible, or assume it's applied globally? 
