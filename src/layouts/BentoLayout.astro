@@ -61,7 +61,10 @@ const { currentLocale } = Astro;
             }
         </style>
 
-        <style define:vars={{ paperTexture: `url("${paperTexture.src}")` }}>
+        <style
+            is:global
+            define:vars={{ paperTexture: `url("${paperTexture.src}")` }}
+        >
             @font-face {
                 font-family: "Excalifont";
                 src: url("../assets/fonts/Excalifont-Regular.woff2")

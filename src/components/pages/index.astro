@@ -6,14 +6,12 @@ import {
   useTranslatedPath,
 } from "@/i18n/utils.ts";
 
-import mainBorder from "@/assets/main-border.svg";
-import lineH1 from "@/assets/lines/line-horizontal-1.svg";
-import lineH2 from "@/assets/lines/line-horizontal-2.svg";
-import lineH3 from "@/assets/lines/line-horizontal-3.svg";
-import lineH4 from "@/assets/lines/line-horizontal-4.svg";
-import lineH5 from "@/assets/lines/line-horizontal-5.svg";
 import LineVertical from "@/assets/lines/line-vertical.svg";
-import LineHorizontal1 from "@/assets/lines/line-horizontal-3.svg";
+import LineHorizontal1 from "@/assets/lines/line-horizontal-1.svg";
+import LineHorizontal2 from "@/assets/lines/line-horizontal-2.svg";
+import LineHorizontal3 from "@/assets/lines/line-horizontal-3.svg";
+import LineHorizontal4 from "@/assets/lines/line-horizontal-4.svg";
+import LineHorizontal5 from "@/assets/lines/line-horizontal-5.svg";
 import BentoLayout from "@/layouts/BentoLayout.astro";
 
 // New Section Components
@@ -52,20 +50,23 @@ const translatePath = useTranslatedPath(lang);
       <div class="line-horizontal-1">
         <LineHorizontal1 />
       </div>
+      <div class="line-horizontal-2">
+        <LineHorizontal2 />
+      </div>
+      <div class="line-horizontal-3">
+        <LineHorizontal3 />
+      </div>
+      <div class="line-horizontal-4">
+        <LineHorizontal1 />
+      </div>
+      <div class="line-horizontal-5">
+        <LineHorizontal5 />
+      </div>
     </div>
   </main>
 </BentoLayout>
 
-<style
-  define:vars={{
-    mainBorder: `url("${mainBorder.src}")`,
-    lineH1: `url("${lineH1.src}")`,
-    lineH2: `url("${lineH2.src}")`,
-    lineH3: `url("${lineH3.src}")`,
-    lineH4: `url("${lineH4.src}")`,
-    lineH5: `url("${lineH5.src}")`,
-  }}
->
+<style>
   :root {
     --bg-page: #fcfcfc;
     --bg-container: #ffffff;
@@ -96,7 +97,7 @@ const translatePath = useTranslatedPath(lang);
   .container {
     display: grid;
     grid-template-columns: 1.3fr 5px 0.7fr;
-    grid-template-rows: auto;
+    grid-template-rows: auto 5px auto 5px auto 5px auto 5px auto 5px auto;
     gap: 0;
     overflow: hidden;
   }
@@ -110,45 +111,27 @@ const translatePath = useTranslatedPath(lang);
     position: relative;
   }
 
-  /* SVG borders for each box */
-  :global(.bio) {
-    background-image: var(--lineH1);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% auto;
-  }
-
-  :global(.projects) {
-    background-image: var(--lineH3);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% auto;
-  }
-
-  :global(.blog) {
-    background-image: var(--lineH4);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% auto;
-  }
-
-  :global(.social) {
-    background-image: var(--lineH5);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% auto;
+  .line-img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
   }
 
   /* Grid Areas */
   .container {
     grid-template-areas:
-      "bio line-vertical menu"
-      "bio line-vertical line-horizontal-1"
-      "bio line-vertical projects"
-      "blog line-vertical projects"
-      "blog line-vertical social"
-      "videos line-vertical social"
-      "videos line-vertical footer";
+      "bio               line-vertical menu"
+      "bio               line-vertical line-horizontal-1"
+      "bio               line-vertical projects"
+      "line-horizontal-2 line-vertical projects"
+      "blog              line-vertical projects"
+      "blog              line-vertical line-horizontal-3"
+      "blog              line-vertical social"
+      "line-horizontal-4 line-vertical social"
+      "videos            line-vertical social"
+      "videos            line-vertical line-horizontal-5"
+      "videos            line-vertical footer";
   }
 
   :global(.bio) {
@@ -178,20 +161,41 @@ const translatePath = useTranslatedPath(lang);
   .line-horizontal-1 {
     grid-area: line-horizontal-1;
   }
+  .line-horizontal-2 {
+    grid-area: line-horizontal-2;
+  }
 
+  .line-horizontal-3 {
+    grid-area: line-horizontal-3;
+  }
+  .line-horizontal-4 {
+    grid-area: line-horizontal-4;
+  }
+  .line-horizontal-5 {
+    grid-area: line-horizontal-5;
+  }
   /* Responsive Adjustments */
   @media (max-width: 900px) {
     .container {
       grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, auto 5px) auto auto;
       grid-template-areas:
         "bio"
-        "menu"
         "line-horizontal-1"
+        "menu"
+        "line-horizontal-2"
         "projects"
+        "line-horizontal-3"
         "blog"
+        "line-horizontal-4"
         "videos"
+        "line-horizontal-5"
         "social"
         "footer";
+    }
+
+    .line-vertical {
+      display: none;
     }
   }
 </style>
