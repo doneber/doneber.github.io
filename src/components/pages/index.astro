@@ -29,7 +29,8 @@ import lineH2 from "@/assets/lines/line-horizontal-2.svg";
 import lineH3 from "@/assets/lines/line-horizontal-3.svg";
 import lineH4 from "@/assets/lines/line-horizontal-4.svg";
 import lineH5 from "@/assets/lines/line-horizontal-5.svg";
-import lineVertical from "@/assets/lines/line-vertical.svg";
+import LineVertical from "@/assets/lines/line-vertical.svg";
+import LineHorizontal1 from "@/assets/lines/line-horizontal-3.svg";
 import BentoLayout from "@/layouts/BentoLayout.astro";
 import squareDraw from "@/assets/square-draw.svg";
 
@@ -132,7 +133,7 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
         <a href="/about" class="see-more">Ver mas ↗</a>
       </div>
 
-      <div class="Menu box">
+      <div class="menu box">
         <div class="theme-toggle">
           <LanguagePicker />
           <ThemeIcon />
@@ -144,7 +145,7 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
         </nav>
       </div>
 
-      <div class="Projects box">
+      <div class="projects box">
         <h2>Mis proyectos</h2>
         <div class="project-list">
           {
@@ -202,11 +203,11 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
         >
       </div>
 
-      <div class="Footer box">
+      <div class="footer box">
         <p>Todos los derechos reservados (y los izquierdos también :))</p>
       </div>
 
-      <div class="Social box">
+      <div class="social box">
         <h2>Mis Redes Sociales</h2>
         <div class="social-grid">
           <a
@@ -267,6 +268,12 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
           </a>
         </div>
       </div>
+      <div class="line-vertical">
+        <LineVertical />
+      </div>
+      <div class="line-horizontal-1">
+        <LineHorizontal1 />
+      </div>
     </div>
   </main>
 </BentoLayout>
@@ -279,7 +286,6 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     lineH3: `url("${lineH3.src}")`,
     lineH4: `url("${lineH4.src}")`,
     lineH5: `url("${lineH5.src}")`,
-    lineVertical: `url("${lineVertical.src}")`,
   }}
 >
   :root {
@@ -317,7 +323,7 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
 
   .container {
     display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
+    grid-template-columns: 1.3fr 5px 0.7fr;
     grid-template-rows: auto;
     gap: 0;
     /* border: 24px solid transparent;
@@ -336,22 +342,13 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
 
   /* Unique SVG borders for each box - no repetition */
   .bio {
-    background-image: var(--lineH1), var(--lineVertical);
-    background-repeat: no-repeat;
-    background-position: bottom, right;
-    background-size:
-      100% auto,
-      auto 100%;
-  }
-
-  .Menu {
-    background-image: var(--lineH2);
+    background-image: var(--lineH1);
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: 100% auto;
   }
 
-  .Projects {
+  .projects {
     background-image: var(--lineH3);
     background-repeat: no-repeat;
     background-position: bottom;
@@ -359,22 +356,13 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
   }
 
   .blog {
-    background-image: var(--lineH4), var(--lineVertical);
+    background-image: var(--lineH4);
     background-repeat: no-repeat;
-    background-position: bottom, right;
-    background-size:
-      100% auto,
-      auto 100%;
+    background-position: bottom;
+    background-size: 100% auto;
   }
 
-  .videos {
-    background-image: var(--lineVertical);
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: auto 100%;
-  }
-
-  .Social {
+  .social {
     background-image: var(--lineH5);
     background-repeat: no-repeat;
     background-position: bottom;
@@ -384,22 +372,23 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
   /* Grid Areas */
   .container {
     grid-template-areas:
-      "bio Menu"
-      "bio Projects"
-      "blog Projects"
-      "blog Social"
-      "videos Social"
-      "videos Footer";
+      "bio line-vertical menu"
+      "bio line-vertical line-horizontal-1"
+      "bio line-vertical projects"
+      "blog line-vertical projects"
+      "blog line-vertical social"
+      "videos line-vertical social"
+      "videos line-vertical footer";
   }
 
   .bio {
     grid-area: bio;
   }
-  .Menu {
-    grid-area: Menu;
+  .menu {
+    grid-area: menu;
   }
-  .Projects {
-    grid-area: Projects;
+  .projects {
+    grid-area: projects;
   }
   .blog {
     grid-area: blog;
@@ -407,11 +396,17 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
   .videos {
     grid-area: videos;
   }
-  .Footer {
-    grid-area: Footer;
+  .footer {
+    grid-area: footer;
   }
-  .Social {
-    grid-area: Social;
+  .social {
+    grid-area: social;
+  }
+  .line-vertical {
+    grid-area: line-vertical;
+  }
+  .line-horizontal-1 {
+    grid-area: line-horizontal-1;
   }
 
   /* Bio Section */
@@ -470,8 +465,8 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     font-weight: bold;
   }
 
-  /* Menu Section */
-  .Menu {
+  /* menu Section */
+  .menu {
     padding: 1rem 1.5rem;
     max-height: 200px;
     justify-content: space-between;
@@ -482,29 +477,29 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     margin-bottom: 0.5rem;
     cursor: pointer;
   }
-  .Menu nav {
+  .menu nav {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
   }
-  .Menu nav a {
+  .menu nav a {
     text-decoration: none;
     color: var(--accent-blue);
     font-size: 1.2rem;
     font-weight: bold;
   }
-  .Menu nav a:hover {
+  .menu nav a:hover {
     text-decoration: underline;
   }
 
-  /* Projects Section */
-  .Projects {
+  /* projects Section */
+  .projects {
     grid-row: span 2; /* Adjust spanning based on content */
   }
-  .Projects h2,
+  .projects h2,
   .blog h2,
   .videos h2,
-  .Social h2 {
+  .social h2 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     font-weight: bold;
@@ -593,7 +588,7 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     font-weight: bold;
   }
 
-  /* Social Section */
+  /* social Section */
   .social-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -627,8 +622,8 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
     border-radius: 6px;
   }
 
-  /* Footer Section */
-  .Footer {
+  /* footer Section */
+  .footer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -640,14 +635,16 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
   @media (max-width: 900px) {
     .container {
       grid-template-columns: 1fr;
+      /* grid-template-rows: auto; */
       grid-template-areas:
         "bio"
-        "Menu"
-        "Projects"
+        "menu"
+        "line-horizontal-1"
+        "projects"
         "blog"
         "videos"
-        "Social"
-        "Footer";
+        "social"
+        "footer";
     }
     .box {
       border-right: none;
