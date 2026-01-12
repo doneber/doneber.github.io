@@ -86,6 +86,7 @@ const { currentLocale } = Astro;
                 --primary-bg: #fefefe;
                 --primary-text: #444;
                 --link-color: #549eff;
+                --paper-opacity: 0.8;
             }
 
             html {
@@ -109,7 +110,7 @@ const { currentLocale } = Astro;
                 inset: 0;
                 background-image: var(--paperTexture);
                 background-repeat: repeat;
-                opacity: 0.4;
+                opacity: var(--paper-opacity);
                 pointer-events: none;
                 z-index: -1;
             }
@@ -117,6 +118,7 @@ const { currentLocale } = Astro;
             html.dark {
                 --primary-bg: #222;
                 --primary-text: #eee;
+                --paper-opacity: 0;
             }
 
             html.dark a {

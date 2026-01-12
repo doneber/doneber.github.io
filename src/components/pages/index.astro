@@ -62,6 +62,9 @@ const translatePath = useTranslatedPath(lang);
       <div class="line-horizontal-5">
         <LineHorizontal5 />
       </div>
+      <div class="line-horizontal-6">
+        <LineHorizontal1 />
+      </div>
     </div>
   </main>
 </BentoLayout>
@@ -174,11 +177,14 @@ const translatePath = useTranslatedPath(lang);
   .line-horizontal-5 {
     grid-area: line-horizontal-5;
   }
+  .line-horizontal-6 {
+    display: none;
+  }
   /* Responsive Adjustments */
   @media (max-width: 900px) {
     .container {
       grid-template-columns: 1fr;
-      grid-template-rows: repeat(5, auto 5px) auto auto;
+      grid-template-rows: repeat(6, auto 5px) auto;
       grid-template-areas:
         "bio"
         "line-horizontal-1"
@@ -191,11 +197,16 @@ const translatePath = useTranslatedPath(lang);
         "videos"
         "line-horizontal-5"
         "social"
+        "line-horizontal-6"
         "footer";
     }
 
     .line-vertical {
       display: none;
+    }
+    .line-horizontal-6 {
+      grid-area: line-horizontal-6;
+      display: block;
     }
   }
 </style>
