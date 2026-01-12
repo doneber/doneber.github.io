@@ -186,9 +186,9 @@ const translatePath = useTranslatedPath(lang);
       grid-template-columns: 1fr;
       grid-template-rows: repeat(6, auto 5px) auto;
       grid-template-areas:
-        "bio"
-        "line-horizontal-1"
         "menu"
+        "line-horizontal-1"
+        "bio"
         "line-horizontal-2"
         "projects"
         "line-horizontal-3"
@@ -207,6 +207,9 @@ const translatePath = useTranslatedPath(lang);
     .line-horizontal-6 {
       grid-area: line-horizontal-6;
       display: block;
+    }
+    .line-horizontal-1 {
+      display: none;
     }
   }
 </style>

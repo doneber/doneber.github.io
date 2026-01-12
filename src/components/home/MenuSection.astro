@@ -54,4 +54,18 @@ const translatePath = useTranslatedPath(lang);
     .menu nav a:hover {
         text-decoration: underline;
     }
+    /* Responsive Adjustments */
+    @media (max-width: 900px) {
+        .menu {
+            flex-direction: row-reverse;
+            justify-content: space-between;
+        }
+
+        .menu nav {
+            flex-direction: row;
+        }
+        .menu nav a {
+            font-size: 1rem;
+        }
+    }
 </style>
