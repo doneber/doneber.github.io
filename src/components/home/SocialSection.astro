@@ -1,0 +1,113 @@
+---
+import discord from "@/assets/social/discord.svg";
+import facebook from "@/assets/social/facebook.svg";
+import github from "@/assets/social/github.svg";
+import instagram from "@/assets/social/instagram.svg";
+import linkedin from "@/assets/social/linkedin.svg";
+import tiktok from "@/assets/social/tiktok.svg";
+import x from "@/assets/social/x.svg";
+import youtube from "@/assets/social/youtube.svg";
+---
+
+<div class="social box">
+    <h2>Mis Redes Sociales</h2>
+    <div class="social-grid">
+        <a
+            href="https://youtube.com/@doneber"
+            target="_blank"
+            aria-label="YouTube"
+        >
+            <img src={youtube.src} width="32" height="32" alt="YouTube" />
+            <span>YouTube</span>
+        </a>
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+            <img src={facebook.src} width="32" height="32" alt="Facebook" />
+            <span>Facebook</span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+            <img src={linkedin.src} width="32" height="32" alt="LinkedIn" />
+            <span>LinkedIn</span>
+        </a>
+        <a
+            href="https://github.com/doneber"
+            target="_blank"
+            aria-label="GitHub"
+        >
+            <img src={github.src} width="32" height="32" alt="GitHub" />
+            <span>GitHub</span>
+        </a>
+        <a
+            href="https://tiktok.com/@doneberdev"
+            target="_blank"
+            aria-label="TikTok"
+        >
+            <img src={tiktok.src} width="32" height="32" alt="TikTok" />
+            <span>TikTok</span>
+        </a>
+        <a
+            href="https://twitter.com/@doneberdev"
+            target="_blank"
+            aria-label="Twitter"
+        >
+            <img src={x.src} width="32" height="32" alt="Twitter" />
+            <span>Twitter</span>
+        </a>
+        <a
+            href="https://instagram.com/doneberdev"
+            target="_blank"
+            aria-label="Instagram"
+        >
+            <img src={instagram.src} width="32" height="32" alt="Instagram" />
+            <span>Instagram</span>
+        </a>
+        <a
+            href="https://discord.com/invite/5ak7sZpC4t"
+            target="_blank"
+            aria-label="Discord"
+        >
+            <img src={discord.src} width="32" height="32" alt="Discord" />
+            <span>Discord</span>
+        </a>
+    </div>
+</div>
+
+<style>
+    .social h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .social-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        justify-items: center;
+    }
+
+    .social-grid a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
+        font-size: 0.75rem;
+        gap: 0.2rem;
+    }
+
+    .social-grid svg {
+        border-radius: 8px;
+        padding: 2px;
+    }
+
+    .social-grid a[aria-label="TikTok"] svg,
+    .social-grid a[aria-label="GitHub"] svg,
+    .social-grid a[aria-label="Instagram"] svg,
+    .social-grid a[aria-label="LinkedIn"] svg,
+    .social-grid a[aria-label="Facebook"] svg,
+    .social-grid a[aria-label="Twitter"] svg,
+    .social-grid a[aria-label="Discord"] svg,
+    .social-grid a[aria-label="YouTube"] svg {
+        border-radius: 6px;
+    }
+</style>

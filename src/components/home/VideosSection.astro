@@ -1,0 +1,112 @@
+---
+import { parseStringPromise } from "xml2js";
+
+const ID_CHANNEL_PRIMARY = "UCKMWXwHYoy920OFEN_BM5VQ";
+const ID_CHANNEL_SECONDARY = "UCRC7LM5vAZMxS8LSo0PKZng";
+const NUMBER_LAST_YT_VIDEOS = 3;
+
+const feedUrl = (id: string) =>
+    `https://www.youtube.com/feeds/videos.xml?channel_id=${id}`;
+
+async function loadFeed(feedUrl: string) {
+    const response = await fetch(feedUrl);
+    const xmlData = await response.text();
+    const jsonData = await parseStringPromise(xmlData);
+    return jsonData.feed.entry
+        .map((entry: any) => ({
+            title: entry.title[0],
+            link: entry.link[0].$.href,
+            thumbnail:
+                entry["media:group"]?.[0]["media:thumbnail"]?.[0]?.$.url ||
+                "/images/default-video.jpg",
+        }))
+        .slice(0, NUMBER_LAST_YT_VIDEOS);
+}
+
+let allVideos: any[] = [];
+try {
+    const primaryVideos = (await loadFeed(
+        feedUrl(ID_CHANNEL_PRIMARY),
+    )) as any[];
+    allVideos = [...primaryVideos];
+
+    if (allVideos.length < 3) {
+        const secondaryVideos = (await loadFeed(
+            feedUrl(ID_CHANNEL_SECONDARY),
+        )) as any[];
+        allVideos = [...allVideos, ...secondaryVideos];
+    }
+} catch (e) {
+    console.error("Error loading videos", e);
+}
+const videos = allVideos.slice(0, 3);
+---
+
+<div class="videos box">
+    <h2>Videos recientes</h2>
+    <div class="video-list">
+        {
+            videos.map((video) => (
+                <a href={video.link} target="_blank" class="video-item">
+                    <div
+                        class="video-thumb"
+                        style={`background-color: #222; background-image: url(${video.thumbnail || ""}); background-size: cover;`}
+                    />
+                    <span class="video-title">{video.title}</span>
+                </a>
+            ))
+        }
+    </div>
+    <a href="https://youtube.com/@doneber" target="_blank" class="see-more"
+        >Ver más ></a
+    >
+</div>
+
+<style>
+    .videos h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .video-list {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .video-item {
+        flex: 1;
+        min-width: 150px;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .video-thumb {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background-color: #000;
+        border-radius: 12px;
+        margin-bottom: 0.5rem;
+    }
+
+    .video-title {
+        font-size: 0.8rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-weight: bold;
+    }
+
+    .see-more {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 0.9rem;
+        color: var(--accent-blue);
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>

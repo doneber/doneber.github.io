@@ -1,0 +1,82 @@
+---
+import { getI18N } from "@/i18n";
+import squareDraw from "@/assets/square-draw.svg";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
+---
+
+<div class="projects box">
+    <h2>Mis proyectos</h2>
+    <div class="project-list">
+        {
+            projects.map((project) => (
+                <a href={project.URL} target="_blank" class="project-item">
+                    <img
+                        src={project.LOGO_PATH}
+                        alt={project.PROJECT_NAME}
+                        style={`background-image: url(${squareDraw.src})`}
+                    />
+                    <span>{project.PROJECT_NAME}</span>
+                </a>
+            ))
+        }
+    </div>
+    <a href="/portfolio" class="see-more">Ver más ></a>
+</div>
+
+<style>
+    .projects {
+        grid-row: span 2;
+    }
+
+    .projects h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .project-list {
+        display: flex;
+        justify-content: space-around;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .project-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        width: 80px;
+        text-align: center;
+    }
+
+    .project-item img {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        margin-bottom: 0.5rem;
+        object-fit: cover;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 7px;
+    }
+
+    .project-item span {
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+    .see-more {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 0.9rem;
+        color: var(--accent-blue);
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>

@@ -1,0 +1,57 @@
+---
+import ThemeIcon from "@/components/ThemeIcon.astro";
+import LanguagePicker from "@/components/LanguagePicker.astro";
+import {
+    getLangFromUrl,
+    useTranslations,
+    useTranslatedPath,
+} from "@/i18n/utils.ts";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<div class="menu box">
+    <div class="theme-toggle">
+        <LanguagePicker />
+        <ThemeIcon />
+    </div>
+    <nav>
+        <a href={translatePath("/blog")}>{t("nav.blog")} ↗</a>
+        <a href={translatePath("/about")}>{t("nav.about")} ↗</a>
+        <a href={translatePath("/portfolio")}>{t("nav.portfolio")} ↗</a>
+    </nav>
+</div>
+
+<style>
+    .menu {
+        padding: 1rem 1.5rem;
+        max-height: 200px;
+        justify-content: space-between;
+    }
+
+    .theme-toggle {
+        text-align: right;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+    }
+
+    .menu nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .menu nav a {
+        text-decoration: none;
+        color: var(--accent-blue);
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .menu nav a:hover {
+        text-decoration: underline;
+    }
+</style>

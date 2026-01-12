@@ -1,0 +1,104 @@
+---
+import avatar from "@/assets/avatar.png";
+
+interface Props {
+    shortDescription: string;
+    fullDescription: string;
+}
+
+const { shortDescription, fullDescription } = Astro.props;
+---
+
+<div class="bio box">
+    <div class="bio-content">
+        <h1>@doneber</h1>
+        <p class="bio-text">
+            {shortDescription}
+            <br />
+            {fullDescription}
+        </p>
+        <a href="mailto:contact@doneber.dev" class="contact-btn">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
+                    d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
+            >
+            Contact me
+        </a>
+    </div>
+    <div class="bio-image">
+        <img src={avatar.src} alt="Avatar" width="80" />
+    </div>
+    <a href="/about" class="see-more">Ver mas ↗</a>
+</div>
+
+<style>
+    .bio {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .bio-content {
+        flex: 1;
+    }
+
+    .bio h1 {
+        font-size: 2.5rem;
+        margin: 0 0 1rem 0;
+        font-weight: bold;
+    }
+
+    .bio-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 2rem;
+        max-width: 90%;
+    }
+
+    .contact-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--text-color);
+        color: var(--bg-container);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.1s;
+    }
+
+    .contact-btn:hover {
+        transform: scale(1.05);
+    }
+
+    .bio-image {
+        padding: 1rem;
+        background: transparent;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50%;
+        transform: rotate(-4deg);
+    }
+
+    .see-more {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 0.9rem;
+        color: var(--accent-blue);
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>

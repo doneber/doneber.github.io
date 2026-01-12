@@ -1,0 +1,74 @@
+---
+import { getCollection } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+
+const NUMBER_LAST_POSTS = 4;
+
+const posts = (await getCollection("blog"))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, NUMBER_LAST_POSTS);
+---
+
+<div class="blog box">
+    <h2>Últimos post's</h2>
+    <ul class="post-list">
+        {
+            posts.map((post) => (
+                <li>
+                    <a href={`/blog/${post.slug}/`}>
+                        <span class="post-title">- {post.data.title}</span>
+                        <span class="post-date">
+                            <FormattedDate date={post.data.pubDate} />
+                        </span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+    <a href="/blog" class="see-more">Ver más ></a>
+</div>
+
+<style>
+    .blog h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .blog .post-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .blog .post-list li {
+        margin-bottom: 1rem;
+    }
+
+    .blog .post-list a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .post-title {
+        font-weight: bold;
+        display: block;
+    }
+
+    .post-date {
+        font-size: 0.85rem;
+        color: #666;
+        margin-left: 1rem;
+    }
+
+    .see-more {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 0.9rem;
+        color: var(--accent-blue);
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>
