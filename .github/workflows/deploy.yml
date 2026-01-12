@@ -11,7 +11,7 @@ permissions:
   pages: write
   id-token: write
 
-# Previene múltiples deployments concurrentes que causan el bug de "deployment_queued"
+# Previene múltiples deployments concurrentes
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -22,13 +22,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+      
+      # CORRECCIÓN: Se eliminó el bloque 'with' vacío
       - name: Install, build, and upload
         uses: withastro/action@v3
-        with:
-          # path: . # Ubicación raíz de tu proyecto (opcional)
-          # node-version: 22 # Versión de Node (default: 22)
-          # package-manager: bun@latest # npm | yarn | pnpm | bun (auto-detectado)
+        # La acción detecta automáticamente node, pnpm/npm/bun y la carpeta
 
   deploy:
     needs: build
