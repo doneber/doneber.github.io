@@ -28,7 +28,7 @@ const translatePath = useTranslatedPath(lang);
     .menu {
         padding: 1rem 1.5rem;
         max-height: 200px;
-        justify-content: space-between;
+        gap: 0.3rem;
     }
 
     .theme-toggle {
@@ -36,6 +36,9 @@ const translatePath = useTranslatedPath(lang);
         font-weight: bold;
         margin-bottom: 0.5rem;
         cursor: pointer;
+        display: flex;
+        justify-content: end;
+        gap: 1rem;
     }
 
     .menu nav {
@@ -50,17 +53,23 @@ const translatePath = useTranslatedPath(lang);
     }
 
     .menu nav a {
+        width: fit-content;
+        padding: 0 1rem;
         text-decoration: none;
         color: var(--accent-blue);
         font-size: 1.2rem;
         font-weight: bold;
-    }
+        text-decoration-thickness: 5px;
+        text-underline-offset: 0.2rem;
+        text-decoration-thickness: 3px;
 
-    .menu nav a:hover {
-        text-decoration: underline;
+        &:hover {
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+        }
     }
     /* Responsive Adjustments */
-    @media (max-width: 900px) {
+    @media (max-width: 1000px) {
         .menu {
             flex-direction: row-reverse;
             justify-content: space-between;
@@ -68,13 +77,17 @@ const translatePath = useTranslatedPath(lang);
 
         .menu nav {
             flex-direction: row;
-            a {
-                font-size: 1rem;
-            }
+            justify-content: center;
+            align-items: center;
 
             a::after {
                 content: "";
             }
+        }
+
+        .menu nav a {
+            font-size: 1rem;
+            padding: 0 0;
         }
     }
 </style>

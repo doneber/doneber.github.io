@@ -7,17 +7,28 @@ interface Props {
 }
 
 const { shortDescription, fullDescription } = Astro.props;
+
+import buttonBackgroundImage from "@/assets/button-bg.svg";
 ---
 
 <div class="bio box">
     <div class="bio-content">
         <h1>@doneber</h1>
-        <p class="bio-text">
-            {shortDescription}
-            <br />
-            {fullDescription}
-        </p>
-        <a href="mailto:contact@doneber.dev" class="contact-btn">
+        <div>
+            <img src={avatar.src} class="bio-image" alt="Avatar" width="80" />
+
+            <p class="bio-text">
+                {shortDescription}
+                <br />
+                {fullDescription}
+            </p>
+        </div>
+
+        <a
+            href="mailto:contact@doneber.dev"
+            class="contact-btn"
+            style={{ "background-image": `url(${buttonBackgroundImage.src})` }}
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -34,21 +45,16 @@ const { shortDescription, fullDescription } = Astro.props;
             Contact me
         </a>
     </div>
-    <div class="bio-image">
-        <img src={avatar.src} alt="Avatar" width="80" />
+    <div class="see-more">
+        <a href="/about">Ver mas</a>
     </div>
-    <a href="/about" class="see-more">Ver mas ></a>
 </div>
 
 <style>
-    .bio {
+    .bio-content {
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
-    }
-
-    .bio-content {
-        flex: 1;
     }
 
     .bio h1 {
@@ -68,7 +74,6 @@ const { shortDescription, fullDescription } = Astro.props;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        background: var(--text-color);
         color: var(--bg-container);
         padding: 0.5rem 1rem;
         border-radius: 8px;
@@ -77,28 +82,20 @@ const { shortDescription, fullDescription } = Astro.props;
         transition: transform 0.1s;
     }
 
+    a.contact-btn {
+        background-size: cover;
+    }
+
     .contact-btn:hover {
         transform: scale(1.05);
     }
 
     .bio-image {
+        float: right;
         padding: 1rem;
-        background: transparent;
         border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         min-height: 50%;
         transform: rotate(-4deg);
-    }
-
-    .see-more {
-        position: absolute;
-        bottom: 1rem;
-        right: 1rem;
-        font-size: 0.9rem;
-        color: var(--accent-blue);
-        text-decoration: none;
-        font-weight: bold;
+        width: 120px;
     }
 </style>

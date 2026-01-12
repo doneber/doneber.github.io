@@ -139,6 +139,35 @@ const { currentLocale } = Astro;
                 line-height: 1.2;
                 font-family: "Excalifont", sans-serif;
             }
+
+            p {
+                text-wrap: balance;
+            }
+
+            .see-more {
+                margin-top: auto;
+                font-size: 0.9rem;
+                color: var(--accent-blue);
+                font-weight: bold;
+                text-align: end;
+                display: flex;
+                justify-content: end;
+                transform: translate(10px, 15px);
+
+                a {
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    text-decoration: underline;
+                    text-underline-offset: 3px;
+                    text-decoration-thickness: 2px;
+                }
+
+                a::after {
+                    content: " >";
+                }
+            }
         </style>
 
         <!-- Google tag (gtag.js) -->

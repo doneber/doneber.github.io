@@ -98,20 +98,19 @@ const translatePath = useTranslatedPath(lang);
   }
 
   .container {
+    height: 100dvh;
+    padding: 2rem;
     display: grid;
     grid-template-columns: 1.3fr 5px 0.7fr;
-    grid-template-rows: auto 5px auto 5px auto 5px auto 5px auto 5px auto;
+    grid-template-rows: 1.5fr 5px auto 5px auto 5px auto 5px auto 5px auto;
     gap: 0;
     overflow: hidden;
   }
 
   :global(.box) {
     padding: 1.5rem;
-    border-bottom: none;
-    border-right: none;
     display: flex;
     flex-direction: column;
-    position: relative;
   }
 
   .line-img {
@@ -160,6 +159,10 @@ const translatePath = useTranslatedPath(lang);
   }
   .line-vertical {
     grid-area: line-vertical;
+    transform: rotate(0.05deg);
+    svg {
+      height: 105%;
+    }
   }
   .line-horizontal-1 {
     grid-area: line-horizontal-1;
@@ -181,8 +184,10 @@ const translatePath = useTranslatedPath(lang);
     display: none;
   }
   /* Responsive Adjustments */
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     .container {
+      height: auto;
+      padding: 0rem;
       grid-template-columns: 1fr;
       grid-template-rows: repeat(6, auto 5px) auto;
       grid-template-areas:
