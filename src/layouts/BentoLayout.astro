@@ -110,7 +110,7 @@ const { currentLocale } = Astro;
                 inset: 0;
                 background-image: var(--paperTexture);
                 background-repeat: repeat;
-                opacity: var(--paper-opacity);
+                /* opacity: var(--paper-opacity); */
                 pointer-events: none;
                 z-index: -1;
             }
@@ -119,6 +119,11 @@ const { currentLocale } = Astro;
                 --primary-bg: #222;
                 --primary-text: #eee;
                 --paper-opacity: 0;
+                --accent-blue: #549eff;
+
+                & body::before {
+                    filter: invert(1);
+                }
             }
 
             html.dark a {

@@ -7,67 +7,62 @@ import linkedin from "@/assets/social/linkedin.svg";
 import tiktok from "@/assets/social/tiktok.svg";
 import x from "@/assets/social/x.svg";
 import youtube from "@/assets/social/youtube.svg";
+
+const social = [
+    {
+        name: "YouTube",
+        url: "https://youtube.com/@doneber",
+        icon: youtube,
+    },
+    {
+        name: "Facebook",
+        url: "https://facebook.com",
+        icon: facebook,
+    },
+    {
+        name: "LinkedIn",
+        url: "https://linkedin.com",
+        icon: linkedin,
+    },
+    {
+        name: "GitHub",
+        url: "https://github.com/doneber",
+        icon: github,
+    },
+    {
+        name: "TikTok",
+        url: "https://tiktok.com/@doneberdev",
+        icon: tiktok,
+    },
+    {
+        name: "Twitter",
+        url: "https://twitter.com/@doneberdev",
+        icon: x,
+    },
+    {
+        name: "Instagram",
+        url: "https://instagram.com/doneberdev",
+        icon: instagram,
+    },
+    {
+        name: "Discord",
+        url: "https://discord.com/invite/5ak7sZpC4t",
+        icon: discord,
+    },
+];
 ---
 
 <div class="social box">
     <h2>Mis Redes Sociales</h2>
     <div class="social-grid">
-        <a
-            href="https://youtube.com/@doneber"
-            target="_blank"
-            aria-label="YouTube"
-        >
-            <img src={youtube.src} width="32" height="32" alt="YouTube" />
-            <span>YouTube</span>
-        </a>
-        <a href="https://facebook.com" target="_blank" aria-label="Facebook">
-            <img src={facebook.src} width="32" height="32" alt="Facebook" />
-            <span>Facebook</span>
-        </a>
-        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
-            <img src={linkedin.src} width="32" height="32" alt="LinkedIn" />
-            <span>LinkedIn</span>
-        </a>
-        <a
-            href="https://github.com/doneber"
-            target="_blank"
-            aria-label="GitHub"
-        >
-            <img src={github.src} width="32" height="32" alt="GitHub" />
-            <span>GitHub</span>
-        </a>
-        <a
-            href="https://tiktok.com/@doneberdev"
-            target="_blank"
-            aria-label="TikTok"
-        >
-            <img src={tiktok.src} width="32" height="32" alt="TikTok" />
-            <span>TikTok</span>
-        </a>
-        <a
-            href="https://twitter.com/@doneberdev"
-            target="_blank"
-            aria-label="Twitter"
-        >
-            <img src={x.src} width="32" height="32" alt="Twitter" />
-            <span>Twitter</span>
-        </a>
-        <a
-            href="https://instagram.com/doneberdev"
-            target="_blank"
-            aria-label="Instagram"
-        >
-            <img src={instagram.src} width="32" height="32" alt="Instagram" />
-            <span>Instagram</span>
-        </a>
-        <a
-            href="https://discord.com/invite/5ak7sZpC4t"
-            target="_blank"
-            aria-label="Discord"
-        >
-            <img src={discord.src} width="32" height="32" alt="Discord" />
-            <span>Discord</span>
-        </a>
+        {
+            social.map((social) => (
+                <a href={social.url} target="_blank" aria-label={social.name}>
+                    <social.icon width="32" height="32" />
+                    <span>{social.name}</span>
+                </a>
+            ))
+        }
     </div>
 </div>
 
