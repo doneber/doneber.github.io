@@ -3,13 +3,19 @@ import BaseHead from "@/components/BaseHead.astro";
 import paperTexture from "@/assets/paper-texture.jpg";
 import BorderDark from "@/assets/border-dark.svg";
 import BorderLight from "@/assets/border-light.svg";
-import Corner from "@/assets/corner.svg";
+import CornerTopRight from "@/assets/corner-top-right.svg";
+import CornerTopLeft from "@/assets/corner-top-left.svg";
+import HomeSmile from "@/assets/home-smile.svg";
 
 import ThemeIcon from "@/components/ThemeIcon.astro";
 import LanguagePicker from "@/components/LanguagePicker.astro";
 
 const { title, description } = Astro.props;
 const { currentLocale } = Astro;
+const isHome =
+    Astro.url.pathname === "/" ||
+    Astro.url.pathname === "/en" ||
+    Astro.url.pathname === "/en/";
 ---
 
 <!doctype html>
@@ -93,30 +99,15 @@ const { currentLocale } = Astro;
             }
 
             :root {
-                --primary-bg: #f1f1f1;
+                --primary-bg: #fff;
                 --primary-text: #444;
-                --link-color: #549eff;
-                --paper-opacity: 0.8;
-            }
-
-            :root {
-                --bg-page: #fcfcfc;
                 --bg-container: #ffffff;
-                --border-color: #000000;
                 --text-color: #000000;
+                --link-color: #0066cc;
                 --accent-blue: #0066cc;
-                --box-bg: transparent;
-                --hover-bg: #f0f0f0;
-            }
+                --paper-opacity: 0.8;
 
-            :global(.dark) :root {
-                --primary-bg: #333;
-                --bg-page: #161e33;
-                --bg-container: #10151d;
-                --border-color: #4a5568;
-                --text-color: #ffffff;
-                --accent-blue: #549eff;
-                --hover-bg: #1e293b;
+                --border-line: #c0c0c0;
             }
 
             html {
@@ -132,6 +123,7 @@ const { currentLocale } = Astro;
                 display: grid;
                 place-items: center;
                 height: 100dvh;
+                min-height: 100dvh;
             }
             .mark {
                 position: relative;
@@ -143,6 +135,7 @@ const { currentLocale } = Astro;
 
                 width: 100%;
                 height: 100dvh;
+                min-height: 100dvh;
             }
 
             .dark .mark {
@@ -161,23 +154,21 @@ const { currentLocale } = Astro;
                 pointer-events: none;
                 z-index: -1;
             }
-            #mybutton {
-                background-color: red;
-            }
-
             html.dark {
                 --primary-bg: #333;
                 --primary-text: #eee;
                 --paper-opacity: 0;
                 --accent-blue: #549eff;
 
+                --border-line: #666666aa;
+
                 & body::before {
                     filter: invert(1);
                 }
-            }
 
-            html.dark a {
-                color: var(--link-color);
+                & a {
+                    color: var(--link-color);
+                }
             }
 
             h1 {
@@ -224,6 +215,7 @@ const { currentLocale } = Astro;
                     content: " >";
                 }
             }
+
             /* Responsive Adjustments */
             @media (max-width: 1000px) {
                 body {
@@ -236,6 +228,63 @@ const { currentLocale } = Astro;
             }
         </style>
 
+        <style>
+            .corner-top-right {
+                position: absolute;
+                top: -25px;
+                right: -25px;
+                z-index: 999;
+                width: 100px;
+                height: auto;
+
+                & svg {
+                    height: 100%;
+                }
+            }
+            /* Responsive Adjustments */
+            @media (max-width: 1000px) {
+                .corner-top-right {
+                    top: -12.9px !important;
+                    right: -12.6px !important;
+                }
+            }
+        </style>
+
+        <style>
+            .corner-top-left {
+                position: absolute;
+                top: -25px;
+                left: -25px;
+                z-index: 99;
+                width: 50px;
+                height: 50px;
+
+                & svg {
+                    height: 100%;
+                }
+            }
+
+            a.home-link {
+                position: absolute;
+                width: 2rem;
+                padding: 5px;
+                margin-top: 0.2rem;
+                margin-left: 0.2rem;
+                display: block;
+                top: 0;
+            }
+
+            .home-link :global(svg) {
+                height: 100%;
+            }
+
+            @media (max-width: 1000px) {
+                .corner-top-left {
+                    top: -12px !important;
+                    left: -12px !important;
+                }
+            }
+        </style>
         <!-- Google tag (gtag.js) -->
         <script
             async
@@ -250,7 +299,7 @@ const { currentLocale } = Astro;
             gtag("config", "G-WJSJQ78QYQ");
         </script>
     </head>
-    <body>
+    <body style={!isHome ? "height: max-content" : ""}>
         <style>
             .options {
                 display: flex;
@@ -268,19 +317,15 @@ const { currentLocale } = Astro;
             <LanguagePicker />
             <ThemeIcon />
         </div>
-        <div class="mark">
-            <Corner
-                style={{
-                    position: "absolute",
-                    // top: "-12px",
-                    // right: "-15px",
-                    top: "-25",
-                    right: "-25",
-                    zIndex: 1000,
-                    width: "100px",
-                    height: "auto",
-                }}
-            />
+        <div class="mark" style={!isHome ? "height: max-content" : ""}>
+            <div class="corner-top-left" style={isHome ? "display: none" : ""}>
+                <CornerTopLeft />
+                <a href="/" class="home-link">
+                    <HomeSmile />
+                </a>
+            </div>
+
+            <CornerTopRight class="corner-top-right" />
             <slot />
         </div>
     </body>

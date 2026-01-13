@@ -17,9 +17,10 @@ const translatePath = useTranslatedPath(lang);
         <!-- <ThemeIcon /> -->
     </div>
     <nav>
-        <a href={translatePath("/blog")}>{t("nav.blog")}</a>
         <a href={translatePath("/about")}>{t("nav.about")}</a>
+        <a href={translatePath("/blog")}>{t("nav.blog")}</a>
         <a href={translatePath("/portfolio")}>{t("nav.portfolio")}</a>
+        <!-- <a href={translatePath("/setup")}>{t("nav.setup")}</a> -->
     </nav>
 </div>
 
@@ -69,6 +70,7 @@ const translatePath = useTranslatedPath(lang);
     /* Responsive Adjustments */
     @media (max-width: 1000px) {
         .menu {
+            padding-top: 0.25rem;
             flex-direction: row-reverse;
             justify-content: space-between;
         }
