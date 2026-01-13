@@ -1,6 +1,6 @@
 {
   "HOME": {
-    "SHORT_DESCRIPTION": "Programo cosas y hago videos.",
+    "SHORT_DESCRIPTION": "Programo cosas y creo contenido.",
     "BLOG_TITLE": "Artículos recientes",
     "VIDEOS_TITLE": "Videos recientes",
     "COMMUNITY_TITLE": "Comunidad",
@@ -31,26 +31,33 @@
     "PROJECTS_TITLE": "Proyectos",
     "PROJECTS_LIST": [
       {
-        "PROJECT_NAME": "LinkHub",
-        "DESCRIPTION": "Centralizador de enlaces web lanzado en 2024. Ha sido visitado en 6 países y su construcción está documentada en YouTube.",
-        "URL": "https://linkhub.doneber.dev",
-        "LOGO_PATH": "/images/projects/linkhub-logo.webp",
-        "REPOSITORY": "https://github.com/username/linkhub",
-        "VIDEO_TUTORIAL": "https://youtube.com/playlist?list=PL1234567890"
+        "PROJECT_NAME": "Uwuntu OS",
+        "DESCRIPTION": "Plataforma de cursos de programación desarrollada con Nuxt, Vue y Vuetify. Incluye aspectos de copywriting y UX/UI.",
+        "URL": "https://uwuntu.doneber.dev",
+        "LOGO_PATH": "/images/projects/uwuntu-logo.webp",
+        "REPOSITORY": "https://github.com/username/enfocate-academy"
       },
       {
-        "PROJECT_NAME": "Virtual Hug",
+        "PROJECT_NAME": "Hugs Company",
         "DESCRIPTION": "Generador de mensajes de felicitación con 10.000 usuarios únicos y 69.000 visitas en 71 países.",
         "URL": "https://hug.doneber.dev",
         "LOGO_PATH": "/images/projects/hug-logo.webp",
         "REPOSITORY": "https://github.com/username/virtualhug"
       },
       {
-        "PROJECT_NAME": "Enfocate Academy",
+        "PROJECT_NAME": "Enfocate School",
         "DESCRIPTION": "Plataforma de cursos de programación desarrollada con Nuxt, Vue y Vuetify. Incluye aspectos de copywriting y UX/UI.",
         "URL": "https://enfocate.doneber.dev",
-        "LOGO_PATH": "/images/projects/uwuntu-logo.webp",
+        "LOGO_PATH": "/images/projects/enfocate-school-logo.png",
         "REPOSITORY": "https://github.com/username/enfocate-academy"
+      },
+      {
+        "PROJECT_NAME": "Link Hub",
+        "DESCRIPTION": "Centralizador de enlaces web lanzado en 2024. Ha sido visitado en 6 países y su construcción está documentada en YouTube.",
+        "URL": "https://linkhub.doneber.dev",
+        "LOGO_PATH": "/images/projects/linkhub-logo.webp",
+        "REPOSITORY": "https://github.com/username/linkhub",
+        "VIDEO_TUTORIAL": "https://youtube.com/playlist?list=PL1234567890"
       }
     ],
     "ABOUT_TITLE": "Sobre mí",
@@ -64,7 +71,6 @@
     "PROFESIONAL_EXPERIENCE_DESCRIPTION": "He tenido la oportunidad de trabajar en la Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación como desarrollador fullstack, donde profundicé mi experiencia en tecnologías como JavaScript, NodeJs, React, Next.js y Nest.js, además de fortalecer mis habilidades en control de versiones con Git y GitHub.",
     "EDUCATION_TITLE": "Educación",
     "EDUCATION_DESCRIPTION": "Mi formación académica incluye una licenciatura en Informática, donde adquirí una base sólida en principios de programación, sistemas de información y desarrollo de software.",
-    "SKILLS_TITLE": "Habilidades y Especializaciones",
     "PROFESIONAL_PERSONAL_INTERESTS_TITLE": "Intereses Personales y Profesionales",
     "PROFESIONAL_PERSONAL_INTERESTS_DESCRIPTION": "En mi tiempo libre, disfruto practicar Volleyball y ejercitarme en el gimnasio. Estas actividades no solo me ayudan a mantenerme en forma, sino también a cultivar la disciplina y el trabajo en equipo, cualidades esenciales tanto en el deporte como en el desarrollo de software.",
     "MOTIVATION_OBJECTIVES_TITLE": "Motivaciones y Objetivos",
@@ -78,32 +84,32 @@
     "TITLE": "Setup",
     "COMPONENTS": [
       {
-        "TITLE_COMPONENT":"Escritorio de Madera",
-        "DESCRIPTION_COMPONENT":"Conexión con la naturaleza y soporte sólido para mis dispositivos."
+        "TITLE_COMPONENT": "Escritorio de Madera",
+        "DESCRIPTION_COMPONENT": "Conexión con la naturaleza y soporte sólido para mis dispositivos."
       },
       {
-        "TITLE_COMPONENT":"Monitor LG Retro",
-        "DESCRIPTION_COMPONENT":"124x768 píxeles, perfecto para todas mis necesidades de visualización."
+        "TITLE_COMPONENT": "Monitor LG Retro",
+        "DESCRIPTION_COMPONENT": "124x768 píxeles, perfecto para todas mis necesidades de visualización."
       },
       {
-        "TITLE_COMPONENT":"Teclado y Mouse",
-        "DESCRIPTION_COMPONENT":"Duraderos y confiables, soportan el uso diario intensivo."
+        "TITLE_COMPONENT": "Teclado y Mouse",
+        "DESCRIPTION_COMPONENT": "Duraderos y confiables, soportan el uso diario intensivo."
       },
       {
-        "TITLE_COMPONENT":"Auriculares Simples",
-        "DESCRIPTION_COMPONENT":"Calidad de sonido inmersiva para programar, escuchar música o ver películas."
+        "TITLE_COMPONENT": "Auriculares Simples",
+        "DESCRIPTION_COMPONENT": "Calidad de sonido inmersiva para programar, escuchar música o ver películas."
       },
       {
-        "TITLE_COMPONENT":"Laptop con Procesador i3",
-        "DESCRIPTION_COMPONENT":"Equipada para el rendimiento con 4GB de RAM, múltiples conexiones y cámara integrada."
+        "TITLE_COMPONENT": "Laptop con Procesador i3",
+        "DESCRIPTION_COMPONENT": "Equipada para el rendimiento con 4GB de RAM, múltiples conexiones y cámara integrada."
       },
       {
-        "TITLE_COMPONENT":"Distribución de Arch de Linux",
-        "DESCRIPTION_COMPONENT":"Optimización de recursos con una interfaz ligera y eficiente."
+        "TITLE_COMPONENT": "Distribución de Arch de Linux",
+        "DESCRIPTION_COMPONENT": "Optimización de recursos con una interfaz ligera y eficiente."
       },
       {
-        "TITLE_COMPONENT":"Silla de Plástico Cervecera",
-        "DESCRIPTION_COMPONENT":"Comodidad sin lujos, ideal para largas horas de trabajo."
+        "TITLE_COMPONENT": "Silla de Plástico Cervecera",
+        "DESCRIPTION_COMPONENT": "Comodidad sin lujos, ideal para largas horas de trabajo."
       }
     ],
     "MESSAGE": "Este setup, aunque sencillo, me ha permitido desarrollar proyectos, aprender y crear contenido efectivamente. ¡Lo importante no es el costo, sino cómo lo utilizas!"

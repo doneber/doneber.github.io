@@ -31,26 +31,33 @@
     "PROJECTS_TITLE": "Projects",
     "PROJECTS_LIST": [
       {
+        "PROJECT_NAME": "Uwuntu OS",
+        "DESCRIPTION": "Plataforma de cursos de programación desarrollada con Nuxt, Vue y Vuetify. Incluye aspectos de copywriting y UX/UI.",
+        "URL": "https://uwuntu.doneber.dev",
+        "LOGO_PATH": "/images/projects/uwuntu-logo.webp",
+        "REPOSITORY": "https://github.com/username/enfocate-academy"
+      },
+      {
+        "PROJECT_NAME": "Hugs Company",
+        "DESCRIPTION": "Greeting message generator with 10,000 unique users and 69,000 visits across 71 countries.",
+        "URL": "https://hugs.company",
+        "LOGO_PATH": "/images/projects/hug-logo.webp",
+        "REPOSITORY": "https://github.com/username/virtualhug"
+      },
+      {
+        "PROJECT_NAME": "Enfocate School",
+        "DESCRIPTION": "Programming course platform developed with Nuxt, Vue, and Vuetify. Includes elements of copywriting and UX/UI.",
+        "URL": "https://enfocate.doneber.dev",
+        "LOGO_PATH": "/images/projects/enfocate-school-logo.png",
+        "REPOSITORY": "https://github.com/username/enfocate-academy"
+      },
+      {
         "PROJECT_NAME": "LinkHub",
         "DESCRIPTION": "Web link centralizer launched in 2024. It has been visited in 6 countries, and its development is documented on YouTube.",
         "URL": "https://linkhub.doneber.dev",
         "LOGO_PATH": "/images/projects/linkhub-logo.webp",
         "REPOSITORY": "https://github.com/username/linkhub",
         "VIDEO_TUTORIAL": "https://youtube.com/playlist?list=PL1234567890"
-      },
-      {
-        "PROJECT_NAME": "Virtual Hug",
-        "DESCRIPTION": "Greeting message generator with 10,000 unique users and 69,000 visits across 71 countries.",
-        "URL": "https://hug.doneber.dev",
-        "LOGO_PATH": "/images/projects/hug-logo.webp",
-        "REPOSITORY": "https://github.com/username/virtualhug"
-      },
-      {
-        "PROJECT_NAME": "Enfocate Academy",
-        "DESCRIPTION": "Programming course platform developed with Nuxt, Vue, and Vuetify. Includes elements of copywriting and UX/UI.",
-        "URL": "https://enfocate.doneber.dev",
-        "LOGO_PATH": "/images/projects/uwuntu-logo.webp",
-        "REPOSITORY": "https://github.com/username/enfocate-academy"
       }
     ],
     "ABOUT_TITLE": "About Me",
@@ -64,7 +71,6 @@
     "PROFESIONAL_EXPERIENCE_DESCRIPTION": "I have had the opportunity to work at the Electronic Government and Information and Communication Technologies Agency as a fullstack developer, where I deepened my experience in technologies such as JavaScript, NodeJs, React, Next.js and Nest.js, in addition to strengthening my control skills. of versions with Git and GitHub.",
     "EDUCATION_TITLE": "Education",
     "EDUCATION_DESCRIPTION": "My academic background includes a bachelor's degree in Computer Science, where I acquired a solid foundation in programming principles, information systems, and software development.",
-    "SKILLS_TITLE": "Skills and Specializations",
     "PROFESIONAL_PERSONAL_INTERESTS_TITLE": "Personal and Professional Interests",
     "PROFESIONAL_PERSONAL_INTERESTS_DESCRIPTION": "En mi tiempo libre, disfruto practicar Volleyball y ejercitarme en el gimnasio. Estas actividades no solo me ayudan a mantenerme en forma, sino también a cultivar la disciplina y el trabajo en equipo, cualidades esenciales tanto en el deporte como en el desarrollo de software.",
     "MOTIVATION_OBJECTIVES_TITLE": "Motivations and Objectives",

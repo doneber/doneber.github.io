@@ -130,14 +130,21 @@ const { currentLocale } = Astro;
                 color: var(--link-color);
             }
 
-            h1,
+            h1 {
+                font-size: 2.5rem;
+                margin: 0 0 1rem 0;
+                font-weight: bold;
+                font-family: "Excalifont", sans-serif;
+            }
+
             h2,
             h3,
             h4,
             h5,
             h6 {
-                line-height: 1.2;
+                font-size: 1.5rem;
                 font-family: "Excalifont", sans-serif;
+                margin-bottom: 1rem;
             }
 
             p {
@@ -152,7 +159,6 @@ const { currentLocale } = Astro;
                 text-align: end;
                 display: flex;
                 justify-content: end;
-                transform: translate(10px, 15px);
 
                 a {
                     text-decoration: none;

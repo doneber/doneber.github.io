@@ -4,7 +4,7 @@ import squareDraw from "@/assets/square-draw.svg";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
-const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
+const projects = i18n.PORTFOLIO.PROJECTS_LIST;
 ---
 
 <div class="projects box">
@@ -24,7 +24,7 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
         }
     </div>
     <div class="see-more">
-        <a href="/portfolio">Ver mas</a>
+        <a href="/portfolio">Ver portafolio</a>
     </div>
 </div>
 
@@ -37,7 +37,6 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
 
     .project-list {
         display: flex;
-        justify-content: space-around;
         gap: 1rem;
         flex-wrap: wrap;
     }
@@ -61,10 +60,12 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST.slice(0, 3);
         background-repeat: no-repeat;
         background-size: cover;
         padding: 7px;
+        filter: contrast(1.2);
     }
 
     .project-item span {
         font-size: 0.8rem;
         font-weight: bold;
+        line-height: 1.1;
     }
 </style>

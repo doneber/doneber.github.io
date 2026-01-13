@@ -46,21 +46,20 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
         </a>
     </div>
     <div class="see-more">
-        <a href="/about">Ver mas</a>
+        <a href="/about">Sobre mí</a>
     </div>
 </div>
 
 <style>
+    h1 {
+        transform: rotate(-0.2deg);
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
     .bio-content {
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
-    }
-
-    .bio h1 {
-        font-size: 2.5rem;
-        margin: 0 0 1rem 0;
-        font-weight: bold;
     }
 
     .bio-text {
@@ -68,6 +67,7 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
         line-height: 1.5;
         margin-bottom: 2rem;
         max-width: 90%;
+        transform: rotate(-0.1deg);
     }
 
     .contact-btn {
@@ -80,6 +80,7 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
         text-decoration: none;
         font-weight: bold;
         transition: transform 0.1s;
+        transform: rotate(0.5deg);
     }
 
     a.contact-btn {
@@ -95,7 +96,11 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
         padding: 1rem;
         border-radius: 12px;
         min-height: 50%;
-        transform: rotate(-4deg);
-        width: 120px;
+        transform: rotate(-5deg);
+        width: 140px;
+    }
+
+    html.dark .bio-image {
+        filter: contrast(1.5);
     }
 </style>

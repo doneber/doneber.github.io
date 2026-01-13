@@ -50,7 +50,7 @@ const videos = allVideos.slice(0, 3);
                 <a href={video.link} target="_blank" class="video-item">
                     <div
                         class="video-thumb"
-                        style={`background-color: #222; background-image: url(${video.thumbnail || ""}); background-size: cover;`}
+                        style={`background-image: url(${video.thumbnail || ""}); background-size: cover; background-position: center;`}
                     />
                     <span class="video-title">{video.title}</span>
                 </a>
@@ -63,22 +63,15 @@ const videos = allVideos.slice(0, 3);
 </div>
 
 <style>
-    .videos h2 {
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        font-weight: bold;
-    }
-
     .video-list {
         display: flex;
         gap: 1rem;
-        margin-top: 1rem;
-        flex-wrap: wrap;
+        padding-right: 5rem;
     }
 
     .video-item {
         flex: 1;
-        min-width: 150px;
+        min-width: 100px;
         text-decoration: none;
         color: inherit;
     }
@@ -98,5 +91,10 @@ const videos = allVideos.slice(0, 3);
         -webkit-box-orient: vertical;
         overflow: hidden;
         font-weight: bold;
+    }
+    @media (max-width: 1000px) {
+        .video-list {
+            padding-right: 0rem;
+        }
     }
 </style>

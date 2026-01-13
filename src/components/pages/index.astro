@@ -31,43 +31,41 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<BentoLayout title="Doneber" description={i18n.HOME.SHORT_DESCRIPTION}>
-  <main>
-    <div class="container">
-      <BioSection
-        shortDescription={i18n.HOME.SHORT_DESCRIPTION}
-        fullDescription={i18n.ABOUT.DESCRIPTION}
-      />
-      <MenuSection />
-      <ProjectsSection />
-      <BlogSection />
-      <VideosSection />
-      <FooterSection />
-      <SocialSection />
-      <div class="line-vertical">
-        <LineVertical />
-      </div>
-      <div class="line-horizontal-1">
-        <LineHorizontal1 />
-      </div>
-      <div class="line-horizontal-2">
-        <LineHorizontal2 />
-      </div>
-      <div class="line-horizontal-3">
-        <LineHorizontal3 />
-      </div>
-      <div class="line-horizontal-4">
-        <LineHorizontal1 />
-      </div>
-      <div class="line-horizontal-5">
-        <LineHorizontal5 />
-      </div>
-      <div class="line-horizontal-6">
-        <LineHorizontal1 />
-      </div>
+<main>
+  <div class="container">
+    <BioSection
+      shortDescription={i18n.HOME.SHORT_DESCRIPTION}
+      fullDescription={i18n.ABOUT.DESCRIPTION}
+    />
+    <MenuSection />
+    <ProjectsSection />
+    <BlogSection />
+    <VideosSection />
+    <FooterSection />
+    <SocialSection />
+    <div class="line-vertical">
+      <LineVertical />
     </div>
-  </main>
-</BentoLayout>
+    <div class="line-horizontal-1">
+      <LineHorizontal1 />
+    </div>
+    <div class="line-horizontal-2">
+      <LineHorizontal2 />
+    </div>
+    <div class="line-horizontal-3">
+      <LineHorizontal3 />
+    </div>
+    <div class="line-horizontal-4">
+      <LineHorizontal1 />
+    </div>
+    <div class="line-horizontal-5">
+      <LineHorizontal5 />
+    </div>
+    <div class="line-horizontal-6">
+      <LineHorizontal1 />
+    </div>
+  </div>
+</main>
 
 <style>
   :root {
@@ -99,29 +97,9 @@ const translatePath = useTranslatedPath(lang);
 
   .container {
     height: 100dvh;
-    padding: 2rem;
+    box-sizing: border-box;
+    padding: 1rem 2rem 2rem;
     display: grid;
-    grid-template-columns: 1.3fr 5px 0.7fr;
-    grid-template-rows: 1.5fr 5px auto 5px auto 5px auto 5px auto 5px auto;
-    gap: 0;
-    overflow: hidden;
-  }
-
-  :global(.box) {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .line-img {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    display: block;
-  }
-
-  /* Grid Areas */
-  .container {
     grid-template-areas:
       "bio               line-vertical menu"
       "bio               line-vertical line-horizontal-1"
@@ -134,6 +112,24 @@ const translatePath = useTranslatedPath(lang);
       "videos            line-vertical social"
       "videos            line-vertical line-horizontal-5"
       "videos            line-vertical footer";
+    grid-template-columns: 7fr 5px 1fr;
+    grid-template-rows: auto 5px auto 5px auto 5px auto 5px 1fr 5px 1fr;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  :global(.box) {
+    padding: 1.5rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .line-img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
   }
 
   :global(.bio) {
@@ -159,16 +155,17 @@ const translatePath = useTranslatedPath(lang);
   }
   .line-vertical {
     grid-area: line-vertical;
-    transform: rotate(0.05deg);
     svg {
-      height: 105%;
+      height: 100%;
     }
   }
   .line-horizontal-1 {
     grid-area: line-horizontal-1;
+    transform: translateX(-6px);
   }
   .line-horizontal-2 {
     grid-area: line-horizontal-2;
+    transform: translateX(8px);
   }
 
   .line-horizontal-3 {
