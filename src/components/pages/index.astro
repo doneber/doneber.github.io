@@ -68,27 +68,9 @@ const translatePath = useTranslatedPath(lang);
 </main>
 
 <style>
-  :root {
-    --bg-page: #fcfcfc;
-    --bg-container: #ffffff;
-    --border-color: #000000;
-    --text-color: #000000;
-    --accent-blue: #0066cc;
-    --box-bg: transparent;
-    --hover-bg: #f0f0f0;
-  }
-
-  :global(.dark) :root {
-    --bg-page: #161e33;
-    --bg-container: #10151d;
-    --border-color: #4a5568;
-    --text-color: #ffffff;
-    --accent-blue: #549eff;
-    --hover-bg: #1e293b;
-  }
-
   main {
     max-width: 1200px;
+    height: 100%;
     margin: 0 auto;
     transition:
       background-color 0.3s,
@@ -96,7 +78,7 @@ const translatePath = useTranslatedPath(lang);
   }
 
   .container {
-    height: 100dvh;
+    height: 100%;
     box-sizing: border-box;
     padding: 1rem 2rem 2rem;
     display: grid;
