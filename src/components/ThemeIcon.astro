@@ -47,7 +47,11 @@
     localStorage.setItem("theme", isDark ? "dark" : "light");
   };
 
+  // TODO: Fix theme changer not working because astro view transitions
+  // Setup button click handler after page load
+  // document.addEventListener("astro:page-load", () => {
   document
     .getElementById("themeToggle")
     .addEventListener("click", handleToggleClick);
+  // });
 </script>

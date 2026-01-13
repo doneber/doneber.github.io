@@ -1,6 +1,6 @@
 {
   "HOME": {
-    "SHORT_DESCRIPTION": "Programo cosas y creo contenido.",
+    "SHORT_DESCRIPTION": "Desarrollador Fullstack",
     "BLOG_TITLE": "Artículos recientes",
     "VIDEOS_TITLE": "Videos recientes",
     "COMMUNITY_TITLE": "Comunidad",
@@ -66,7 +66,7 @@
   },
   "ABOUT": {
     "TITLE": "Sobre mí",
-    "DESCRIPTION": "Mi nombre es Eber, soy un apasionado desarrollador de software con un enfoque especial en tecnologías JavaScript. Me dedico a crear contenido educativo y de valor en las redes sociales más populares, buscando siempre compartir conocimiento y fomentar el aprendizaje colaborativo",
+    "DESCRIPTION": "Mi nombre es Eber, programador fullstack con experiencia en el ecosistema de JavaScript. Me encanta desarrollar aplicaciones únicas que respondan a necesidades reales. Además suelo crear contenido educativo en mis redes sociales.",
     "PROFESIONAL_EXPERIENCE_TITLE": "Experiencia Profesional",
     "PROFESIONAL_EXPERIENCE_DESCRIPTION": "He tenido la oportunidad de trabajar en la Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación como desarrollador fullstack, donde profundicé mi experiencia en tecnologías como JavaScript, NodeJs, React, Next.js y Nest.js, además de fortalecer mis habilidades en control de versiones con Git y GitHub.",
     "EDUCATION_TITLE": "Educación",

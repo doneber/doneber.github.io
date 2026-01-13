@@ -17,9 +17,10 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
         <div>
             <img src={avatar.src} class="bio-image" alt="Avatar" width="80" />
 
-            <p class="bio-text">
+            <p class="short-description">
                 {shortDescription}
-                <br />
+            </p>
+            <p class="bio-text">
                 {fullDescription}
             </p>
         </div>
@@ -54,12 +55,19 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
     h1 {
         transform: rotate(-0.2deg);
         font-size: 3rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0;
     }
     .bio-content {
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
+    }
+
+    .short-description {
+        font-size: 1.3rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+        max-width: 90%;
     }
 
     .bio-text {
@@ -104,3 +112,97 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
         filter: contrast(1.5);
     }
 </style>
+
+<script>
+    function applyLineVariation(
+        selector: string,
+        maxOffset: number = 20,
+        minOffset: number = 0,
+        verticalVariation: number = 1,
+    ): void {
+        const container = document.querySelector<HTMLElement>(selector);
+        if (!container) return;
+
+        const text = container.textContent || "";
+        const fragment = document.createDocumentFragment();
+
+        // Pre-calcular offsets verticales para reutilizar (evita Math.random en loop)
+        const letterOffsets: number[] = [];
+        const totalChars = text.length;
+        for (let i = 0; i < totalChars; i++) {
+            letterOffsets[i] = (Math.random() - 0.5) * 2 * verticalVariation;
+        }
+
+        // Single pass: construir todo en una pasada
+        let charIndex = 0;
+        let wordSpan: HTMLSpanElement | null = null;
+        const wordSpans: HTMLSpanElement[] = [];
+
+        for (let i = 0; i < totalChars; i++) {
+            const char = text[i];
+
+            if (char === " " || char === "\n" || char === "\t") {
+                if (wordSpan) {
+                    fragment.appendChild(wordSpan);
+                    wordSpans.push(wordSpan);
+                    wordSpan = null;
+                }
+                fragment.appendChild(document.createTextNode(char));
+            } else {
+                if (!wordSpan) {
+                    wordSpan = document.createElement("span");
+                    wordSpan.style.display = "inline-block";
+                }
+
+                const letterSpan = document.createElement("span");
+                letterSpan.textContent = char;
+                letterSpan.style.cssText = `display:inline-block;transform:translateY(${letterOffsets[charIndex++]}px)`;
+                wordSpan.appendChild(letterSpan);
+            }
+        }
+
+        if (wordSpan) {
+            fragment.appendChild(wordSpan);
+            wordSpans.push(wordSpan);
+        }
+
+        container.textContent = ""; // Más rápido que innerHTML = ''
+        container.appendChild(fragment);
+
+        // Batch read: leer todas las posiciones de una vez (un solo reflow)
+        requestAnimationFrame(() => {
+            const len = wordSpans.length;
+            if (len === 0) return;
+
+            // Leer todas las posiciones en un solo pase
+            const tops = new Float32Array(len);
+            for (let i = 0; i < len; i++) {
+                tops[i] = wordSpans[i].getBoundingClientRect().top;
+            }
+
+            // Batch write: aplicar transforms
+            let currentTop = tops[0];
+            let offset = 0;
+            let isFirst = true;
+
+            for (let i = 0; i < len; i++) {
+                const top = tops[i];
+
+                // Nueva línea detectada
+                if (Math.abs(top - currentTop) > 5) {
+                    currentTop = top;
+                    offset = isFirst
+                        ? 0
+                        : minOffset + Math.random() * (maxOffset - minOffset);
+                    isFirst = false;
+                }
+
+                wordSpans[i].style.transform = `translateX(${offset}px)`;
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        applyLineVariation(".bio-text", 7, 0, 0.4);
+    });
+</script>
