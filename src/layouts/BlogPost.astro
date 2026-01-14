@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
+import BentoLayout from "@/layouts/BentoLayout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import SectionContainer from "@/components/portfolio/SectionContainer.astro";
 
@@ -9,7 +9,7 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<Layout title={title} description={description}>
+<BentoLayout title={title} description={description}>
 
   <main>
     <SectionContainer>
@@ -37,4 +37,4 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     </article>
     </SectionContainer>
   </main>
-</Layout>
+</BentoLayout>

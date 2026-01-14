@@ -31,6 +31,28 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 
+<script is:inline>
+	(function () {
+		// Get theme from localStorage or system preference
+		const storedTheme = localStorage.getItem("theme");
+		const systemPrefersDark = window.matchMedia(
+			"(prefers-color-scheme: dark)",
+		).matches;
+		const theme = storedTheme || (systemPrefersDark ? "dark" : "light");
+
+		// Apply theme immediately to prevent flash
+		if (theme === "dark") {
+			document.documentElement.classList.add("dark");
+		}
+	})();
+</script>
+
+<script>
+	import { applyTheme } from "@/utils/theme";
+	// Re-apply theme after View Transitions swap
+	document.addEventListener("astro:after-swap", applyTheme);
+</script>
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
