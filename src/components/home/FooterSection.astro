@@ -1,9 +1,8 @@
----
-// Footer section component
----
-
 <div class="footer box">
-    <p>Todos los derechos reservados (y los izquierdos también :D)</p>
+    <div>
+        <p class="copy">Todos los derechos reservados</p>
+        <p>(y los izquierdos también :D)</p>
+    </div>
 </div>
 
 <style>
@@ -14,8 +13,11 @@
         font-size: 0.9rem;
         opacity: 0.8;
     }
-    p {
+    div {
         transform: rotate(-1deg);
         text-align: center;
+    }
+    .copy {
+        font-size: 1.1rem;
     }
 </style>

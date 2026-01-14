@@ -95,6 +95,11 @@ const videos = allVideos.slice(0, 3);
     @media (max-width: 1000px) {
         .video-list {
             padding-right: 0rem;
+            flex-wrap: wrap;
+        }
+
+        .video-item:last-child {
+            display: none;
         }
     }
 </style>

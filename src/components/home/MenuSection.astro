@@ -12,10 +12,7 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<div class="menu box">
-    <div class="theme-toggle">
-        <!-- <ThemeIcon /> -->
-    </div>
+<div class="box">
     <nav>
         <a href={translatePath("/about")}>{t("nav.about")}</a>
         <a href={translatePath("/blog")}>{t("nav.blog")}</a>
@@ -25,22 +22,7 @@ const translatePath = useTranslatedPath(lang);
 </div>
 
 <style>
-    .menu {
-        padding: 1rem 1.5rem;
-        max-height: 200px;
-        gap: 0.3rem;
-    }
-
-    .theme-toggle {
-        text-align: right;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        justify-content: end;
-        gap: 1rem;
-    }
-
-    .menu nav {
+    nav {
         display: flex;
         flex-direction: column;
         gap: 0.8rem;
@@ -51,7 +33,7 @@ const translatePath = useTranslatedPath(lang);
         }
     }
 
-    .menu nav a {
+    nav a {
         width: fit-content;
         padding: 0 1rem;
         text-decoration: none;
@@ -69,23 +51,21 @@ const translatePath = useTranslatedPath(lang);
     }
     /* Responsive Adjustments */
     @media (max-width: 1000px) {
-        .menu {
-            padding-top: 0.25rem;
-            flex-direction: row-reverse;
-            justify-content: space-between;
+        .box {
+            padding-top: 0.5rem;
+            padding-right: 100px;
         }
-
-        .menu nav {
+        nav {
             flex-direction: row;
-            justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
 
             a::after {
                 content: "";
             }
         }
 
-        .menu nav a {
+        nav a {
             font-size: 1rem;
             padding: 0 0;
         }

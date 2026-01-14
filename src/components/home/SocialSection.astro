@@ -71,7 +71,7 @@ const social = [
         /* height: 100%; */
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 1.5rem;
+        row-gap: 1.5rem;
         column-gap: 2rem;
         justify-items: center;
         place-content: center;
@@ -101,5 +101,11 @@ const social = [
     .social-grid a[aria-label="Discord"] svg,
     .social-grid a[aria-label="YouTube"] svg {
         border-radius: 6px;
+    }
+    @media (max-width: 1000px) {
+        .social-grid {
+            row-gap: 1rem;
+            column-gap: 0.5rem;
+        }
     }
 </style>
