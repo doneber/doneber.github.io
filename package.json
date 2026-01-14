@@ -10,10 +10,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.6",
-    "@astrojs/rss": "4.0.14",
+    "@astrojs/check": "0.9.6-beta.1",
+    "@astrojs/rss": "4.0.15-beta.1",
     "@types/xml2js": "^0.4.14",
-    "astro": "5.16.8",
+    "astro": "6.0.0-beta.1",
     "typescript": "^5.3.3",
     "xml2js": "^0.6.2"
   }
