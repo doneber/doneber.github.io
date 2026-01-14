@@ -102,7 +102,7 @@ const isHome =
 
             :root {
                 --primary-bg: #fff;
-                --primary-text: #444;
+                --primary-text: #333;
                 --bg-container: #ffffff;
                 --text-color: #000000;
                 --link-color: #0066cc;
@@ -156,6 +156,63 @@ const isHome =
                 pointer-events: none;
                 z-index: -1;
             }
+
+            body::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                z-index: 9;
+                background-image: 
+                    /* Líneas gruesas cada 5 cuadros */
+                    linear-gradient(
+                        rgba(128, 128, 128, 0.05) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(128, 128, 128, 0.05) 1px,
+                        transparent 1px
+                    ),
+                    /* Líneas finas */
+                    linear-gradient(
+                            rgba(128, 128, 128, 0.04) 1px,
+                            transparent 1px
+                        ),
+                    linear-gradient(
+                        90deg,
+                        rgba(128, 128, 128, 0.04) 1px,
+                        transparent 1px
+                    );
+                background-size:
+                    100px 100px,
+                    100px 100px,
+                    20px 20px,
+                    20px 20px;
+            }
+            html.dark body::after {
+                background-image:
+                    linear-gradient(
+                        rgba(255, 255, 255, 0.016) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0.016) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(rgba(55, 55, 55, 0.1) 1px, transparent 1px),
+                    linear-gradient(
+                        90deg,
+                        rgba(55, 55, 55, 0.1) 1px,
+                        transparent 1px
+                    );
+                background-size:
+                    100px 100px,
+                    100px 100px,
+                    20px 20px,
+                    20px 20px;
+            }
             html.dark {
                 --primary-bg: #333;
                 --primary-text: #eee;
@@ -166,10 +223,6 @@ const isHome =
 
                 & body::before {
                     filter: invert(1);
-                }
-
-                & a {
-                    color: var(--link-color);
                 }
             }
 
@@ -192,6 +245,11 @@ const isHome =
 
             p {
                 text-wrap: balance;
+                opacity: 0.9;
+            }
+
+            a {
+                color: var(--accent-blue);
             }
 
             .see-more {

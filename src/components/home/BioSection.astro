@@ -15,11 +15,11 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
     <div class="bio-content">
         <h1>@doneber</h1>
         <div>
-            <img src={avatar.src} class="bio-image" alt="Avatar" width="80" />
-
-            <p class="short-description">
+            <h3 class="short-description">
                 {shortDescription}
-            </p>
+            </h3>
+            <img src={avatar.src} class="bio-image" alt="Avatar" width="120" />
+
             <p class="bio-text">
                 {fullDescription}
             </p>
@@ -65,7 +65,7 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
 
     .short-description {
         font-size: 1.3rem;
-        line-height: 1.3;
+        line-height: 1.4;
         margin-bottom: 1rem;
         max-width: 90%;
     }
@@ -91,6 +91,14 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
         transform: rotate(0.5deg);
     }
 
+    html.dark .contact-btn {
+        filter: invert(0.95);
+    }
+    html.dark .contact-btn:hover {
+        filter: invert(1);
+        transform: scale(1.05);
+    }
+
     a.contact-btn {
         background-size: cover;
     }
@@ -102,10 +110,18 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
     .bio-image {
         float: right;
         padding: 1rem;
+        padding-top: 0;
         border-radius: 12px;
         min-height: 50%;
         transform: rotate(-5deg);
         width: 140px;
+    }
+
+    @media (max-width: 1000px) {
+        .bio-image {
+            width: 120px;
+            padding-top: 2rem;
+        }
     }
 
     html.dark .bio-image {
