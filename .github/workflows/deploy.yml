@@ -22,11 +22,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      # CORRECCIÓN: Se eliminó el bloque 'with' vacío
+
+      # ✅ Node 22 explícito (requerido por Astro)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # ✅ Bun como package manager
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # ✅ Astro detecta Bun automáticamente
       - name: Install, build, and upload
         uses: withastro/action@v3
-        # La acción detecta automáticamente node, pnpm/npm/bun y la carpeta
 
   deploy:
     needs: build
