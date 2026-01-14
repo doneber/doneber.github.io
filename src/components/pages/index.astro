@@ -31,7 +31,7 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<main>
+<main transition:animate="slide">
   <div class="container">
     <BioSection
       shortDescription={i18n.HOME.SHORT_DESCRIPTION}

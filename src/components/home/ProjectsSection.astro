@@ -36,9 +36,11 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST;
     }
 
     .project-list {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
         gap: 1rem;
-        flex-wrap: wrap;
+        place-content: center;
+        place-items: center;
     }
 
     .project-item {
@@ -67,5 +69,12 @@ const projects = i18n.PORTFOLIO.PROJECTS_LIST;
         font-size: 0.8rem;
         font-weight: bold;
         line-height: 1.1;
+    }
+
+    @media (max-width: 1000px) {
+        .project-list {
+            gap: 0.1rem;
+            margin-bottom: 1rem;
+        }
     }
 </style>

@@ -20,7 +20,7 @@ const isHome =
 ---
 
 <!doctype html>
-<html lang={currentLocale}>
+<html lang={currentLocale} transition:animate="none">
     <head>
         <ClientRouter />
         <BaseHead title={title} description={description} />
@@ -166,22 +166,22 @@ const isHome =
                 background-image: 
                     /* Líneas gruesas cada 5 cuadros */
                     linear-gradient(
-                        rgba(128, 128, 128, 0.05) 1px,
+                        rgba(128, 128, 128, 0.06) 1px,
                         transparent 1px
                     ),
                     linear-gradient(
                         90deg,
-                        rgba(128, 128, 128, 0.05) 1px,
+                        rgba(128, 128, 128, 0.06) 1px,
                         transparent 1px
                     ),
                     /* Líneas finas */
                     linear-gradient(
-                            rgba(128, 128, 128, 0.04) 1px,
+                            rgba(128, 128, 128, 0.05) 1px,
                             transparent 1px
                         ),
                     linear-gradient(
                         90deg,
-                        rgba(128, 128, 128, 0.04) 1px,
+                        rgba(128, 128, 128, 0.05) 1px,
                         transparent 1px
                     );
                 background-size:

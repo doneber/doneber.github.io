@@ -6,7 +6,7 @@ const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
-<main>
+<main transition:animate="slide">
   <SectionContainer id="about-me">
     <h1>{i18n.ABOUT.TITLE}</h1>
     <img
