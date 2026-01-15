@@ -2,7 +2,13 @@
 
 ---
 
-<button id="themeToggle" data-theme-toggle aria-label="Toggle theme">
+<button
+  id="themeToggle"
+  data-theme-toggle
+  aria-label="Toggle theme"
+  title="Toggle theme"
+  class="bright"
+>
   <svg width="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496"
     ><path
       fill="var(--primary-text)"
@@ -12,11 +18,17 @@
 </button>
 
 <style>
-  #themeToggle {
+  button {
     width: 2.5rem;
     border: 0;
     background: none;
     cursor: pointer;
+    transition: filter 0.1s ease-in-out;
+  }
+  button:hover {
+    filter: drop-shadow(
+      0 0 10px color-mix(in srgb, var(--primary-text), transparent 10%)
+    );
   }
 </style>
 

@@ -35,12 +35,6 @@ const i18n = getI18N({ currentLocale });
 </main>
 
 <style>
-  h3,
-  h4 {
-    font-family: monospace !important;
-    color: red !important;
-  }
-
   html {
     /* Always dark mode */
     & body {
@@ -57,7 +51,6 @@ const i18n = getI18N({ currentLocale });
     & body:after {
       content: "";
       position: absolute;
-      width: 100vw;
       height: 100%;
       top: 0;
       left: 0;
@@ -65,10 +58,10 @@ const i18n = getI18N({ currentLocale });
       animation: dotScroll 6s linear infinite;
       background-image: radial-gradient(
         circle,
-        rgba(255, 255, 255, 0.1) 2px,
+        color-mix(in srgb, var(--primary-text), transparent 85%) 2px,
         transparent 0
       ) !important;
-      background-size: calc(14.2857142857% - 1px) 100px;
+      background-size: calc(14.2857142857% - 1px) 100px !important;
       background-position: -60px 0;
     }
   }

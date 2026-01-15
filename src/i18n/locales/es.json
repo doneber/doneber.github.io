@@ -12,6 +12,14 @@
     "EXPERIENCE_TITLE": "Experiencia",
     "EXPERIENCE_LIST": [
       {
+        "TITLE_JOB": "Ingeniero Frontend",
+        "DESCRIPTION_JOB": "Desarrollé interfaces de usuario, optimizando el rendimiento y la accesibilidad de las aplicaciones web. También implementé estándares de desarrollo del equipo.",
+        "COMPANY_NAME": "NVD",
+        "LOCATION": "",
+        "START_DATE": "",
+        "END_DATE": ""
+      },
+      {
         "TITLE_JOB": "Desarrollador Fullstack",
         "DESCRIPTION_JOB": "Desarrollé un sistema de publicación para entidades gubernamentales y ayudé en la implementación del sistema de recursos humanos. También optimicé la organización y el flujo de trabajo del equipo.",
         "COMPANY_NAME": "AGETIC",
@@ -32,7 +40,7 @@
     "PROJECTS_LIST": [
       {
         "PROJECT_NAME": "Uwuntu OS",
-        "DESCRIPTION": "Plataforma de cursos de programación desarrollada con Nuxt, Vue y Vuetify. Incluye aspectos de copywriting y UX/UI.",
+        "DESCRIPTION": "Sistema Operativo basado en Ubuntu Linux con terminal integrada usando únicamente tecnologías web.",
         "URL": "https://uwuntu.doneber.dev",
         "LOGO_PATH": "/images/projects/uwuntu-logo.webp",
         "REPOSITORY": "https://github.com/username/enfocate-academy"

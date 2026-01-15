@@ -32,10 +32,11 @@ const posts = (await getCollection("blog"))
 
 <style>
     .blog .post-list {
-    }
+        padding-left: 1.5rem;
 
-    .blog .post-list li {
-        margin-bottom: 1rem;
+        & li {
+            margin-bottom: 0.5rem;
+        }
     }
 
     .blog .post-list a {
@@ -46,6 +47,7 @@ const posts = (await getCollection("blog"))
         &:hover {
             text-decoration: underline;
             text-underline-offset: 5px;
+            transform: scale(1.005);
         }
     }
 

@@ -8,7 +8,7 @@ import CornerTopLeft from "@/assets/corner-top-left.svg";
 import HomeSmile from "@/assets/home-smile.svg";
 import { ClientRouter } from "astro:transitions";
 
-import ThemeIcon from "@/components/ThemeIcon.astro";
+import ThemeToggleButton from "@/components/ThemeToggleButton.astro";
 import LanguagePicker from "@/components/LanguagePicker.astro";
 
 import { type Language } from "@/i18n/ui.ts";
@@ -32,6 +32,8 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
     <head>
         <ClientRouter />
         <BaseHead title={title} description={description} />
+
+        <!-- TODO: organize global styles better -->
         <style is:global>
             /* Modern CSS Reset */
             *,
@@ -80,6 +82,26 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
             h5,
             h6 {
                 overflow-wrap: break-word;
+            }
+            .bio-image {
+                float: right;
+                padding: 1rem;
+                padding-top: 0;
+                border-radius: 12px;
+                min-height: 50%;
+                transform: rotate(-5deg);
+                width: 140px;
+            }
+
+            @media (max-width: 1000px) {
+                .bio-image {
+                    width: 120px;
+                    padding-top: 2rem;
+                    padding-bottom: 0;
+                }
+            }
+            html.dark .bio-image {
+                filter: contrast(1.5);
             }
         </style>
 
@@ -268,6 +290,27 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
                 color: var(--accent-blue);
             }
 
+            a {
+                transition: transform 0.1s ease-in-out;
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+            .bright {
+                width: 2.5rem;
+                border: 0;
+                background: none;
+                cursor: pointer;
+                transition: filter 0.1s ease-in-out;
+            }
+            .bright:hover {
+                transform: scale(1);
+                filter: drop-shadow(
+                    0 0 10px
+                        color-mix(in srgb, var(--primary-text), transparent 10%)
+                );
+            }
+
             .see-more {
                 margin-top: auto;
                 font-size: 0.9rem;
@@ -279,6 +322,8 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
 
                 a {
                     text-decoration: none;
+                    padding: 0.25rem 0.5rem;
+                    display: inline-block;
                 }
 
                 a:hover {
@@ -300,6 +345,9 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
                 .mark {
                     height: max-content;
                     border-width: 15px;
+                }
+                .see-more {
+                    margin-top: 1rem;
                 }
             }
         </style>
@@ -391,7 +439,7 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
         </style>
         <div class="options">
             <LanguagePicker />
-            <ThemeIcon />
+            <ThemeToggleButton />
         </div>
         <div class="mark" style={!isHome ? "height: max-content" : ""}>
             <div class="corner-top-left" style={isHome ? "display: none" : ""}>

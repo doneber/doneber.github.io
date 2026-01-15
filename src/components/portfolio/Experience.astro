@@ -7,12 +7,22 @@ const i18n = getI18N({ currentLocale });
 ---
 
 <h2>{i18n.PORTFOLIO.EXPERIENCE_TITLE}</h2>
-    <ul>
-      {
-        i18n.PORTFOLIO.EXPERIENCE_LIST.map((exp) => (
-          <li>
-            <JobCard job={exp.TITLE_JOB} company={exp.COMPANY_NAME} description={exp.DESCRIPTION_JOB} />
-          </li>
-        ))
-      }
+<ul>
+  {
+    i18n.PORTFOLIO.EXPERIENCE_LIST.map((exp) => (
+      <li>
+        <JobCard
+          job={exp.TITLE_JOB}
+          company={exp.COMPANY_NAME}
+          description={exp.DESCRIPTION_JOB}
+        />
+      </li>
+    ))
+  }
 </ul>
+
+<style>
+  li {
+    padding-bottom: 0.5rem;
+  }
+</style>

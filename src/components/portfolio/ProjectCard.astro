@@ -40,7 +40,10 @@ const { title, description, logoPath, url } = Astro.props;
   .container-card {
     display: grid;
     grid-template-rows: 120px 2em 4em 2em;
-    padding: 0.5rem;
+    padding: 1rem 2rem;
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+    }
   }
 
   .logo-container {
