@@ -1,6 +1,4 @@
 ---
-import avatar from "@/assets/avatar.png";
-
 interface Props {
     shortDescription: string;
     fullDescription: string;
@@ -9,6 +7,7 @@ interface Props {
 const { shortDescription, fullDescription } = Astro.props;
 
 import buttonBackgroundImage from "@/assets/button-bg.svg";
+import Character from "@/components/Character.astro";
 ---
 
 <div class="bio box">
@@ -18,8 +17,7 @@ import buttonBackgroundImage from "@/assets/button-bg.svg";
             <h3 class="short-description">
                 {shortDescription}
             </h3>
-            <img src={avatar.src} class="bio-image" alt="Avatar" width="120" />
-
+            <Character />
             <p class="bio-text">
                 {fullDescription}
             </p>

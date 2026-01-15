@@ -1,19 +1,21 @@
 ---
 import { getI18N } from "@/i18n";
 import SectionContainer from "../portfolio/SectionContainer.astro";
-import avatar from "@/assets/avatar.png";
-
+import Character from "@/components/Character.astro";
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
 <main transition:animate="slide">
   <SectionContainer id="about-me">
-    <h1>{i18n.ABOUT.TITLE}</h1>
-    <img src={avatar.src} width="120" alt="Foto de perfil" class="bio-image" />
-    <p>
-      {i18n.ABOUT.DESCRIPTION}
-    </p>
+    <div>
+      <h1>{i18n.ABOUT.TITLE}</h1>
+
+      <Character />
+      <p>
+        {i18n.ABOUT.DESCRIPTION}
+      </p>
+    </div>
     <h3>
       {i18n.ABOUT.PROFESIONAL_EXPERIENCE_TITLE}
     </h3>
