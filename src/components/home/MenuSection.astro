@@ -1,13 +1,12 @@
 ---
-import ThemeIcon from "@/components/ThemeIcon.astro";
-import LanguagePicker from "@/components/LanguagePicker.astro";
 import {
     getLangFromUrl,
     useTranslations,
     useTranslatedPath,
 } from "@/i18n/utils.ts";
+import { type Language } from "@/i18n/ui.ts";
 
-const lang = getLangFromUrl(Astro.url);
+const lang = (Astro.currentLocale as Language) || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---

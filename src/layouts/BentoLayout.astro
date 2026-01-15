@@ -11,12 +11,20 @@ import { ClientRouter } from "astro:transitions";
 import ThemeIcon from "@/components/ThemeIcon.astro";
 import LanguagePicker from "@/components/LanguagePicker.astro";
 
+import { type Language } from "@/i18n/ui.ts";
+import {
+    getLangFromUrl,
+    useTranslatedPath,
+    getRouteFromUrl,
+} from "@/i18n/utils.ts";
+
 const { title, description } = Astro.props;
 const { currentLocale } = Astro;
-const isHome =
-    Astro.url.pathname === "/" ||
-    Astro.url.pathname === "/en" ||
-    Astro.url.pathname === "/en/";
+
+const lang = (currentLocale as Language) || getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+
+const isHome = getRouteFromUrl(Astro.url) === "/";
 ---
 
 <!doctype html>
@@ -380,7 +388,7 @@ const isHome =
         <div class="mark" style={!isHome ? "height: max-content" : ""}>
             <div class="corner-top-left" style={isHome ? "display: none" : ""}>
                 <CornerTopLeft />
-                <a href="/" class="home-link">
+                <a href={translatePath("/")} class="home-link">
                     <HomeSmile />
                 </a>
             </div>

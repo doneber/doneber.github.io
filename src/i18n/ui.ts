@@ -7,17 +7,20 @@ export const defaultLang = 'es';
 
 export const ui = {
   es: {
-    'nav.home':'Inicio',
-    'nav.blog':'Blog',
-    'nav.portfolio':'Portafolio',
-    'nav.about':'Sobre mí',
-    'nav.setup':'Mi Setup'
+    'nav.home': 'Inicio',
+    'nav.blog': 'Blog',
+    'nav.portfolio': 'Portafolio',
+    'nav.about': 'Sobre mí',
+    'nav.setup': 'Mi Setup'
   },
   en: {
-    'nav.home':'Home',
-    'nav.blog':'Blog',
-    'nav.portfolio':'Portfolio',
-    'nav.about':'About me',
-    'nav.setup':'My Setup'
+    'nav.home': 'Home',
+    'nav.blog': 'Blog',
+    'nav.portfolio': 'Portfolio',
+    'nav.about': 'About me',
+    'nav.setup': 'My Setup'
   },
 } as const;
+
+export type Language = keyof typeof languages;
+export type UiKey = keyof typeof ui[typeof defaultLang];
