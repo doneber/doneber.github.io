@@ -241,6 +241,8 @@ const translatePath = useTranslatedPath(lang);
       display: none;
     }
   }
+
+  /* Prevent FOUC: Handled by BentoLayout critical CSS */
 </style>
 
 <script>
@@ -249,30 +251,54 @@ const translatePath = useTranslatedPath(lang);
 
   gsap.registerPlugin(ScrollTrigger);
 
-  function setupLineAnimation() {
+  function setupAnimations() {
     const isDesktop = matchMedia("(min-width: 1001px)").matches;
 
-    // Reset any existing triggers to avoid duplication on re-runs
+    // Reset any existing triggers
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
+    // --- ELEMENTS SELECTION ---
+    // Lines
     const allPaths = document.querySelectorAll(
       '.line-vertical svg path, [class^="line-horizontal-"] svg path',
     );
 
-    // Initial setup: hide all lines
+    // Sections (Desktop) - Excluding lines
+    const desktopSections = document.querySelectorAll(
+      '.neo-left > :not([class^="line-"]), .neo > :not([class^="line-"])',
+    );
+
+    // Sections (Mobile)
+    const mobileSections = document.querySelectorAll(
+      '.neo-mobile > :not([class^="line-"])',
+    );
+
+    // --- INITIAL STATES ---
+    // Hide Lines
     allPaths.forEach((line) => {
       const path = line as SVGPathElement;
-      // Check if visible to avoid errors on hidden elements (display: none)
-      if (path.getBBox) {
-        const length = path.getTotalLength();
-        gsap.set(path, {
-          strokeDasharray: length,
-          strokeDashoffset: length,
-          opacity: 1,
-        });
+      if (path.getTotalLength) {
+        try {
+          const length = path.getTotalLength();
+          gsap.set(path, {
+            strokeDasharray: length,
+            strokeDashoffset: length,
+            opacity: 1,
+          });
+        } catch (e) {
+          console.warn("GSAP: Could not measure path length", line);
+        }
       }
     });
 
+    // Hide Sections (Desktop & Mobile)
+    const allSections = [...desktopSections, ...mobileSections];
+    gsap.set(allSections, { opacity: 0 });
+
+    // REVEAL CONTAINER: Content is ready, children are hidden by GSAP, now show the container
+    document.body.classList.add("loaded");
+
+    // --- ANIMATION LOGIC ---
     if (isDesktop) {
       // DESKTOP: Coordinated Timeline
       const tl = gsap.timeline({
@@ -286,64 +312,101 @@ const translatePath = useTranslatedPath(lang);
       // 1. Central Vertical Line
       const verticalLine = document.querySelector(".line-vertical svg path");
 
-      // 2. Horizontal Lines (Left and Right sides)
-      // Select logic based on the specific layout structure
+      // 2. Horizontal Lines
       const horizontalLinesLeft = document.querySelectorAll(
         ".neo-left [class^='line-horizontal-'] svg path",
       );
       const horizontalLinesRight = document.querySelectorAll(
         ".neo [class^='line-horizontal-'] svg path",
       );
-
       const horizontalLines = [...horizontalLinesLeft, ...horizontalLinesRight];
 
       if (verticalLine) {
         tl.to(verticalLine, {
           strokeDashoffset: 0,
-          duration: 1.5,
+          duration: 1.2,
           ease: "power2.inOut",
         });
       }
 
       if (horizontalLines.length > 0) {
-        // Animate horizontal lines starting slightly before vertical line finishes
+        // Overlap slightly with vertical line
         tl.to(
           horizontalLines,
           {
             strokeDashoffset: 0,
-            duration: 1.2,
-            stagger: 0.1, // Sequential delay
+            duration: 1,
+            stagger: 0.1,
             ease: "power2.out",
           },
-          "-=1.0",
-        ); // Overlap with vertical line animation
+          "-=0.8",
+        );
+      }
+
+      if (desktopSections.length > 0) {
+        // Sections fade in one by one (Pure Fade)
+        tl.to(
+          desktopSections,
+          {
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+          },
+          "<",
+        ); // Start same time as horizontal lines
       }
     } else {
-      // MOBILE: ScrollTrigger per element (Stack behavior)
-      // Only select visible lines in the mobile layout to avoid animating hidden desktop ones
+      // MOBILE: Individual ScrollTriggers
+
+      // 1. Lines
       const mobileLines = document.querySelectorAll(
         ".neo-mobile [class^='line-horizontal-'] svg path, .neo-mobile .line-vertical svg path",
       );
-
       mobileLines.forEach((line) => {
         const path = line as SVGPathElement;
-
         gsap.to(path, {
           strokeDashoffset: 0,
-          duration: 1.5,
+          duration: 1.2,
           ease: "power2.out",
           scrollTrigger: {
             trigger: path.closest("div"),
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+            start: "top 95%",
+            toggleActions: "play none none none",
+          },
+        });
+      });
+
+      // 2. Sections
+      mobileSections.forEach((section) => {
+        gsap.to(section, {
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 95%",
+            toggleActions: "play none none none",
           },
         });
       });
     }
   }
 
-  // Run on load and after view transitions
-  setupLineAnimation();
+  // Run after all resources (images, fonts) are loaded for the initial visit
+  if (document.readyState === "complete") {
+    setupAnimations();
+  } else {
+    window.addEventListener("load", setupAnimations);
+  }
 
-  document.addEventListener("astro:after-swap", setupLineAnimation);
+  // Re-run after view transitions (Astro's navigation)
+  document.addEventListener("astro:after-swap", setupAnimations);
+
+  // Safety Fallback: Ensure page is visible if something hangs
+  setTimeout(() => {
+    if (!document.body.classList.contains("loaded")) {
+      document.body.classList.add("loaded");
+    }
+  }, 3000);
 </script>

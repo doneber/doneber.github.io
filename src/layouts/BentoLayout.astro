@@ -33,6 +33,10 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
         <ClientRouter />
         <BaseHead title={title} description={description} />
 
+        <!-- Preload Critical Assets -->
+        <link rel="preload" as="image" href={BorderDark.src} />
+        <link rel="preload" as="image" href={BorderLight.src} />
+
         <!-- TODO: organize global styles better -->
         <style is:global>
             /* Modern CSS Reset */
@@ -104,6 +108,23 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
                 borderLight: `url("${BorderLight.src}")`,
             }}
         >
+            /* Critical CSS: Start hidden to prevent FOUC */
+            body:not(.loaded) .container {
+                opacity: 0;
+                visibility: hidden;
+            }
+            body.loaded .container {
+                opacity: 1;
+                visibility: visible;
+                transition: opacity 0.5s ease-out;
+            }
+
+            /* No-JS Fallback */
+            noscript body .container {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
             @font-face {
                 font-family: "Excalifont";
                 src: url("../assets/fonts/Excalifont-Regular.woff2")
