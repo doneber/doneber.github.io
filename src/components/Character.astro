@@ -14,14 +14,22 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 </div>
 
 <script>
+    import { gsap } from "gsap";
+    import { TextPlugin } from "gsap/TextPlugin";
+
+    gsap.registerPlugin(TextPlugin);
+
     interface BubbleState {
         element: HTMLDivElement | null;
+        textElement: HTMLDivElement | null;
         hideTimeout: number | null;
         currentMessageIndex: number;
         isVisible: boolean;
+        timeline: GSAPTimeline | null;
+        isTyping: boolean;
     }
 
-    // Función para crear parpadeo natural
+    // Función para crear parpadeo natural con GSAP
     function initBlink(): void {
         const eyeLeft = document.getElementById("eye-open-left") as HTMLElement;
         const eyeRight = document.getElementById(
@@ -31,31 +39,32 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         if (!eyeLeft || !eyeRight) return;
 
         function blink(): void {
-            eyeLeft.style.opacity = "0";
-            eyeRight.style.opacity = "0";
+            const tl = gsap.timeline();
 
-            setTimeout(() => {
-                eyeLeft.style.opacity = "1";
-                eyeRight.style.opacity = "1";
-            }, 150);
+            tl.to([eyeLeft, eyeRight], {
+                opacity: 0,
+                duration: 0.08,
+                ease: "power2.in",
+            }).to([eyeLeft, eyeRight], {
+                opacity: 1,
+                duration: 0.08,
+                ease: "power2.out",
+            });
         }
 
         function scheduleBlink(): void {
             const randomDelay = Math.random() * 4000 + 2000;
 
-            setTimeout(() => {
+            gsap.delayedCall(randomDelay / 1000, () => {
                 blink();
                 scheduleBlink();
-            }, randomDelay);
+            });
         }
-
-        eyeLeft.style.transition = "opacity 0.1s ease";
-        eyeRight.style.transition = "opacity 0.1s ease";
 
         scheduleBlink();
     }
 
-    // Función para mostrar mensaje "hola"
+    // Función para mostrar mensajes con GSAP
     function initSpeechBubble(): void {
         const container = document.querySelector(
             ".bio-image-container",
@@ -66,9 +75,12 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
         const state: BubbleState = {
             element: null,
+            textElement: null,
             hideTimeout: null,
             currentMessageIndex: 0,
             isVisible: false,
+            timeline: null,
+            isTyping: false,
         };
 
         const messagesJSON = container.getAttribute("data-messages");
@@ -76,35 +88,12 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             ? JSON.parse(messagesJSON)
             : [
                   "¡Hola!",
-                  "Estoy casi seguro que antes tenía un sombrero 🎩",
+                  "Estoy seguro que tenía un sombrero",
                   "Hey buuuuddy!",
                   "Ya viste mis proyectos?",
                   "Todo bien?",
                   "¡Qué pasa!",
               ];
-
-        function showBubble(message: string): void {
-            if (!state.element) return;
-
-            state.element.textContent = message;
-            state.element.style.opacity = "1";
-            state.element.style.transform =
-                "translateX(-50%) scale(1) translateY(0)";
-            state.isVisible = true;
-        }
-
-        function hideBubble(callback?: () => void): void {
-            if (!state.element) return;
-
-            state.element.style.opacity = "0";
-            state.element.style.transform =
-                "translateX(-50%) scale(0.8) translateY(-5px)";
-            state.isVisible = false;
-
-            if (callback) {
-                setTimeout(callback, 300);
-            }
-        }
 
         function createBubbleElement(): HTMLDivElement {
             const bubble = document.createElement("div");
@@ -116,25 +105,29 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
                 bottom: "100%",
                 left: "50%",
                 marginBottom: "15px",
-                transform: "translateX(-50%) scale(0) translateY(10px)",
+                transform: "translateX(-50%)",
                 backgroundColor: "#fff",
                 color: "#111",
-                padding: "10px 16px",
-                borderRadius: "16px",
+                padding: "12px 18px",
+                borderRadius: "18px",
                 fontSize: "14px",
                 fontWeight: "600",
                 boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                transition:
-                    "transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.3s ease",
-                zIndex: "10",
-                whiteSpace: "pre-line",
+                zIndex: "9",
+                whiteSpace: "pre-wrap",
                 opacity: "0",
                 pointerEvents: "none",
                 textAlign: "center",
-                lineHeight: "1.3",
-                maxWidth: "180px",
-                minWidth: "80px",
+                lineHeight: "1.4",
+                maxWidth: "240px",
+                minWidth: "120px",
+                wordWrap: "break-word",
             } as Partial<CSSStyleDeclaration>);
+
+            // Elemento para el texto que se va a escribir
+            const textElement = document.createElement("div");
+            textElement.style.minHeight = "1.4em"; // Para evitar saltos de layout
+            bubble.appendChild(textElement);
 
             const tail = document.createElement("div");
             Object.assign(tail.style, {
@@ -152,22 +145,115 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             } as Partial<CSSStyleDeclaration>);
 
             bubble.appendChild(tail);
+
+            // Configurar estado inicial con GSAP
+            gsap.set(bubble, {
+                scale: 0,
+                y: 10,
+                opacity: 0,
+            });
+
+            state.textElement = textElement;
             return bubble;
+        }
+
+        function typeMessage(message: string): void {
+            if (!state.textElement || !state.element) return;
+
+            state.isTyping = true;
+
+            // Limpiar el texto anterior
+            state.textElement.textContent = "";
+
+            // Calcular duración basada en la longitud del mensaje
+            const baseSpeed = 0.04; // segundos por carácter
+            const duration = message.length * baseSpeed;
+
+            // Animar el texto con efecto typewriter
+            gsap.to(state.textElement, {
+                duration: duration,
+                text: {
+                    value: message,
+                    delimiter: "",
+                },
+                ease: "none",
+                onComplete: () => {
+                    state.isTyping = false;
+                },
+            });
+        }
+
+        function showBubble(message: string): void {
+            if (!state.element) return;
+
+            state.isVisible = true;
+
+            // Matar animación anterior si existe
+            if (state.timeline) {
+                state.timeline.kill();
+            }
+
+            // Timeline para la entrada del bocadillo
+            state.timeline = gsap.timeline();
+
+            // Primero aparece el bocadillo
+            state.timeline.to(state.element, {
+                scale: 1,
+                y: 0,
+                opacity: 1,
+                duration: 0.4,
+                ease: "back.out(1.7)",
+                onComplete: () => {
+                    // Después de que aparece, empieza el efecto typewriter
+                    typeMessage(message);
+                },
+            });
+        }
+
+        function hideBubble(callback?: () => void): void {
+            if (!state.element) return;
+
+            state.isVisible = false;
+            state.isTyping = false;
+
+            // Matar animación anterior si existe
+            if (state.timeline) {
+                state.timeline.kill();
+            }
+
+            // Matar animación de texto si existe
+            if (state.textElement) {
+                gsap.killTweensOf(state.textElement);
+            }
+
+            // Animación de salida con GSAP
+            state.timeline = gsap.timeline({
+                onComplete: callback,
+            });
+
+            state.timeline.to(state.element, {
+                scale: 0.8,
+                y: -5,
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.in",
+            });
         }
 
         function showNextMessage(): void {
             state.currentMessageIndex =
                 (state.currentMessageIndex + 1) % messages.length;
 
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    showBubble(messages[state.currentMessageIndex]);
+            showBubble(messages[state.currentMessageIndex]);
 
-                    state.hideTimeout = window.setTimeout(() => {
-                        hideBubble();
-                    }, 2500);
-                });
-            });
+            // Calcular tiempo de espera dinámico basado en longitud del mensaje
+            const message = messages[state.currentMessageIndex];
+            const typingDuration = message.length * 0.04 * 1000; // convertir a ms
+            const readingTime = 2000; // tiempo para leer después de escribir
+
+            state.hideTimeout = window.setTimeout(() => {
+                hideBubble();
+            }, typingDuration + readingTime);
         }
 
         function handleInteraction(e: Event): void {
@@ -186,19 +272,21 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             }
 
             if (state.isVisible) {
+                // Si está escribiendo, cancelar y cambiar al siguiente
                 hideBubble(() => {
                     showNextMessage();
                 });
             } else {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        showBubble(messages[state.currentMessageIndex]);
+                showBubble(messages[state.currentMessageIndex]);
 
-                        state.hideTimeout = window.setTimeout(() => {
-                            hideBubble();
-                        }, 2500);
-                    });
-                });
+                // Calcular tiempo de espera dinámico
+                const message = messages[state.currentMessageIndex];
+                const typingDuration = message.length * 0.04 * 1000;
+                const readingTime = 2000;
+
+                state.hideTimeout = window.setTimeout(() => {
+                    hideBubble();
+                }, typingDuration + readingTime);
             }
         }
 
@@ -224,7 +312,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         init();
     }
 </script>
-
 <style>
     .bio-image-container {
         float: right;
@@ -259,8 +346,7 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
         /* Animación discreta de entrada (balanceo) */
         transform-origin: bottom center;
-        animation: sway 1s ease-out both;
-        animation-iteration-count: 1;
+        animation: 8s ease-out 0s infinite sway;
 
         &:hover {
             transform: rotate(0deg);
@@ -271,17 +357,20 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         0% {
             transform: rotate(0deg);
         }
-        20% {
+        2% {
             transform: rotate(-6deg);
         }
-        40% {
+        4% {
             transform: rotate(6deg);
         }
-        60% {
+        6% {
             transform: rotate(-3deg);
         }
-        80% {
+        8% {
             transform: rotate(2deg);
+        }
+        10% {
+            transform: rotate(0deg);
         }
         100% {
             transform: rotate(0deg);
