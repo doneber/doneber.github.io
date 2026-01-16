@@ -33,36 +33,78 @@ const translatePath = useTranslatedPath(lang);
 
 <main transition:animate="slide">
   <div class="container">
-    <BioSection
-      shortDescription={i18n.HOME.SHORT_DESCRIPTION}
-      fullDescription={i18n.ABOUT.DESCRIPTION}
-    />
-    <MenuSection />
-    <ProjectsSection />
-    <BlogSection />
-    <VideosSection />
-    <FooterSection />
-    <SocialSection />
+    <div class="neo-left">
+      <BioSection
+        shortDescription={i18n.HOME.SHORT_DESCRIPTION}
+        fullDescription={i18n.ABOUT.DESCRIPTION}
+      />
+      <div class="line-horizontal-2">
+        <LineHorizontal2 />
+      </div>
+      <BlogSection />
+      <div class="line-horizontal-4">
+        <LineHorizontal1 />
+      </div>
+      <VideosSection />
+    </div>
     <div class="line-vertical">
       <LineVertical />
     </div>
-    <div class="line-horizontal-1">
-      <LineHorizontal1 />
-    </div>
-    <div class="line-horizontal-2">
-      <LineHorizontal2 />
-    </div>
-    <div class="line-horizontal-3">
-      <LineHorizontal3 />
-    </div>
-    <div class="line-horizontal-4">
-      <LineHorizontal1 />
-    </div>
-    <div class="line-horizontal-5">
-      <LineHorizontal5 />
-    </div>
     <div class="line-horizontal-6">
       <LineHorizontal1 />
+    </div>
+    <!--  -->
+    <div class="neo">
+      <MenuSection />
+      <div class="line-horizontal-1">
+        <LineHorizontal1 />
+      </div>
+      <ProjectsSection />
+      <div class="line-horizontal-3">
+        <LineHorizontal3 />
+      </div>
+      <SocialSection />
+
+      <div class="line-horizontal-5">
+        <LineHorizontal5 />
+      </div>
+      <FooterSection />
+    </div>
+    <div class="neo-mobile">
+      <MenuSection />
+      <div class="line-horizontal-1">
+        <LineHorizontal1 />
+      </div>
+      <BioSection
+        shortDescription={i18n.HOME.SHORT_DESCRIPTION}
+        fullDescription={i18n.ABOUT.DESCRIPTION}
+      />
+      <div class="line-horizontal-2">
+        <LineHorizontal2 />
+      </div>
+
+      <ProjectsSection />
+      <div class="line-horizontal-3">
+        <LineHorizontal3 />
+      </div>
+      <BlogSection />
+      <div class="line-horizontal-4">
+        <LineHorizontal1 />
+      </div>
+      <VideosSection />
+      <div class="line-vertical">
+        <LineVertical />
+      </div>
+      <div class="line-horizontal-6">
+        <LineHorizontal1 />
+      </div>
+
+      <SocialSection />
+
+      <div class="line-horizontal-5">
+        <LineHorizontal5 />
+      </div>
+      <FooterSection />
     </div>
   </div>
 </main>
@@ -73,22 +115,25 @@ const translatePath = useTranslatedPath(lang);
     box-sizing: border-box;
     padding: 1rem 2rem 2rem;
     display: grid;
-    grid-template-areas:
-      "bio               line-vertical menu"
-      "bio               line-vertical line-horizontal-1"
-      "bio               line-vertical projects"
-      "line-horizontal-2 line-vertical projects"
-      "blog              line-vertical projects"
-      "blog              line-vertical line-horizontal-3"
-      "blog              line-vertical social"
-      "line-horizontal-4 line-vertical social"
-      "videos            line-vertical social"
-      "videos            line-vertical line-horizontal-5"
-      "videos            line-vertical footer";
+    grid-template-areas: "neo-left               line-vertical neo";
     grid-template-columns: 7fr 5px 1fr;
-    grid-template-rows: auto 5px auto 5px auto 5px auto 5px 1fr 5px 1fr;
+    /* grid-template-rows: auto 5px auto 5px auto 5px auto 5px 1fr 5px 1fr; */
+    grid-template-rows: 1fr;
     gap: 0;
     overflow: hidden;
+  }
+
+  .neo-left {
+    grid-area: neo-left;
+    height: fit-content;
+  }
+  .neo {
+    grid-area: neo;
+    height: fit-content;
+  }
+
+  .neo-mobile {
+    display: none;
   }
 
   :global(.box) {
@@ -154,7 +199,17 @@ const translatePath = useTranslatedPath(lang);
     display: none;
   }
   /* Responsive Adjustments */
-  @media (max-width: 1000px) {
+  @media (width <= 1000px) {
+    .neo {
+      grid-area: auto;
+      display: none;
+    }
+    .neo-left {
+      display: none;
+    }
+    .neo-mobile {
+      display: block;
+    }
     .container {
       height: auto;
       padding: 0rem;

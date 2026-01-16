@@ -92,7 +92,19 @@ const videos = allVideos.slice(0, 3);
         overflow: hidden;
         font-weight: bold;
     }
-    @media (max-width: 1000px) {
+    @media (width <= 1400px) {
+        .video-list {
+            padding-right: 12rem;
+            flex-wrap: wrap;
+        }
+    }
+    @media (width <= 1280px) {
+        .video-list {
+            padding-right: 8rem;
+            flex-wrap: wrap;
+        }
+    }
+    @media (width <= 1000px) {
         .video-list {
             padding-right: 0rem;
             flex-wrap: wrap;
