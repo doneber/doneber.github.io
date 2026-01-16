@@ -1,7 +1,12 @@
+---
+import { getI18N } from "@/i18n";
+const i18n = getI18N({ currentLocale: Astro.currentLocale });
+---
+
 <div class="footer box">
     <div>
-        <p class="copy">© Todos los derechos reservados</p>
-        <p>(y los izquierdos también :D)</p>
+        <p class="copy">{i18n.HOME.FOOTER.COPYRIGHT}</p>
+        <p>{i18n.HOME.FOOTER.COPYRIGHT_JOKE}</p>
     </div>
 </div>
 

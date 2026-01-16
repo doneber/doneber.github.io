@@ -3,17 +3,21 @@ import BentoLayout from "@/layouts/BentoLayout.astro";
 import { getCollection } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import SectionContainer from "@/components/portfolio/SectionContainer.astro";
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
 
 const posts = (await getCollection("blog")).sort(
 	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
 );
 ---
 
-<BentoLayout title="Sobre mí - doneber.dev">
+<BentoLayout title={i18n.BLOG_PAGE.TITLE}>
 	<main>
 		<SectionContainer>
-			<h1>Publicaciones recientes</h1>
-			<p>Aquí estan mis últimas publicaciones</p>
+			<h1>{i18n.BLOG_PAGE.HEADING}</h1>
+			<p>{i18n.BLOG_PAGE.DESCRIPTION}</p>
 			<ul>
 				{
 					posts.map((post) => (

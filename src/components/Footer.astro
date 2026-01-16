@@ -1,5 +1,16 @@
+---
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
 <footer>
-  <p style="opacity: .85;display:inline-block;color:green;transform:rotate(-4deg);font-family:'Comic Sans MS', 'Comic Sans', 'Papyrus', Courier, Arial;">Design is my passion.</p>
+  <p
+    style="opacity: .85;display:inline-block;color:green;transform:rotate(-4deg);font-family:'Comic Sans MS', 'Comic Sans', 'Papyrus', Courier, Arial;"
+  >
+    {i18n.COMMON.DESIGN_PASSION}
+  </p>
 </footer>
 
 <style>

@@ -8,6 +8,8 @@ const { shortDescription, fullDescription } = Astro.props;
 
 import buttonBackgroundImage from "@/assets/button-bg.svg";
 import Character from "@/components/Character.astro";
+import { getI18N } from "@/i18n";
+const i18n = getI18N({ currentLocale: Astro.currentLocale });
 ---
 
 <div class="bio box">
@@ -41,11 +43,11 @@ import Character from "@/components/Character.astro";
                 ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
                     d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
             >
-            Contact me
+            {i18n.HOME.BIO.CONTACT_ME}
         </a>
     </div>
     <div class="see-more">
-        <a href="/about">Sobre mí</a>
+        <a href="/about">{i18n.HOME.BIO.SEE_MORE}</a>
     </div>
 </div>
 

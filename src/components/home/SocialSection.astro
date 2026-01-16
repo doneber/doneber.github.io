@@ -1,4 +1,7 @@
 ---
+import { getI18N } from "@/i18n";
+const i18n = getI18N({ currentLocale: Astro.currentLocale });
+
 import discord from "@/assets/social/discord.svg";
 import facebook from "@/assets/social/facebook.svg";
 import github from "@/assets/social/github.svg";
@@ -53,7 +56,7 @@ const social = [
 ---
 
 <div class="social box">
-    <h2>Mis Redes Sociales</h2>
+    <h2>{i18n.HOME.SOCIAL.TITLE}</h2>
     <div class="social-grid">
         {
             social.map((social) => (

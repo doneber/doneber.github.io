@@ -1,8 +1,13 @@
 ---
 import Avatar from "@/assets/avatar.svg";
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+const messagesArr = i18n.CHARACTER.MESSAGES;
 ---
 
-<div class="bio-image-container">
+<div class="bio-image-container" data-messages={JSON.stringify(messagesArr)}>
     <div class="bio-image">
         <Avatar />
     </div>
@@ -66,14 +71,17 @@ import Avatar from "@/assets/avatar.svg";
             isVisible: false,
         };
 
-        const messages: readonly string[] = [
-            "¡Hola!",
-            "Estoy casi seguro que antes tenía un sombrero 🎩",
-            "Hey buuuuddy!",
-            "Ya viste mis proyectos?",
-            "Todo bien?",
-            "¡Qué pasa!",
-        ] as const;
+        const messagesJSON = container.getAttribute("data-messages");
+        const messages: string[] = messagesJSON
+            ? JSON.parse(messagesJSON)
+            : [
+                  "¡Hola!",
+                  "Estoy casi seguro que antes tenía un sombrero 🎩",
+                  "Hey buuuuddy!",
+                  "Ya viste mis proyectos?",
+                  "Todo bien?",
+                  "¡Qué pasa!",
+              ];
 
         function showBubble(message: string): void {
             if (!state.element) return;

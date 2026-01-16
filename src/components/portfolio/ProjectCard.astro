@@ -6,13 +6,22 @@ interface Props {
   url: string;
 }
 
+import { getI18N } from "@/i18n";
+
 const { title, description, logoPath, url } = Astro.props;
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
 ---
 
 <article>
   <div class="container-card">
     <div class="logo-container">
-      <img src={logoPath} width="auto" height="70" alt={`Logo de ${title}`} />
+      <img
+        src={logoPath}
+        width="auto"
+        height="70"
+        alt={`${i18n.COMMON.LOGO_ALT} ${title}`}
+      />
     </div>
     <h3 class="title">
       {title}
@@ -21,7 +30,7 @@ const { title, description, logoPath, url } = Astro.props;
       <p class="description">{description}</p>
     </div>
     <footer>
-      <a href={url} class="link" target="_blank">Ver online</a>
+      <a href={url} class="link" target="_blank">{i18n.COMMON.SEE_ONLINE}</a>
     </footer>
   </div>
 </article>

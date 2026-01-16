@@ -1,10 +1,29 @@
 {
   "HOME": {
-    "SHORT_DESCRIPTION": "Fullstack Developer",
-    "BLOG_TITLE": "Recent posts",
-    "VIDEOS_TITLE": "Recent videos",
-    "COMMUNITY_TITLE": "Community",
-    "CONTACT_TITLE": "Contact"
+    "BIO": {
+      "CONTACT_ME": "Contact me",
+      "SEE_MORE": "About me",
+      "SHORT_DESCRIPTION": "Fullstack Developer"
+    },
+    "BLOG": {
+      "SEE_MORE": "See more",
+      "TITLE": "Recent posts"
+    },
+    "FOOTER": {
+      "COPYRIGHT": "© All rights reserved",
+      "COPYRIGHT_JOKE": "(and the left ones too :D)"
+    },
+    "PROJECTS": {
+      "SEE_MORE": "See portfolio",
+      "TITLE": "Projects"
+    },
+    "SOCIAL": {
+      "TITLE": "My Social Networks"
+    },
+    "VIDEOS": {
+      "SEE_MORE": "See more",
+      "TITLE": "Recent videos"
+    }
   },
   "PORTFOLIO": {
     "ROL_NAME": "Fullstack Developer",
@@ -121,5 +140,25 @@
       }
     ],
     "MESSAGE": "This setup, although simple, has allowed me to develop projects, learn and create content effectively. The important thing is not the cost, but how you use it!"
+  },
+  "BLOG_PAGE": {
+    "TITLE": "Blog - doneber.dev",
+    "HEADING": "Recent posts",
+    "DESCRIPTION": "Here are my latest posts"
+  },
+  "CHARACTER": {
+    "MESSAGES": [
+      "Hello!",
+      "I'm almost sure I had a hat before 🎩",
+      "Hey buuuuddy!",
+      "Have you seen my projects?",
+      "Everything okay?",
+      "What's up!"
+    ]
+  },
+  "COMMON": {
+    "SEE_ONLINE": "See online",
+    "DESIGN_PASSION": "Design is my passion.",
+    "LOGO_ALT": "Logo of"
   }
 }

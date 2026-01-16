@@ -1,5 +1,9 @@
 ---
 import { parseStringPromise } from "xml2js";
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
 
 const ID_CHANNEL_PRIMARY = "UCKMWXwHYoy920OFEN_BM5VQ";
 const ID_CHANNEL_SECONDARY = "UCRC7LM5vAZMxS8LSo0PKZng";
@@ -43,7 +47,7 @@ const videos = allVideos.slice(0, 3);
 ---
 
 <div class="videos box">
-    <h2>Videos recientes</h2>
+    <h2>{i18n.HOME.VIDEOS.TITLE}</h2>
     <div class="video-list">
         {
             videos.map((video) => (
@@ -58,7 +62,9 @@ const videos = allVideos.slice(0, 3);
         }
     </div>
     <div class="see-more">
-        <a href="https://youtube.com/@doneber" target="_blank">Ver más </a>
+        <a href="https://youtube.com/@doneber" target="_blank"
+            >{i18n.HOME.VIDEOS.SEE_MORE}</a
+        >
     </div>
 </div>
 

@@ -1,6 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
 
 const NUMBER_LAST_POSTS = 4;
 
@@ -10,7 +14,7 @@ const posts = (await getCollection("blog"))
 ---
 
 <div class="blog box">
-    <h2>Últimos post's</h2>
+    <h2>{i18n.HOME.BLOG.TITLE}</h2>
     <ul class="post-list">
         {
             posts.map((post) => (
@@ -26,7 +30,7 @@ const posts = (await getCollection("blog"))
         }
     </ul>
     <div class="see-more">
-        <a href="/blog">Ver mas</a>
+        <a href="/blog">{i18n.HOME.BLOG.SEE_MORE}</a>
     </div>
 </div>
 
