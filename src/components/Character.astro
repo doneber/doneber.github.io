@@ -237,6 +237,49 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             e.preventDefault();
             handleInteraction(e);
         });
+
+        // --- Mouse Tracking Logic ---
+        const handleMouseMove = (e: MouseEvent | PointerEvent) => {
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            // Calcular diferencia
+            const deltaX = e.clientX - centerX;
+            const deltaY = e.clientY - centerY;
+
+            // Límites y sensibilidad
+            const maxRotation = 15;
+            const range = 500; // Sensibilidad del área de influencia
+
+            // Normalizar valores entre -1 y 1
+            const normX = Math.max(-1, Math.min(1, deltaX / range));
+            const normY = Math.max(-1, Math.min(1, deltaY / range));
+
+            // Aplicar rotación suave con GSAP
+            gsap.to(svg, {
+                rotateY: normX * maxRotation,
+                rotateX: -normY * maxRotation,
+                translateX: normX * 8, // Desplazamiento sutil
+                duration: 0.0001,
+                ease: "power2.out",
+                overwrite: "auto",
+            });
+        };
+
+        const handleMouseLeave = () => {
+            gsap.to(svg, {
+                rotateY: -10, // Volver a la rotación inicial del CSS
+                rotateX: 0,
+                translateX: -5,
+                duration: 1,
+                ease: "elastic.out(1, 0.5)",
+            });
+        };
+
+        window.addEventListener("pointermove", handleMouseMove);
+        // Opcionalmente resetear al salir de la ventana o del contenedor
+        container.addEventListener("mouseleave", handleMouseLeave);
     }
 
     function initAllCharacters() {
