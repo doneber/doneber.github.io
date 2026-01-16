@@ -29,50 +29,40 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         isTyping: boolean;
     }
 
-    // Función para crear parpadeo natural con GSAP
-    function initBlink(): void {
-        const eyeLeft = document.getElementById("eye-open-left") as HTMLElement;
-        const eyeRight = document.getElementById(
-            "eye-open-right",
-        ) as HTMLElement;
+    function initCharacter(container: HTMLElement) {
+        const svg = container.querySelector(".bio-image svg") as SVGElement;
+        if (!svg) return;
 
-        if (!eyeLeft || !eyeRight) return;
+        // --- Blink Logic ---
+        const eyeLeft = svg.querySelector("#eye-open-left") as HTMLElement;
+        const eyeRight = svg.querySelector("#eye-open-right") as HTMLElement;
 
-        function blink(): void {
-            const tl = gsap.timeline();
+        if (eyeLeft && eyeRight) {
+            const blink = () => {
+                const tl = gsap.timeline();
+                tl.to([eyeLeft, eyeRight], {
+                    opacity: 0,
+                    duration: 0.08,
+                    ease: "power2.in",
+                }).to([eyeLeft, eyeRight], {
+                    opacity: 1,
+                    duration: 0.08,
+                    ease: "power2.out",
+                });
+            };
 
-            tl.to([eyeLeft, eyeRight], {
-                opacity: 0,
-                duration: 0.08,
-                ease: "power2.in",
-            }).to([eyeLeft, eyeRight], {
-                opacity: 1,
-                duration: 0.08,
-                ease: "power2.out",
-            });
+            const scheduleBlink = () => {
+                const randomDelay = Math.random() * 4000 + 2000;
+                gsap.delayedCall(randomDelay / 1000, () => {
+                    blink();
+                    scheduleBlink();
+                });
+            };
+
+            scheduleBlink();
         }
 
-        function scheduleBlink(): void {
-            const randomDelay = Math.random() * 4000 + 2000;
-
-            gsap.delayedCall(randomDelay / 1000, () => {
-                blink();
-                scheduleBlink();
-            });
-        }
-
-        scheduleBlink();
-    }
-
-    // Función para mostrar mensajes con GSAP
-    function initSpeechBubble(): void {
-        const container = document.querySelector(
-            ".bio-image-container",
-        ) as HTMLElement;
-        const svg = document.querySelector(".bio-image svg") as SVGElement;
-
-        if (!container || !svg) return;
-
+        // --- Speech Bubble Logic ---
         const state: BubbleState = {
             element: null,
             textElement: null,
@@ -86,14 +76,7 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         const messagesJSON = container.getAttribute("data-messages");
         const messages: string[] = messagesJSON
             ? JSON.parse(messagesJSON)
-            : [
-                  "¡Hola!",
-                  "Estoy seguro que tenía un sombrero",
-                  "Hey buuuuddy!",
-                  "Ya viste mis proyectos?",
-                  "Todo bien?",
-                  "¡Qué pasa!",
-              ];
+            : ["¡Hola!"];
 
         function createBubbleElement(): HTMLDivElement {
             const bubble = document.createElement("div");
@@ -101,7 +84,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
             Object.assign(bubble.style, {
                 position: "absolute",
-                top: "auto",
                 bottom: "100%",
                 left: "50%",
                 marginBottom: "15px",
@@ -124,14 +106,12 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
                 wordWrap: "break-word",
             } as Partial<CSSStyleDeclaration>);
 
-            // Elemento para el texto que se va a escribir
             const textElement = document.createElement("div");
-            textElement.style.minHeight = "1.4em"; // Para evitar saltos de layout
+            textElement.style.minHeight = "1.4em";
             bubble.appendChild(textElement);
 
             const tail = document.createElement("div");
             Object.assign(tail.style, {
-                content: '""',
                 position: "absolute",
                 top: "100%",
                 left: "50%",
@@ -146,7 +126,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
             bubble.appendChild(tail);
 
-            // Configurar estado inicial con GSAP
             gsap.set(bubble, {
                 scale: 0,
                 y: 10,
@@ -159,17 +138,11 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
         function typeMessage(message: string): void {
             if (!state.textElement || !state.element) return;
-
             state.isTyping = true;
-
-            // Limpiar el texto anterior
             state.textElement.textContent = "";
-
-            // Calcular duración basada en la longitud del mensaje
-            const baseSpeed = 0.04; // segundos por carácter
+            const baseSpeed = 0.04;
             const duration = message.length * baseSpeed;
 
-            // Animar el texto con efecto typewriter
             gsap.to(state.textElement, {
                 duration: duration,
                 text: {
@@ -185,18 +158,10 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
         function showBubble(message: string): void {
             if (!state.element) return;
-
             state.isVisible = true;
+            if (state.timeline) state.timeline.kill();
 
-            // Matar animación anterior si existe
-            if (state.timeline) {
-                state.timeline.kill();
-            }
-
-            // Timeline para la entrada del bocadillo
             state.timeline = gsap.timeline();
-
-            // Primero aparece el bocadillo
             state.timeline.to(state.element, {
                 scale: 1,
                 y: 0,
@@ -204,7 +169,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
                 duration: 0.4,
                 ease: "back.out(1.7)",
                 onComplete: () => {
-                    // Después de que aparece, empieza el efecto typewriter
                     typeMessage(message);
                 },
             });
@@ -212,25 +176,12 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
         function hideBubble(callback?: () => void): void {
             if (!state.element) return;
-
             state.isVisible = false;
             state.isTyping = false;
+            if (state.timeline) state.timeline.kill();
+            if (state.textElement) gsap.killTweensOf(state.textElement);
 
-            // Matar animación anterior si existe
-            if (state.timeline) {
-                state.timeline.kill();
-            }
-
-            // Matar animación de texto si existe
-            if (state.textElement) {
-                gsap.killTweensOf(state.textElement);
-            }
-
-            // Animación de salida con GSAP
-            state.timeline = gsap.timeline({
-                onComplete: callback,
-            });
-
+            state.timeline = gsap.timeline({ onComplete: callback });
             state.timeline.to(state.element, {
                 scale: 0.8,
                 y: -5,
@@ -243,13 +194,11 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         function showNextMessage(): void {
             state.currentMessageIndex =
                 (state.currentMessageIndex + 1) % messages.length;
-
             showBubble(messages[state.currentMessageIndex]);
 
-            // Calcular tiempo de espera dinámico basado en longitud del mensaje
             const message = messages[state.currentMessageIndex];
-            const typingDuration = message.length * 0.04 * 1000; // convertir a ms
-            const readingTime = 2000; // tiempo para leer después de escribir
+            const typingDuration = message.length * 0.04 * 1000;
+            const readingTime = 2000;
 
             state.hideTimeout = window.setTimeout(() => {
                 hideBubble();
@@ -258,28 +207,20 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
         function handleInteraction(e: Event): void {
             e.stopPropagation();
-
-            // Crear bubble si no existe
             if (!state.element) {
                 state.element = createBubbleElement();
                 container.style.position = "relative";
                 container.appendChild(state.element);
             }
 
-            // Limpiar timeout anterior
-            if (state.hideTimeout !== null) {
-                clearTimeout(state.hideTimeout);
-            }
+            if (state.hideTimeout !== null) clearTimeout(state.hideTimeout);
 
             if (state.isVisible) {
-                // Si está escribiendo, cancelar y cambiar al siguiente
                 hideBubble(() => {
                     showNextMessage();
                 });
             } else {
                 showBubble(messages[state.currentMessageIndex]);
-
-                // Calcular tiempo de espera dinámico
                 const message = messages[state.currentMessageIndex];
                 const typingDuration = message.length * 0.04 * 1000;
                 const readingTime = 2000;
@@ -290,27 +231,30 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             }
         }
 
-        // Event listeners
         container.addEventListener("pointerdown", handleInteraction);
         svg.addEventListener("pointerdown", handleInteraction);
-
         container.addEventListener("touchend", (e: TouchEvent) => {
             e.preventDefault();
             handleInteraction(e);
         });
     }
 
-    // Inicializar cuando el DOM esté listo
-    function init(): void {
-        initBlink();
-        initSpeechBubble();
+    function initAllCharacters() {
+        const containers = document.querySelectorAll<HTMLElement>(
+            ".bio-image-container",
+        );
+        containers.forEach((container) => {
+            // Evitar doble inicialización si es necesario, aunque con View Transitions
+            // el DOM se reemplaza. Pero para estar seguros:
+            if (container.dataset.initialized) return;
+            container.dataset.initialized = "true";
+            initCharacter(container);
+        });
     }
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-    } else {
-        init();
-    }
+    // Inicializar en carga inicial y en cada navegación de Astro
+    document.addEventListener("DOMContentLoaded", initAllCharacters);
+    document.addEventListener("astro:page-load", initAllCharacters);
 </script>
 <style>
     .bio-image-container {
