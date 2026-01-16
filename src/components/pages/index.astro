@@ -242,3 +242,108 @@ const translatePath = useTranslatedPath(lang);
     }
   }
 </style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function setupLineAnimation() {
+    const isDesktop = matchMedia("(min-width: 1001px)").matches;
+
+    // Reset any existing triggers to avoid duplication on re-runs
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+
+    const allPaths = document.querySelectorAll(
+      '.line-vertical svg path, [class^="line-horizontal-"] svg path',
+    );
+
+    // Initial setup: hide all lines
+    allPaths.forEach((line) => {
+      const path = line as SVGPathElement;
+      // Check if visible to avoid errors on hidden elements (display: none)
+      if (path.getBBox) {
+        const length = path.getTotalLength();
+        gsap.set(path, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+          opacity: 1,
+        });
+      }
+    });
+
+    if (isDesktop) {
+      // DESKTOP: Coordinated Timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".container",
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // 1. Central Vertical Line
+      const verticalLine = document.querySelector(".line-vertical svg path");
+
+      // 2. Horizontal Lines (Left and Right sides)
+      // Select logic based on the specific layout structure
+      const horizontalLinesLeft = document.querySelectorAll(
+        ".neo-left [class^='line-horizontal-'] svg path",
+      );
+      const horizontalLinesRight = document.querySelectorAll(
+        ".neo [class^='line-horizontal-'] svg path",
+      );
+
+      const horizontalLines = [...horizontalLinesLeft, ...horizontalLinesRight];
+
+      if (verticalLine) {
+        tl.to(verticalLine, {
+          strokeDashoffset: 0,
+          duration: 1.5,
+          ease: "power2.inOut",
+        });
+      }
+
+      if (horizontalLines.length > 0) {
+        // Animate horizontal lines starting slightly before vertical line finishes
+        tl.to(
+          horizontalLines,
+          {
+            strokeDashoffset: 0,
+            duration: 1.2,
+            stagger: 0.1, // Sequential delay
+            ease: "power2.out",
+          },
+          "-=1.0",
+        ); // Overlap with vertical line animation
+      }
+    } else {
+      // MOBILE: ScrollTrigger per element (Stack behavior)
+      // Only select visible lines in the mobile layout to avoid animating hidden desktop ones
+      const mobileLines = document.querySelectorAll(
+        ".neo-mobile [class^='line-horizontal-'] svg path, .neo-mobile .line-vertical svg path",
+      );
+
+      mobileLines.forEach((line) => {
+        const path = line as SVGPathElement;
+
+        gsap.to(path, {
+          strokeDashoffset: 0,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: path.closest("div"),
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      });
+    }
+  }
+
+  // Run on load and after view transitions
+  setupLineAnimation();
+
+  document.addEventListener("astro:after-swap", setupLineAnimation);
+</script>
