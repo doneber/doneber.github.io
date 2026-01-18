@@ -1,91 +1,232 @@
 ---
 import Modal from "@/components/ui/Modal.astro";
 import OctoCat from "@/assets/social/octo-cat.svg";
+import { getI18N } from "@/i18n";
+
+const i18n = getI18N({ currentLocale: Astro.currentLocale });
 ---
 
-<Modal id="feedback-modal" title="Feedback">
-    <div class="feedback-content">
-        <p>Report issues or start a discussion.</p>
-        <a
-            href="https://github.com/doneber/doneber.github.io/issues/new/choose"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="github-btn"
-        >
-            <span>Leave feedback</span>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+<Modal id="feedback-modal" title={i18n.MODALS.FEEDBACK.TITLE}>
+    <div class="feedback-container">
+        <p class="intro-text">{i18n.MODALS.FEEDBACK.INTRO}</p>
+
+        <div class="options-grid">
+            <a
+                href="https://github.com/doneber/doneber.github.io/issues/new?template=bug_report.yml"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="option-card"
             >
-                <path
-                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                ></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-        </a>
-        <div class="note-text">
-            <span>Connect to Github</span>
+                <div class="card-icon">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-bug"
+                        ><path d="m8 2 1.88 1.88"></path><path
+                            d="M14.12 3.88 16 2"></path><path
+                            d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"></path><path
+                            d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"
+                        ></path><path d="M12 20v-9"></path><path
+                            d="M6.53 9C4.6 8.8 3 7.1 3 5"></path><path
+                            d="M6 13H2"></path><path
+                            d="M3 21c0-2.1 1.7-3.9 3.8-4"></path><path
+                            d="M20.97 5c0 2.1-1.6 3.8-3.5 4"></path><path
+                            d="M22 13h-4"></path><path
+                            d="M17.2 17c2.1.1 3.8 1.9 3.8 4"></path></svg
+                    >
+                </div>
+                <div class="card-info">
+                    <span class="card-title"
+                        >{i18n.MODALS.FEEDBACK.BUG_REPORT_TITLE}</span
+                    >
+                    <span class="card-desc"
+                        >{i18n.MODALS.FEEDBACK.BUG_REPORT_DESC}</span
+                    >
+                </div>
+            </a>
+
+            <a
+                href="https://github.com/doneber/doneber.github.io/issues/new?template=feature_request.yml"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="option-card"
+            >
+                <div class="card-icon">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-lightbulb"
+                        ><path
+                            d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"
+                        ></path><path d="M9 18h6"></path><path d="M10 22h4"
+                        ></path></svg
+                    >
+                </div>
+                <div class="card-info">
+                    <span class="card-title"
+                        >{i18n.MODALS.FEEDBACK.IDEA_TITLE}</span
+                    >
+                    <span class="card-desc"
+                        >{i18n.MODALS.FEEDBACK.IDEA_DESC}</span
+                    >
+                </div>
+            </a>
+
+            <a
+                href="https://github.com/doneber/doneber.github.io/discussions/new"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="option-card"
+            >
+                <div class="card-icon">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-message-square"
+                        ><path
+                            d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                        ></path></svg
+                    >
+                </div>
+                <div class="card-info">
+                    <span class="card-title"
+                        >{i18n.MODALS.FEEDBACK.COMMUNITY_TITLE}</span
+                    >
+                    <span class="card-desc"
+                        >{i18n.MODALS.FEEDBACK.COMMUNITY_DESC}</span
+                    >
+                </div>
+            </a>
+        </div>
+
+        <div class="footer-note">
+            <span>{i18n.MODALS.FEEDBACK.FOOTER}</span>
             <OctoCat />
         </div>
     </div>
 </Modal>
 
 <style>
-    .feedback-content {
+    .feedback-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .intro-text {
         text-align: center;
-        padding-bottom: 0.5rem;
-    }
-
-    p {
-        margin: 1rem 0;
-        font-size: 1rem;
+        font-size: 0.9rem;
         color: var(--primary-text);
-        line-height: 1.5;
+        opacity: 0.6;
+        margin-bottom: 1.5rem;
     }
 
-    .github-btn {
-        display: inline-flex;
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .option-card {
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 0.5rem;
-        background-color: var(--primary-text);
-        color: var(--primary-bg);
-        padding: 0.75rem 1.25rem;
-        border-radius: 8px;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 1.25rem 0.75rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-line);
+        background-color: var(--primary-bg);
         text-decoration: none;
-        font-weight: 600;
-        transition:
-            transform 0.2s ease,
-            opacity 0.2s ease;
+        color: var(--primary-text);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
     }
 
-    .note-text {
-        margin-top: 0.5rem;
+    .option-card:hover {
+        border-color: var(--primary-text);
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px
+            color-mix(in srgb, var(--primary-text) 10%, transparent);
+    }
+
+    .card-icon {
         color: var(--primary-text);
-        opacity: 0.9;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+    }
+
+    .option-card:hover .card-icon {
+        opacity: 1;
+    }
+
+    .card-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .card-title {
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .card-desc {
         font-size: 0.75rem;
-        width: 100%;
+        opacity: 0.6;
+        line-height: 1.2;
+    }
+
+    .footer-note {
+        margin-top: 2rem;
+        color: var(--primary-text);
+        opacity: 0.4;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
 
         & svg {
-            margin-right: 0.25rem;
-            width: 0.8rem;
-            height: 0.8rem;
-            display: inline-block;
-            transform: translateY(1px);
+            width: 0.9rem;
+            height: 0.9rem;
         }
     }
-    .github-btn:hover {
-        opacity: 0.9;
-    }
 
-    .github-btn svg {
-        transition: transform 0.2s ease;
+    @media (max-width: 480px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .option-card {
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .card-info {
+            text-align: left;
+        }
     }
 </style>

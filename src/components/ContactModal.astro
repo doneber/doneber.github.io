@@ -1,40 +1,46 @@
 ---
 import Modal from "@/components/ui/Modal.astro";
+import { getI18N } from "@/i18n";
+
+const i18n = getI18N({ currentLocale: Astro.currentLocale });
 ---
 
-<Modal id="contact-modal" title="Contact Me">
+<Modal id="contact-modal" title={i18n.MODALS.CONTACT.TITLE}>
     <form id="contact-form">
         <div class="form-group">
-            <label for="subject">Subject</label>
+            <label for="subject">{i18n.MODALS.CONTACT.SUBJECT_LABEL}</label>
             <input
                 type="text"
                 id="subject"
                 name="subject"
-                placeholder="Project Inquiry"
+                required
+                placeholder={i18n.MODALS.CONTACT.SUBJECT_PLACEHOLDER}
             />
         </div>
 
         <div class="form-group">
-            <label for="message">Message</label>
+            <label for="message">{i18n.MODALS.CONTACT.MESSAGE_LABEL}</label>
             <textarea
                 id="message"
                 name="message"
                 rows="3"
                 required
-                placeholder="How can I help you?"></textarea>
+                placeholder={i18n.MODALS.CONTACT.MESSAGE_PLACEHOLDER}
+            ></textarea>
         </div>
 
-        <button type="submit" class="submit-btn">Send email</button>
+        <button type="submit" class="submit-btn"
+            >{i18n.MODALS.CONTACT.SEND_BUTTON}</button
+        >
     </form>
     <div class="divider">
         <hr />
-        <p>or</p>
+        <p>{i18n.MODALS.CONTACT.OR}</p>
     </div>
 
     <p>
-        Email me directly at <a href="mailto:contact@doneber.dev"
-            >contact@doneber.dev</a
-        >
+        {i18n.MODALS.CONTACT.DIRECT_EMAIL}
+        <a href="mailto:contact@doneber.dev">contact@doneber.dev</a>
     </p>
 </Modal>
 
@@ -130,27 +136,25 @@ import Modal from "@/components/ui/Modal.astro";
     }
 </style>
 
-<script>
+<script define:vars={{ defaultSubject: i18n.MODALS.CONTACT.DEFAULT_SUBJECT }}>
     function setupContactForm() {
         const form = document.getElementById("contact-form");
-        const dialog = document.getElementById(
-            "contact-modal",
-        ) as HTMLDialogElement;
+        const dialog = document.getElementById("contact-modal");
 
         if (!form || !dialog) return;
 
-        const submitHandler = (e: Event) => {
+        const submitHandler = (e) => {
             e.preventDefault();
-            const formData = new FormData(form as HTMLFormElement);
+            const formData = new FormData(form);
             const subject =
-                formData.get("subject")?.toString() || "Contact from Portfolio";
+                formData.get("subject")?.toString() || defaultSubject;
             const message = formData.get("message")?.toString() || "";
 
             const mailtoLink = `mailto:contact@doneber.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
 
             window.location.href = mailtoLink;
 
-            (form as HTMLFormElement).reset();
+            form.reset();
             dialog.close();
         };
 

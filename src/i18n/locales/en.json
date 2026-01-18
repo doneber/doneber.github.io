@@ -160,5 +160,29 @@
     "SEE_ONLINE": "See online",
     "DESIGN_PASSION": "Design is my passion.",
     "LOGO_ALT": "Logo of"
+  },
+  "MODALS": {
+    "FEEDBACK": {
+      "TITLE": "Feedback",
+      "INTRO": "Choose an option to provide feedback:",
+      "BUG_REPORT_TITLE": "Bug Report",
+      "BUG_REPORT_DESC": "Something is broken",
+      "IDEA_TITLE": "Idea",
+      "IDEA_DESC": "Propose a feature",
+      "COMMUNITY_TITLE": "Community",
+      "COMMUNITY_DESC": "Start a discussion",
+      "FOOTER": "Powered by GitHub"
+    },
+    "CONTACT": {
+      "TITLE": "Contact Me",
+      "SUBJECT_LABEL": "Subject",
+      "SUBJECT_PLACEHOLDER": "Project Inquiry",
+      "MESSAGE_LABEL": "Message",
+      "MESSAGE_PLACEHOLDER": "How can I help you?",
+      "SEND_BUTTON": "Send email",
+      "OR": "or",
+      "DIRECT_EMAIL": "Email me directly at",
+      "DEFAULT_SUBJECT": "Contact from Portfolio"
+    }
   }
 }

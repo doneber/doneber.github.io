@@ -160,5 +160,29 @@
     "SEE_ONLINE": "Ver online",
     "DESIGN_PASSION": "El diseño es mi pasión.",
     "LOGO_ALT": "Logo de"
+  },
+  "MODALS": {
+    "FEEDBACK": {
+      "TITLE": "Feedback",
+      "INTRO": "Elige una opción para darnos tus comentarios:",
+      "BUG_REPORT_TITLE": "Reporte de Error",
+      "BUG_REPORT_DESC": "Algo no funciona",
+      "IDEA_TITLE": "Idea",
+      "IDEA_DESC": "Proponer una funcionalidad",
+      "COMMUNITY_TITLE": "Comunidad",
+      "COMMUNITY_DESC": "Iniciar una discusión",
+      "FOOTER": "Desarrollado con GitHub"
+    },
+    "CONTACT": {
+      "TITLE": "Contáctame",
+      "SUBJECT_LABEL": "Asunto",
+      "SUBJECT_PLACEHOLDER": "Consulta de proyecto",
+      "MESSAGE_LABEL": "Mensaje",
+      "MESSAGE_PLACEHOLDER": "¿Cómo puedo ayudarte?",
+      "SEND_BUTTON": "Enviar correo",
+      "OR": "o",
+      "DIRECT_EMAIL": "Envíame un correo directamente a",
+      "DEFAULT_SUBJECT": "Contacto desde el Portafolio"
+    }
   }
 }

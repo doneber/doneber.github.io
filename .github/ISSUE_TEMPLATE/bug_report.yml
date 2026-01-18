@@ -1,46 +1,46 @@
-name: Bug Report
-description: Create a report to help us improve
-title: "[Bug]: "
+name: Reporte de Error
+description: Crea un reporte para ayudarnos a mejorar
+title: "[Error]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
+        ¡Gracias por tomarte el tiempo de completar este reporte de error!
   - type: textarea
     id: what-happened
     attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
+      label: ¿Qué sucedió?
+      description: También cuéntanos, ¿qué esperabas que sucediera?
+      placeholder: ¡Cuéntanos qué ves!
     validations:
       required: true
   - type: dropdown
     id: browsers
     attributes:
-      label: Browsers
+      label: Navegadores
       multiple: true
       options:
         - Firefox
         - Chrome
         - Safari
         - Microsoft Edge
-        - Other
+        - Otro
   - type: textarea
     id: reproduction
     attributes:
-      label: Reproduction Steps
-      description: How do we reproduce this bug?
+      label: Pasos para Reproducir
+      description: ¿Cómo reproducimos este error?
       placeholder: |
-        1. Go to '...'
-        2. Click on '...'
-        3. Scroll down to '...'
-        4. See error
+        1. Ir a '...'
+        2. Hacer clic en '...'
+        3. Desplazarse hacia abajo hasta '...'
+        4. Ver el error
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      label: Salida de logs relevante
+      description: Por favor, copia y pega cualquier salida de log relevante. Esto se formateará automáticamente como código, por lo que no es necesario usar comillas invertidas.
       render: shell
