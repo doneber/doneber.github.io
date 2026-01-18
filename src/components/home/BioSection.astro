@@ -114,95 +114,33 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
 </style>
 
 <script>
-    function applyLineVariation(
-        selector: string,
-        maxOffset: number = 20,
-        minOffset: number = 0,
-        verticalVariation: number = 1,
-    ): void {
-        const container = document.querySelector<HTMLElement>(selector);
-        if (!container) return;
+    import gsap from "gsap";
+    import { SplitText } from "gsap/SplitText";
 
-        const text = container.textContent || "";
-        const fragment = document.createDocumentFragment();
+    interface LineVariationOptions {
+        selector: string;
+        maxOffset?: number;
+        minOffset?: number;
+        verticalVariation?: number;
+    }
 
-        // Pre-calcular offsets verticales para reutilizar (evita Math.random en loop)
-        const letterOffsets: number[] = [];
-        const totalChars = text.length;
-        for (let i = 0; i < totalChars; i++) {
-            letterOffsets[i] = (Math.random() - 0.5) * 2 * verticalVariation;
-        }
+    function applyLineVariation({ selector }: LineVariationOptions): void {
+        const containers = document.querySelectorAll<HTMLElement>(selector);
+        if (containers.length === 0) return;
 
-        // Single pass: construir todo en una pasada
-        let charIndex = 0;
-        let wordSpan: HTMLSpanElement | null = null;
-        const wordSpans: HTMLSpanElement[] = [];
+        containers.forEach((container) => {
+            let split = new SplitText(container, { type: "lines" });
 
-        for (let i = 0; i < totalChars; i++) {
-            const char = text[i];
-
-            if (char === " " || char === "\n" || char === "\t") {
-                if (wordSpan) {
-                    fragment.appendChild(wordSpan);
-                    wordSpans.push(wordSpan);
-                    wordSpan = null;
-                }
-                fragment.appendChild(document.createTextNode(char));
-            } else {
-                if (!wordSpan) {
-                    wordSpan = document.createElement("span");
-                    wordSpan.style.display = "inline-block";
-                }
-
-                const letterSpan = document.createElement("span");
-                letterSpan.textContent = char;
-                letterSpan.style.cssText = `display:inline-block;transform:translateY(${letterOffsets[charIndex++]}px)`;
-                wordSpan.appendChild(letterSpan);
-            }
-        }
-
-        if (wordSpan) {
-            fragment.appendChild(wordSpan);
-            wordSpans.push(wordSpan);
-        }
-
-        container.textContent = ""; // Más rápido que innerHTML = ''
-        container.appendChild(fragment);
-
-        // Batch read: leer todas las posiciones de una vez (un solo reflow)
-        requestAnimationFrame(() => {
-            const len = wordSpans.length;
-            if (len === 0) return;
-
-            // Leer todas las posiciones en un solo pase
-            const tops = new Float32Array(len);
-            for (let i = 0; i < len; i++) {
-                tops[i] = wordSpans[i].getBoundingClientRect().top;
-            }
-
-            // Batch write: aplicar transforms
-            let currentTop = tops[0];
-            let offset = 0;
-            let isFirst = true;
-
-            for (let i = 0; i < len; i++) {
-                const top = tops[i];
-
-                // Nueva línea detectada
-                if (Math.abs(top - currentTop) > 5) {
-                    currentTop = top;
-                    offset = isFirst
-                        ? 0
-                        : minOffset + Math.random() * (maxOffset - minOffset);
-                    isFirst = false;
-                }
-
-                wordSpans[i].style.transform = `translateX(${offset}px)`;
-            }
+            gsap.to(split.lines, {
+                x: () => gsap.utils.random(0, 8),
+                duration: 0,
+            });
         });
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        applyLineVariation(".bio-text", 7, 0, 0.4);
+    document.addEventListener("astro:page-load", () => {
+        applyLineVariation({
+            selector: ".bio-text",
+        });
     });
 </script>
