@@ -1,0 +1,178 @@
+---
+interface Props {
+    id: string;
+    title?: string;
+}
+
+const { id, title } = Astro.props;
+---
+
+<dialog id={id}>
+    <div class="modal-master">
+        <div class="modal-content">
+            <div class="modal-header">
+                {title && <h2>{title}</h2>}
+                <button
+                    class="close-modal"
+                    aria-label="Close modal"
+                    commandfor={id}
+                    command="close"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="var(--primary-text)"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <slot />
+        </div>
+    </div>
+</dialog>
+
+<style>
+    dialog * {
+        font-family: monospace;
+    }
+    dialog {
+        padding: 0;
+        border: none;
+        background: transparent;
+        max-width: 500px;
+        width: 100%;
+
+        /* Native dialog centering and sizing */
+        margin: auto;
+        @media (width <= 640px) {
+            width: calc(100% - 1.5 rem);
+        }
+
+        /* Animation defaults */
+        opacity: 0;
+        transform: scale(0.9);
+        transition:
+            opacity 0.3s ease-out,
+            transform 0.3s ease-out,
+            display 0.3s ease-out allow-discrete;
+    }
+
+    /* Styling specifically when the dialog is open as a modal */
+    dialog:modal {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Starting state for animation */
+    @starting-style {
+        dialog:modal {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+    }
+
+    dialog::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+        /* backdrop-filter: blur(4px); */
+        opacity: 0;
+        transition:
+            opacity 0.3s ease-out,
+            display 0.3s ease-out allow-discrete;
+    }
+
+    dialog:modal::backdrop {
+        opacity: 1;
+    }
+
+    @starting-style {
+        dialog:modal::backdrop {
+            opacity: 0;
+        }
+    }
+    .modal-master {
+        border: 0.5px solid var(--border-line);
+        background-color: var(--primary-bg);
+        border-radius: 7px;
+        padding: 0.5rem;
+        overflow: hidden;
+    }
+    .modal-content {
+        /* Bento Design Styles */
+        position: relative;
+        border-radius: 7px;
+        background-color: var(--primary-bg);
+        color: var(--primary-text);
+        padding: clamp(1.5rem, 5vw, 2rem);
+
+        /* Sketchy Border */
+        border: 0.5px solid
+            color-mix(in srgb, transparent 70%, var(--border-line) 30%);
+        /* box-shadow: inset 0 0 5px 3px
+            color-mix(in srgb, transparent 80%, var(--border-line) 20%); */
+
+        /* Box Shadow for depth */
+        /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); */
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        position: relative; /* Ensure it's above texture if needed */
+    }
+
+    .modal-header h2 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .close-modal {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--primar-text);
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+        margin-left: auto;
+    }
+
+    .close-modal:hover {
+        transform: scale(1.1);
+    }
+</style>
+
+<script define:vars={{ id }}>
+    function setupDialog() {
+        const dialog = document.getElementById(id);
+        if (!dialog) return;
+
+        // Close on backdrop click
+        dialog.addEventListener("click", (e) => {
+            const rect = dialog.getBoundingClientRect();
+            const isInDialog =
+                rect.top <= e.clientY &&
+                e.clientY <= rect.top + rect.height &&
+                rect.left <= e.clientX &&
+                e.clientX <= rect.left + rect.width;
+
+            if (!isInDialog) {
+                dialog.close();
+            }
+        });
+    }
+
+    setupDialog();
+    document.addEventListener("astro:after-swap", setupDialog);
+</script>

@@ -25,10 +25,11 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
             </p>
         </div>
 
-        <a
-            href="mailto:contact@doneber.dev"
+        <button
             class="contact-btn"
             style={{ "background-image": `url(${buttonBackgroundImage.src})` }}
+            commandfor="contact-modal"
+            command="show-modal"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +45,7 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
                     d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
             >
             {i18n.HOME.BIO.CONTACT_ME}
-        </a>
+        </button>
     </div>
     <div class="see-more">
         <a href="/about">{i18n.HOME.BIO.SEE_MORE}</a>

@@ -1,0 +1,162 @@
+---
+import Modal from "@/components/ui/Modal.astro";
+---
+
+<Modal id="contact-modal" title="Contact Me">
+    <form id="contact-form">
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Project Inquiry"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea
+                id="message"
+                name="message"
+                rows="3"
+                required
+                placeholder="How can I help you?"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send email</button>
+    </form>
+    <div class="divider">
+        <hr />
+        <p>or</p>
+    </div>
+
+    <p>
+        Email me directly at <a href="mailto:contact@doneber.dev"
+            >contact@doneber.dev</a
+        >
+    </p>
+</Modal>
+
+<style>
+    .divider {
+        position: relative;
+        margin: 1rem 0;
+
+        p {
+            text-align: center;
+            z-index: 1;
+            background-color: var(--primary-bg);
+            padding: 0 1rem;
+            width: fit-content;
+            margin: 0 auto;
+        }
+        & hr {
+            position: absolute;
+            border: 1px solid var(--border-line);
+            top: 0;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            margin: 1rem 0;
+        }
+    }
+    p {
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    label {
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-line, #ccc);
+        background: var(--primary-bg, #f5f5f5);
+        color: inherit;
+        font-family: inherit;
+    }
+    label:has(+ input:required)::after {
+        content: "*";
+        color: #ff5e5e;
+        margin-left: 4px;
+    }
+    label:has(+ textarea:required)::after {
+        content: "*";
+        color: #ff5e5e;
+        margin-left: 4px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+        outline: 2px solid var(--primary-text);
+        border-color: transparent;
+    }
+
+    .submit-btn {
+        background-color: var(--primary-text);
+        color: var(--primary-bg);
+        padding: 0.75rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover {
+        opacity: 0.9;
+    }
+</style>
+
+<script>
+    function setupContactForm() {
+        const form = document.getElementById("contact-form");
+        const dialog = document.getElementById(
+            "contact-modal",
+        ) as HTMLDialogElement;
+
+        if (!form || !dialog) return;
+
+        const submitHandler = (e: Event) => {
+            e.preventDefault();
+            const formData = new FormData(form as HTMLFormElement);
+            const subject =
+                formData.get("subject")?.toString() || "Contact from Portfolio";
+            const message = formData.get("message")?.toString() || "";
+
+            const mailtoLink = `mailto:contact@doneber.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
+            window.location.href = mailtoLink;
+
+            (form as HTMLFormElement).reset();
+            dialog.close();
+        };
+
+        form.addEventListener("submit", submitHandler);
+    }
+
+    setupContactForm();
+    document.addEventListener("astro:after-swap", setupContactForm);
+</script>

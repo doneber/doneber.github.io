@@ -22,6 +22,7 @@ import BlogSection from "../home/BlogSection.astro";
 import VideosSection from "../home/VideosSection.astro";
 import SocialSection from "../home/SocialSection.astro";
 import FooterSection from "../home/FooterSection.astro";
+import ContactModal from "@/components/ContactModal.astro";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
@@ -107,6 +108,7 @@ const translatePath = useTranslatedPath(lang);
       <FooterSection />
     </div>
   </div>
+  <ContactModal />
 </main>
 
 <style>

@@ -1,0 +1,91 @@
+---
+import Modal from "@/components/ui/Modal.astro";
+import OctoCat from "@/assets/social/octo-cat.svg";
+---
+
+<Modal id="feedback-modal" title="Feedback">
+    <div class="feedback-content">
+        <p>Report issues or start a discussion.</p>
+        <a
+            href="https://github.com/doneber/doneber.github.io/issues/new/choose"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="github-btn"
+        >
+            <span>Leave feedback</span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                ></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+        </a>
+        <div class="note-text">
+            <span>Connect to Github</span>
+            <OctoCat />
+        </div>
+    </div>
+</Modal>
+
+<style>
+    .feedback-content {
+        text-align: center;
+        padding-bottom: 0.5rem;
+    }
+
+    p {
+        margin: 1rem 0;
+        font-size: 1rem;
+        color: var(--primary-text);
+        line-height: 1.5;
+    }
+
+    .github-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: var(--primary-text);
+        color: var(--primary-bg);
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+    }
+
+    .note-text {
+        margin-top: 0.5rem;
+        color: var(--primary-text);
+        opacity: 0.9;
+        font-size: 0.75rem;
+        width: 100%;
+
+        & svg {
+            margin-right: 0.25rem;
+            width: 0.8rem;
+            height: 0.8rem;
+            display: inline-block;
+            transform: translateY(1px);
+        }
+    }
+    .github-btn:hover {
+        opacity: 0.9;
+    }
+
+    .github-btn svg {
+        transition: transform 0.2s ease;
+    }
+</style>
