@@ -35,8 +35,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
     // ============================================================================
 
     function syncPosition(container: HTMLElement, bioImage: HTMLElement) {
-        console.log("omc");
-
         const rect = container.getBoundingClientRect();
         const parent = container.parentElement;
         if (!parent) return;
@@ -48,7 +46,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
         const breakpointTop = 25;
 
-        console.log({ rect, parentRect });
         if (rect.top < breakpointTop - 50) {
             top = breakpointTop;
         }

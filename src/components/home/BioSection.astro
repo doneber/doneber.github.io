@@ -143,4 +143,11 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
             selector: ".bio-text",
         });
     });
+    document.addEventListener("astro:after-swap", () => {
+        setTimeout(() => {
+            applyLineVariation({
+                selector: ".bio-text",
+            });
+        }, 100);
+    });
 </script>
