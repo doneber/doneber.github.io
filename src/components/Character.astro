@@ -7,15 +7,10 @@ const i18n = getI18N({ currentLocale });
 const messagesArr = i18n.CHARACTER.MESSAGES;
 ---
 
-<div
-    class="bio-image-container"
-    data-messages={JSON.stringify(messagesArr)}
-    transition:name="character"
->
-    <div class="bio-image">
-        <Avatar />
-    </div>
-</div>
+<div class="float-shape" data-messages={JSON.stringify(messagesArr)}></div>
+<button class="bio-image" transition:name="character">
+    <Avatar />
+</button>
 
 <script>
     import { gsap } from "gsap";
@@ -23,170 +18,202 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
     gsap.registerPlugin(TextPlugin);
 
-    interface BubbleState {
-        element: HTMLDivElement | null;
-        textElement: HTMLDivElement | null;
-        hideTimeout: number | null;
-        currentMessageIndex: number;
-        isVisible: boolean;
-        timeline: GSAPTimeline | null;
-        isTyping: boolean;
+    // ============================================================================
+    // CONSTANTS
+    // ============================================================================
+
+    const CONFIG = {
+        typingSpeed: 0.04,
+        readingTime: 2000,
+        blinkInterval: [2000, 6000],
+        mouseRange: 500,
+        maxRotation: 15,
+    };
+
+    // ============================================================================
+    // POSITIONING (Sticky + Boundary)
+    // ============================================================================
+
+    function syncPosition(container: HTMLElement, bioImage: HTMLElement) {
+        console.log("omc");
+
+        const rect = container.getBoundingClientRect();
+        const parent = container.parentElement;
+        if (!parent) return;
+
+        const parentRect = parent.getBoundingClientRect();
+
+        let top = Math.max(0, rect.top); // Sticky at top
+        top = Math.min(top, parentRect.bottom - rect.height); // Keep in parent
+
+        const breakpointTop = 25;
+
+        console.log({ rect, parentRect });
+        if (rect.top < breakpointTop - 50) {
+            top = breakpointTop;
+        }
+        const right = window.innerWidth - rect.right;
+        gsap.set(bioImage, {
+            top,
+            right: top === breakpointTop ? right / 1.5 : right,
+            width: top === breakpointTop ? rect.width / 1.5 : rect.width,
+            height: top === breakpointTop ? rect.height / 1.5 : rect.height,
+        });
     }
 
-    function initCharacter(container: HTMLElement) {
-        const svg = container.querySelector(".bio-image svg") as SVGElement;
-        if (!svg) return;
+    function setupPositioning(container: HTMLElement, bioImage: HTMLElement) {
+        const sync = () => syncPosition(container, bioImage);
 
-        // --- Blink Logic ---
-        const eyeLeft = svg.querySelector("#eye-open-left") as HTMLElement;
-        const eyeRight = svg.querySelector("#eye-open-right") as HTMLElement;
+        // Initial sync
+        sync();
 
-        if (eyeLeft && eyeRight) {
-            const blink = () => {
-                const tl = gsap.timeline();
-                tl.to([eyeLeft, eyeRight], {
-                    opacity: 0,
-                    duration: 0.08,
-                    ease: "power2.in",
-                }).to([eyeLeft, eyeRight], {
-                    opacity: 1,
-                    duration: 0.08,
-                    ease: "power2.out",
+        // Only sync on scroll and resize, not every frame
+        let rafId: number | null = null;
+
+        const scheduleSync = () => {
+            if (rafId === null) {
+                rafId = requestAnimationFrame(() => {
+                    sync();
+                    rafId = null;
                 });
-            };
-
-            const scheduleBlink = () => {
-                const randomDelay = Math.random() * 4000 + 2000;
-                gsap.delayedCall(randomDelay / 1000, () => {
-                    blink();
-                    scheduleBlink();
-                });
-            };
-
-            scheduleBlink();
-        }
-
-        // --- Speech Bubble Logic ---
-        const state: BubbleState = {
-            element: null,
-            textElement: null,
-            hideTimeout: null,
-            currentMessageIndex: 0,
-            isVisible: false,
-            timeline: null,
-            isTyping: false,
+            }
         };
 
-        const messagesJSON = container.getAttribute("data-messages");
-        const messages: string[] = messagesJSON
-            ? JSON.parse(messagesJSON)
-            : ["¡Hola!"];
+        window.addEventListener("scroll", scheduleSync, { passive: true });
+        window.addEventListener("resize", scheduleSync);
 
-        function createBubbleElement(): HTMLDivElement {
-            const bubble = document.createElement("div");
-            bubble.className = "speech-bubble";
+        // Cleanup
+        const cleanup = () => {
+            window.removeEventListener("scroll", scheduleSync);
+            window.removeEventListener("resize", scheduleSync);
+            if (rafId !== null) cancelAnimationFrame(rafId);
+        };
 
-            Object.assign(bubble.style, {
-                position: "absolute",
-                bottom: "100%",
-                left: "50%",
-                marginBottom: "15px",
-                transform: "translateX(-50%)",
-                backgroundColor: "#fff",
-                color: "#111",
-                padding: "12px 18px",
-                borderRadius: "18px",
-                fontSize: "14px",
-                fontWeight: "600",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                zIndex: "9",
-                whiteSpace: "pre-wrap",
-                opacity: "0",
-                pointerEvents: "none",
-                textAlign: "center",
-                lineHeight: "1.4",
-                maxWidth: "240px",
-                minWidth: "120px",
-                wordWrap: "break-word",
-            } as Partial<CSSStyleDeclaration>);
+        document.addEventListener("astro:before-preparation", cleanup);
 
-            const textElement = document.createElement("div");
-            textElement.style.minHeight = "1.4em";
-            bubble.appendChild(textElement);
+        return cleanup;
+    }
 
-            const tail = document.createElement("div");
-            Object.assign(tail.style, {
-                position: "absolute",
-                top: "100%",
-                left: "50%",
-                marginLeft: "-12px",
-                width: "0",
-                height: "0",
-                borderStyle: "solid",
-                borderWidth: "12px 12px 0 12px",
-                borderColor: "#fff transparent transparent transparent",
-                zIndex: "1",
-            } as Partial<CSSStyleDeclaration>);
+    // ============================================================================
+    // BLINK ANIMATION
+    // ============================================================================
 
-            bubble.appendChild(tail);
+    function startBlinking(eyes: HTMLElement[]) {
+        function scheduleBlink() {
+            const [min, max] = CONFIG.blinkInterval;
+            const delay = (Math.random() * (max - min) + min) / 1000;
 
-            gsap.set(bubble, {
-                scale: 0,
-                y: 10,
-                opacity: 0,
-            });
-
-            state.textElement = textElement;
-            return bubble;
-        }
-
-        function typeMessage(message: string): void {
-            if (!state.textElement || !state.element) return;
-            state.isTyping = true;
-            state.textElement.textContent = "";
-            const baseSpeed = 0.04;
-            const duration = message.length * baseSpeed;
-
-            gsap.to(state.textElement, {
-                duration: duration,
-                text: {
-                    value: message,
-                    delimiter: "",
-                },
-                ease: "none",
-                onComplete: () => {
-                    state.isTyping = false;
-                },
+            gsap.delayedCall(delay, () => {
+                gsap.timeline()
+                    .to(eyes, { opacity: 0, duration: 0.08, ease: "power2.in" })
+                    .to(eyes, {
+                        opacity: 1,
+                        duration: 0.08,
+                        ease: "power2.out",
+                    });
+                scheduleBlink();
             });
         }
+        scheduleBlink();
+    }
 
-        function showBubble(message: string): void {
-            if (!state.element) return;
-            state.isVisible = true;
-            if (state.timeline) state.timeline.kill();
+    // ============================================================================
+    // SPEECH BUBBLE
+    // ============================================================================
 
-            state.timeline = gsap.timeline();
-            state.timeline.to(state.element, {
-                scale: 1,
-                y: 0,
-                opacity: 1,
-                duration: 0.4,
-                ease: "back.out(1.7)",
-                onComplete: () => {
-                    typeMessage(message);
-                },
-            });
+    function createBubble() {
+        const bubble = document.createElement("div");
+        bubble.className = "speech-bubble";
+
+        Object.assign(bubble.style, {
+            position: "absolute",
+            bottom: "100%",
+            left: "50%",
+            marginBottom: "15px",
+            transform: "translateX(-50%)",
+            backgroundColor: "#fff",
+            color: "#111",
+            padding: "12px 18px",
+            borderRadius: "18px",
+            fontSize: "14px",
+            fontWeight: "600",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+            zIndex: "9",
+            whiteSpace: "pre-wrap",
+            textAlign: "center",
+            lineHeight: "1.4",
+            maxWidth: "240px",
+            minWidth: "120px",
+        });
+
+        const text = document.createElement("div");
+        text.style.minHeight = "1.4em";
+        bubble.appendChild(text);
+
+        const tail = document.createElement("div");
+        Object.assign(tail.style, {
+            position: "absolute",
+            top: "100%",
+            left: "50%",
+            marginLeft: "-12px",
+            borderStyle: "solid",
+            borderWidth: "12px 12px 0 12px",
+            borderColor: "#fff transparent transparent transparent",
+        });
+        bubble.appendChild(tail);
+
+        gsap.set(bubble, { scale: 0, y: 10, opacity: 0 });
+
+        return { bubble, text };
+    }
+
+    function setupSpeechBubble(bioImage: HTMLElement, messages: string[]) {
+        let bubble: HTMLDivElement | null = null;
+        let text: HTMLDivElement | null = null;
+        let currentIndex = 0;
+        let hideTimeout: number | null = null;
+        let isVisible = false;
+        let timeline: GSAPTimeline | null = null;
+
+        function show(message: string) {
+            if (!bubble || !text) return;
+
+            isVisible = true;
+            timeline?.kill();
+
+            timeline = gsap.timeline();
+            timeline
+                .to(bubble, {
+                    scale: 1,
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.4,
+                    ease: "back.out(1.7)",
+                })
+                .to(
+                    text,
+                    {
+                        duration: message.length * CONFIG.typingSpeed,
+                        text: { value: message, delimiter: "" },
+                        ease: "none",
+                    },
+                    "<",
+                );
+
+            // Auto-hide after typing + reading
+            const delay =
+                message.length * CONFIG.typingSpeed * 1000 + CONFIG.readingTime;
+            hideTimeout = window.setTimeout(hide, delay);
         }
 
-        function hideBubble(callback?: () => void): void {
-            if (!state.element) return;
-            state.isVisible = false;
-            state.isTyping = false;
-            if (state.timeline) state.timeline.kill();
-            if (state.textElement) gsap.killTweensOf(state.textElement);
+        function hide(callback?: () => void) {
+            if (!bubble || !text) return;
 
-            state.timeline = gsap.timeline({ onComplete: callback });
-            state.timeline.to(state.element, {
+            isVisible = false;
+            timeline?.kill();
+            gsap.killTweensOf(text);
+
+            timeline = gsap.timeline({ onComplete: callback }).to(bubble, {
                 scale: 0.8,
                 y: -5,
                 opacity: 0,
@@ -195,157 +222,168 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             });
         }
 
-        function showNextMessage(): void {
-            state.currentMessageIndex =
-                (state.currentMessageIndex + 1) % messages.length;
-            showBubble(messages[state.currentMessageIndex]);
-
-            const message = messages[state.currentMessageIndex];
-            const typingDuration = message.length * 0.04 * 1000;
-            const readingTime = 2000;
-
-            state.hideTimeout = window.setTimeout(() => {
-                hideBubble();
-            }, typingDuration + readingTime);
-        }
-
-        function handleInteraction(e: Event): void {
+        function handleClick(e: Event) {
             e.stopPropagation();
-            if (!state.element) {
-                state.element = createBubbleElement();
-                container.style.position = "relative";
-                container.appendChild(state.element);
+
+            // Create bubble on first click
+            if (!bubble) {
+                const created = createBubble();
+                bubble = created.bubble;
+                text = created.text;
+                bioImage.appendChild(bubble);
             }
 
-            if (state.hideTimeout !== null) clearTimeout(state.hideTimeout);
+            if (hideTimeout) clearTimeout(hideTimeout);
 
-            if (state.isVisible) {
-                hideBubble(() => {
-                    showNextMessage();
+            if (isVisible) {
+                // Cycle to next message
+                hide(() => {
+                    currentIndex = (currentIndex + 1) % messages.length;
+                    show(messages[currentIndex]);
                 });
             } else {
-                showBubble(messages[state.currentMessageIndex]);
-                const message = messages[state.currentMessageIndex];
-                const typingDuration = message.length * 0.04 * 1000;
-                const readingTime = 2000;
-
-                state.hideTimeout = window.setTimeout(() => {
-                    hideBubble();
-                }, typingDuration + readingTime);
+                show(messages[currentIndex]);
             }
         }
 
-        container.addEventListener("pointerdown", handleInteraction);
-        svg.addEventListener("pointerdown", handleInteraction);
-        container.addEventListener("touchend", (e: TouchEvent) => {
-            e.preventDefault();
-            handleInteraction(e);
-        });
+        return handleClick;
+    }
 
-        // --- Mouse Tracking Logic ---
-        const handleMouseMove = (e: MouseEvent | PointerEvent) => {
-            const rect = container.getBoundingClientRect();
+    // ============================================================================
+    // MOUSE TRACKING
+    // ============================================================================
+
+    function setupMouseTracking(bioImage: HTMLElement, svg: SVGElement) {
+        function handleMove(e: MouseEvent | PointerEvent) {
+            const rect = bioImage.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
 
-            // Calcular diferencia
-            const deltaX = e.clientX - centerX;
-            const deltaY = e.clientY - centerY;
+            // Normalize mouse position (-1 to 1)
+            const normX = Math.max(
+                -1,
+                Math.min(1, (e.clientX - centerX) / CONFIG.mouseRange),
+            );
+            const normY = Math.max(
+                -1,
+                Math.min(1, (e.clientY - centerY) / CONFIG.mouseRange),
+            );
 
-            // Límites y sensibilidad
-            const maxRotation = 15;
-            const range = 500; // Sensibilidad del área de influencia
-
-            // Normalizar valores entre -1 y 1
-            const normX = Math.max(-1, Math.min(1, deltaX / range));
-            const normY = Math.max(-1, Math.min(1, deltaY / range));
-
-            // Aplicar rotación suave con GSAP
             gsap.to(svg, {
-                rotateY: normX * maxRotation,
-                rotateX: -normY * maxRotation,
-                translateX: normX * 8, // Desplazamiento sutil
+                rotateY: normX * CONFIG.maxRotation,
+                rotateX: -normY * CONFIG.maxRotation,
+                translateX: normX * 8,
                 duration: 0.0001,
                 ease: "power2.out",
                 overwrite: "auto",
             });
-        };
+        }
 
-        const handleMouseLeave = () => {
+        function handleLeave() {
             gsap.to(svg, {
-                rotateY: -10, // Volver a la rotación inicial del CSS
+                rotateY: -10,
                 rotateX: 0,
                 translateX: -5,
                 duration: 1,
                 ease: "elastic.out(1, 0.5)",
             });
-        };
+        }
 
-        window.addEventListener("pointermove", handleMouseMove);
-        // Opcionalmente resetear al salir de la ventana o del contenedor
-        container.addEventListener("mouseleave", handleMouseLeave);
+        window.addEventListener("pointermove", handleMove);
+        bioImage.addEventListener("mouseleave", handleLeave);
     }
 
-    function initAllCharacters() {
-        const containers = document.querySelectorAll<HTMLElement>(
-            ".bio-image-container",
-        );
-        containers.forEach((container) => {
-            // Evitar doble inicialización si es necesario, aunque con View Transitions
-            // el DOM se reemplaza. Pero para estar seguros:
-            if (container.dataset.initialized) return;
-            container.dataset.initialized = "true";
-            initCharacter(container);
+    // ============================================================================
+    // INITIALIZATION
+    // ============================================================================
+
+    function initCharacter(container: HTMLElement) {
+        const bioImage = container.nextElementSibling as HTMLElement;
+        if (!bioImage?.classList.contains("bio-image")) return;
+
+        const svg = bioImage.querySelector("svg") as SVGElement;
+        if (!svg) return;
+
+        // Parse messages
+        const messagesJSON = container.getAttribute("data-messages");
+        const messages: string[] = messagesJSON
+            ? JSON.parse(messagesJSON)
+            : ["¡Hola!"];
+
+        // 1. Positioning
+        setupPositioning(container, bioImage);
+
+        // 2. Blinking
+        const eyeLeft = svg.querySelector("#eye-open-left") as HTMLElement;
+        const eyeRight = svg.querySelector("#eye-open-right") as HTMLElement;
+        if (eyeLeft && eyeRight) {
+            startBlinking([eyeLeft, eyeRight]);
+        }
+
+        // 3. Speech bubble
+        const handleClick = setupSpeechBubble(bioImage, messages);
+        bioImage.addEventListener("pointerdown", handleClick);
+        svg.addEventListener("pointerdown", handleClick);
+        bioImage.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            handleClick(e);
         });
+
+        // 4. Mouse tracking
+        setupMouseTracking(bioImage, svg);
     }
 
-    // Inicializar en carga inicial y en cada navegación de Astro
-    document.addEventListener("DOMContentLoaded", initAllCharacters);
-    document.addEventListener("astro:page-load", initAllCharacters);
+    function initAll() {
+        document
+            .querySelectorAll<HTMLElement>(".float-shape")
+            .forEach((container) => {
+                if (!container.dataset.initialized) {
+                    container.dataset.initialized = "true";
+                    initCharacter(container);
+                }
+            });
+    }
+
+    document.addEventListener("DOMContentLoaded", initAll);
+    document.addEventListener("astro:page-load", initAll);
 </script>
+
 <style>
-    .bio-image-container {
+    .float-shape {
         float: right;
-        padding: 1rem;
-        padding-top: 0;
-        border-radius: 12px;
+        padding: 0;
         min-height: 50%;
         width: 140px;
-
-        /* CORRECCIONES CRÍTICAS */
-        position: relative;
-        z-index: 1;
-        overflow: visible;
+        height: 140px;
     }
 
     .bio-image {
         padding: 0;
-        transition: transform 0.3s ease;
+        transition:
+            transform 0.3s ease,
+            width 0.3s ease,
+            height 0.3s ease,
+            right 0.1s ease,
+            top 0s ease;
         perspective: 100px;
         transform-style: preserve-3d;
-        transform: rotate(0deg);
         display: flex;
         justify-content: center;
         align-items: center;
         user-select: none;
-        float: none;
-
-        position: relative;
+        height: 140px;
+        width: 140px;
+        position: fixed;
         z-index: 2;
-        width: 100%;
-        height: 100%;
-
-        /* Animación discreta de entrada (balanceo) */
+        pointer-events: none;
         transform-origin: bottom center;
         animation: 8s ease-out 0s infinite sway;
-
-        &:hover {
-            transform: rotate(0deg);
-        }
     }
 
     @keyframes sway {
-        0% {
+        0%,
+        10%,
+        100% {
             transform: rotate(0deg);
         }
         2% {
@@ -360,12 +398,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         8% {
             transform: rotate(2deg);
         }
-        10% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(0deg);
-        }
     }
 
     svg {
@@ -374,7 +406,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         transition: transform 0.3s ease;
         height: max-content;
         width: 100%;
-
         transform: rotateY(-10deg) translateX(-5px);
         pointer-events: auto;
         max-width: 100%;
@@ -382,5 +413,14 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         &:hover {
             transform: rotateY(0deg) scale(1.15) translateX(0px);
         }
+    }
+
+    @media (width <= 1000px) {
+        .bio-image {
+            width: 120px;
+        }
+    }
+    html.dark .bio-image {
+        /* filter: contrast(1.5); */
     }
 </style>

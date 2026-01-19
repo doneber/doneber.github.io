@@ -80,6 +80,12 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
                 font: inherit;
             }
 
+            button {
+                border: none;
+                cursor: pointer;
+                background-color: transparent;
+            }
+
             p,
             h1,
             h2,
@@ -88,17 +94,6 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
             h5,
             h6 {
                 overflow-wrap: break-word;
-            }
-
-            @media (width <= 1000px) {
-                .bio-image {
-                    width: 120px;
-                    padding-top: 2rem;
-                    padding-bottom: 0;
-                }
-            }
-            html.dark .bio-image {
-                filter: contrast(1.5);
             }
         </style>
 

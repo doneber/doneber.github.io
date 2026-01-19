@@ -149,11 +149,9 @@
   "CHARACTER": {
     "MESSAGES": [
       "Hello!",
-      "I'm sure I had a hat",
-      "Hey buuuuddy!",
-      "Have you seen my projects?",
       "Everything okay?",
-      "What's up!"
+      "What's up!",
+      "Have you seen my projects?"
     ]
   },
   "COMMON": {
@@ -171,7 +169,7 @@
       "IDEA_DESC": "Propose a feature",
       "COMMUNITY_TITLE": "Community",
       "COMMUNITY_DESC": "Start a discussion",
-      "FOOTER": "Powered by GitHub"
+      "FOOTER": "Your opinion is important to me :3"
     },
     "CONTACT": {
       "TITLE": "Contact Me",

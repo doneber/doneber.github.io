@@ -149,11 +149,9 @@
   "CHARACTER": {
     "MESSAGES": [
       "¡Hola!",
-      "Estoy seguro que tenía un sombrero",
-      "Hey buuuuddy!",
-      "¿Ya viste mis proyectos?",
       "¿Todo bien?",
-      "¡Qué pasa!"
+      "Que pasa",
+      "¿Ya viste mis proyectos?"
     ]
   },
   "COMMON": {
@@ -165,13 +163,13 @@
     "FEEDBACK": {
       "TITLE": "Feedback",
       "INTRO": "Elige una opción para darnos tus comentarios:",
-      "BUG_REPORT_TITLE": "Reporte de Error",
+      "BUG_REPORT_TITLE": "Reporta un Error",
       "BUG_REPORT_DESC": "Algo no funciona",
-      "IDEA_TITLE": "Idea",
+      "IDEA_TITLE": "Sugerir una idea",
       "IDEA_DESC": "Proponer una funcionalidad",
       "COMMUNITY_TITLE": "Comunidad",
       "COMMUNITY_DESC": "Iniciar una discusión",
-      "FOOTER": "Desarrollado con GitHub"
+      "FOOTER": "Tu opinión es importante para mí :3"
     },
     "CONTACT": {
       "TITLE": "Contáctame",

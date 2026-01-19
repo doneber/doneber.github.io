@@ -26,10 +26,6 @@ import ContactModal from "@/components/ContactModal.astro";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
 ---
 
 <main transition:animate="slide">
