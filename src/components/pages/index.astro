@@ -395,6 +395,9 @@ const translatePath = useTranslatedPath(lang);
     }
   }
 
+  function setupWithoutAnimation() {
+    document.body.classList.add("loaded");
+  }
   // Run after all resources (images, fonts) are loaded for the initial visit
   if (document.readyState === "complete") {
     setupAnimations();
@@ -403,7 +406,7 @@ const translatePath = useTranslatedPath(lang);
   }
 
   // Re-run after view transitions (Astro's navigation)
-  document.addEventListener("astro:after-swap", setupAnimations);
+  document.addEventListener("astro:after-swap", setupWithoutAnimation);
 
   // Safety Fallback: Ensure page is visible if something hangs
   setTimeout(() => {

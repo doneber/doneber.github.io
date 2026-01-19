@@ -7,7 +7,11 @@ const i18n = getI18N({ currentLocale });
 const messagesArr = i18n.CHARACTER.MESSAGES;
 ---
 
-<div class="bio-image-container" data-messages={JSON.stringify(messagesArr)}>
+<div
+    class="bio-image-container"
+    data-messages={JSON.stringify(messagesArr)}
+    transition:name="character"
+>
     <div class="bio-image">
         <Avatar />
     </div>
