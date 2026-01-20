@@ -189,9 +189,10 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
                 min-height: 100dvh;
             }
 
+            /* TODO: delete or change it maybe cause svg's errors */
             .dark .mark {
                 border-image-source: var(--markBorder);
-                & svg {
+                & svg:first {
                     fill: var(--primar-text);
                 }
             }
@@ -489,7 +490,9 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
             </div>
 
             <CornerTopRight class="corner-top-right" />
-            <slot />
+            <main transition:animate="slide">
+                <slot />
+            </main>
         </div>
         <button
             class="feedback-button"

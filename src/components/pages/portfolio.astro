@@ -9,30 +9,26 @@ const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
-<main>
-  <SectionContainer>
-    <Hero />
-  </SectionContainer>
-  <SectionContainer>
-    <Experience />
-  </SectionContainer>
-  <SectionContainer>
-    <Projects />
-  </SectionContainer>
-  <SectionContainer>
-    <h2>{i18n.PORTFOLIO.ABOUT_TITLE}</h2>
-    <p>{i18n.PORTFOLIO.ABOUT_DESCRIPTION}</p>
-  </SectionContainer>
-  <SectionContainer>
-    <h2>{i18n.PORTFOLIO.CONTACT_TITLE}</h2>
-    <p>
-      <a href="mailto:contact@doneber.dev" target="_blank"
-        >contact@doneber.dev</a
-      >
-    </p>
-    <a href="https://flowcv.com/resume/eevk7vfmfl" target="_blank">CV</a>
-  </SectionContainer>
-</main>
+<SectionContainer>
+  <Hero />
+</SectionContainer>
+<SectionContainer>
+  <Experience />
+</SectionContainer>
+<SectionContainer>
+  <Projects />
+</SectionContainer>
+<SectionContainer>
+  <h2>{i18n.PORTFOLIO.ABOUT_TITLE}</h2>
+  <p>{i18n.PORTFOLIO.ABOUT_DESCRIPTION}</p>
+</SectionContainer>
+<SectionContainer>
+  <h2>{i18n.PORTFOLIO.CONTACT_TITLE}</h2>
+  <p>
+    <a href="mailto:contact@doneber.dev" target="_blank">contact@doneber.dev</a>
+  </p>
+  <a href="https://flowcv.com/resume/eevk7vfmfl" target="_blank">CV</a>
+</SectionContainer>
 
 <style>
   html {

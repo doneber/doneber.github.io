@@ -6,49 +6,47 @@ const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
-<main transition:animate="slide">
-  <SectionContainer id="about-me">
-    <div>
-      <h1>{i18n.ABOUT.TITLE}</h1>
+<SectionContainer id="about-me">
+  <div>
+    <h1>{i18n.ABOUT.TITLE}</h1>
 
-      <Character />
-      <p>
-        {i18n.ABOUT.DESCRIPTION}
-      </p>
-    </div>
-    <h3>
-      {i18n.ABOUT.PROFESIONAL_EXPERIENCE_TITLE}
-    </h3>
+    <Character />
     <p>
-      {i18n.ABOUT.PROFESIONAL_EXPERIENCE_DESCRIPTION}
+      {i18n.ABOUT.DESCRIPTION}
     </p>
-    <h3>{i18n.ABOUT.EDUCATION_TITLE}</h3>
-    <p>
-      {i18n.ABOUT.EDUCATION_DESCRIPTION}
-    </p>
-    <h3>
-      {i18n.ABOUT.PROFESIONAL_PERSONAL_INTERESTS_TITLE}
-    </h3>
-    <p>
-      {i18n.ABOUT.PROFESIONAL_PERSONAL_INTERESTS_DESCRIPTION}
-    </p>
-    <h3>{i18n.ABOUT.MOTIVATION_OBJECTIVES_TITLE}</h3>
-    <p>
-      {i18n.ABOUT.MOTIVATION_OBJECTIVES_DESCRIPTION}
-    </p>
-    <h3>
-      {i18n.ABOUT.PERSONAL_PHILOSOPHY_TITLE}
-    </h3>
-    <p>
-      {i18n.ABOUT.PERSONAL_PHILOSOPHY_DESCRIPTION}
-    </p>
-    <h3>{i18n.ABOUT.CONTACT_TITLE}</h3>
-    <p>
-      {i18n.ABOUT.CONTACT_DESCRIPTION}
-      <a href="mailto:contact@doneber.dev">contact@doneber.dev</a>.
-    </p>
-  </SectionContainer>
-</main>
+  </div>
+  <h3>
+    {i18n.ABOUT.PROFESIONAL_EXPERIENCE_TITLE}
+  </h3>
+  <p>
+    {i18n.ABOUT.PROFESIONAL_EXPERIENCE_DESCRIPTION}
+  </p>
+  <h3>{i18n.ABOUT.EDUCATION_TITLE}</h3>
+  <p>
+    {i18n.ABOUT.EDUCATION_DESCRIPTION}
+  </p>
+  <h3>
+    {i18n.ABOUT.PROFESIONAL_PERSONAL_INTERESTS_TITLE}
+  </h3>
+  <p>
+    {i18n.ABOUT.PROFESIONAL_PERSONAL_INTERESTS_DESCRIPTION}
+  </p>
+  <h3>{i18n.ABOUT.MOTIVATION_OBJECTIVES_TITLE}</h3>
+  <p>
+    {i18n.ABOUT.MOTIVATION_OBJECTIVES_DESCRIPTION}
+  </p>
+  <h3>
+    {i18n.ABOUT.PERSONAL_PHILOSOPHY_TITLE}
+  </h3>
+  <p>
+    {i18n.ABOUT.PERSONAL_PHILOSOPHY_DESCRIPTION}
+  </p>
+  <h3>{i18n.ABOUT.CONTACT_TITLE}</h3>
+  <p>
+    {i18n.ABOUT.CONTACT_DESCRIPTION}
+    <a href="mailto:contact@doneber.dev">contact@doneber.dev</a>.
+  </p>
+</SectionContainer>
 
 <style>
   p {

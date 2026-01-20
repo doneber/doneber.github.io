@@ -10,12 +10,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <BentoLayout title={title} description={description}>
-
-  <main>
-    <SectionContainer>
+  <SectionContainer>
     <article>
       <div class="hero-image">
-        {heroImage && <img width='100%' height='auto' src={heroImage} alt="" />}
+        {heroImage && <img width="100%" height="auto" src={heroImage} alt="" />}
       </div>
       <div class="prose">
         <div class="title">
@@ -35,6 +33,5 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         <slot />
       </div>
     </article>
-    </SectionContainer>
-  </main>
+  </SectionContainer>
 </BentoLayout>

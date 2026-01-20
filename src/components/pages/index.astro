@@ -28,84 +28,82 @@ const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
-<main transition:animate="slide">
-  <div class="container">
-    <div class="neo-left">
-      <BioSection
-        shortDescription={i18n.HOME.BIO.SHORT_DESCRIPTION}
-        fullDescription={i18n.ABOUT.DESCRIPTION}
-      />
-      <div class="line-horizontal-2">
-        <LineHorizontal2 />
-      </div>
-      <BlogSection />
-      <div class="line-horizontal-4">
-        <LineHorizontal1 />
-      </div>
-      <VideosSection />
+<div class="container">
+  <div class="neo-left">
+    <BioSection
+      shortDescription={i18n.HOME.BIO.SHORT_DESCRIPTION}
+      fullDescription={i18n.ABOUT.DESCRIPTION}
+    />
+    <div class="line-horizontal-2">
+      <LineHorizontal2 />
     </div>
+    <BlogSection />
+    <div class="line-horizontal-4">
+      <LineHorizontal1 />
+    </div>
+    <VideosSection />
+  </div>
+  <div class="line-vertical">
+    <LineVertical />
+  </div>
+  <div class="line-horizontal-6">
+    <LineHorizontal1 />
+  </div>
+  <!--  -->
+  <div class="neo">
+    <MenuSection />
+    <div class="line-horizontal-1">
+      <LineHorizontal1 />
+    </div>
+    <ProjectsSection />
+    <div class="line-horizontal-3">
+      <LineHorizontal3 />
+    </div>
+    <SocialSection />
+
+    <div class="line-horizontal-5">
+      <LineHorizontal5 />
+    </div>
+    <FooterSection />
+  </div>
+  <div class="neo-mobile">
+    <MenuSection />
+    <div class="line-horizontal-1">
+      <LineHorizontal1 />
+    </div>
+    <BioSection
+      shortDescription={i18n.HOME.BIO.SHORT_DESCRIPTION}
+      fullDescription={i18n.ABOUT.DESCRIPTION}
+    />
+    <div class="line-horizontal-2">
+      <LineHorizontal2 />
+    </div>
+
+    <ProjectsSection />
+    <div class="line-horizontal-3">
+      <LineHorizontal3 />
+    </div>
+    <BlogSection />
+    <div class="line-horizontal-4">
+      <LineHorizontal1 />
+    </div>
+    <VideosSection />
     <div class="line-vertical">
       <LineVertical />
     </div>
     <div class="line-horizontal-6">
       <LineHorizontal1 />
     </div>
-    <!--  -->
-    <div class="neo">
-      <MenuSection />
-      <div class="line-horizontal-1">
-        <LineHorizontal1 />
-      </div>
-      <ProjectsSection />
-      <div class="line-horizontal-3">
-        <LineHorizontal3 />
-      </div>
-      <SocialSection />
 
-      <div class="line-horizontal-5">
-        <LineHorizontal5 />
-      </div>
-      <FooterSection />
+    <SocialSection />
+
+    <div class="line-horizontal-5">
+      <LineHorizontal5 />
     </div>
-    <div class="neo-mobile">
-      <MenuSection />
-      <div class="line-horizontal-1">
-        <LineHorizontal1 />
-      </div>
-      <BioSection
-        shortDescription={i18n.HOME.BIO.SHORT_DESCRIPTION}
-        fullDescription={i18n.ABOUT.DESCRIPTION}
-      />
-      <div class="line-horizontal-2">
-        <LineHorizontal2 />
-      </div>
-
-      <ProjectsSection />
-      <div class="line-horizontal-3">
-        <LineHorizontal3 />
-      </div>
-      <BlogSection />
-      <div class="line-horizontal-4">
-        <LineHorizontal1 />
-      </div>
-      <VideosSection />
-      <div class="line-vertical">
-        <LineVertical />
-      </div>
-      <div class="line-horizontal-6">
-        <LineHorizontal1 />
-      </div>
-
-      <SocialSection />
-
-      <div class="line-horizontal-5">
-        <LineHorizontal5 />
-      </div>
-      <FooterSection />
-    </div>
+    <FooterSection />
   </div>
-  <ContactModal />
-</main>
+</div>
+<ContactModal />
 
 <style>
   .container {

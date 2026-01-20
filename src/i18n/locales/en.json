@@ -6,7 +6,7 @@
       "SHORT_DESCRIPTION": "Fullstack Developer"
     },
     "BLOG": {
-      "SEE_MORE": "See more",
+      "SEE_MORE": "Go to blog",
       "TITLE": "Recent posts"
     },
     "FOOTER": {
@@ -21,7 +21,7 @@
       "TITLE": "My Social Networks"
     },
     "VIDEOS": {
-      "SEE_MORE": "See more",
+      "SEE_MORE": "Go to channel",
       "TITLE": "Recent videos"
     }
   },

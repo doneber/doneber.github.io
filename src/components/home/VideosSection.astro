@@ -1,6 +1,7 @@
 ---
 import { parseStringPromise } from "xml2js";
 import { getI18N } from "@/i18n";
+import Out from "@/assets/out.svg";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
@@ -63,12 +64,26 @@ const videos = allVideos.slice(0, 3);
     </div>
     <div class="see-more">
         <a href="https://youtube.com/@doneber" target="_blank"
-            >{i18n.HOME.VIDEOS.SEE_MORE}</a
-        >
+            >{i18n.HOME.VIDEOS.SEE_MORE}
+            <Out />
+        </a>
     </div>
 </div>
 
 <style>
+    .see-more a {
+        display: inline-flex;
+        align-items: center;
+    }
+    .see-more a svg {
+        width: 1rem;
+        height: 1rem;
+        margin-left: 0.5rem;
+        transform: scaleX(-1);
+    }
+    .see-more a::after {
+        content: "";
+    }
     .video-list {
         display: flex;
         gap: 1rem;
