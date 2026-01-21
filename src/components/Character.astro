@@ -39,6 +39,7 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         private currentIndex: number = 0;
         private hideTimer: number | null = null;
         private isSpeaking: boolean = false;
+        private isPinned: boolean = false;
 
         // DOM Elements
         private bioImage: HTMLElement;
@@ -142,6 +143,7 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             top = Math.min(top, parentRect.bottom - rect.height);
 
             const isSticky = rect.top < this.CONFIG.stickyTop - 50;
+            this.isPinned = isSticky;
 
             // If sticky, we snap to specific top value
             if (isSticky) {
@@ -194,21 +196,99 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             }
         };
 
+        private updatePosition() {
+            const rect = this.bioImage.getBoundingClientRect();
+
+            // Reset classes
+            this.bubble.classList.remove(
+                "pos-top",
+                "pos-bottom",
+                "pos-left",
+                "pos-right",
+            );
+
+            // LOGIC:
+            // 1. If Fixed/Pinned (Sticky): Show on LEFT
+            // 2. By Default: Show on TOP
+
+            if (this.isPinned) {
+                this.bubble.classList.add("pos-left");
+                // axis: x, dir: 1 (pop left), centers: yPercent -50
+                return {
+                    axis: "x",
+                    dir: 1,
+                    xPercent: 0,
+                    yPercent: -50,
+                    scale: 0.9,
+                };
+            }
+
+            if (rect.top > 120) {
+                this.bubble.classList.add("pos-top");
+                // axis: y, dir: 1 (pop top), centers: xPercent -50
+                return {
+                    axis: "y",
+                    dir: 1,
+                    xPercent: -50,
+                    yPercent: 0,
+                    scale: 1,
+                };
+            }
+
+            // Fallback to Left
+            this.bubble.classList.add("pos-left");
+            return {
+                axis: "x",
+                dir: 1,
+                xPercent: 0,
+                yPercent: -50,
+                scale: 0.9,
+            };
+        }
+
         private animateBubbleShow(message: string) {
             this.isSpeaking = true;
             this.bubble.setAttribute("aria-hidden", "false");
 
-            // Ensure context is active so we can kill these tweens later
+            const { axis, dir, xPercent, yPercent, scale } =
+                this.updatePosition();
+
             this.ctx?.add(() => {
                 const tl = gsap.timeline();
 
-                tl.to(this.bubble, {
-                    scale: 1,
+                // Start: Pop out from the edge of the avatar
+                // We must include the xPercent/yPercent so GSAP doesn't override the CSS centering
+                const startVars =
+                    axis === "y"
+                        ? {
+                              scale: 0,
+                              y: 15 * dir,
+                              xPercent,
+                              yPercent,
+                              opacity: 0,
+                          }
+                        : {
+                              scale: 0,
+                              x: 15 * dir,
+                              xPercent,
+                              yPercent,
+                              opacity: 0,
+                          };
+
+                const endVars = {
+                    scale: scale, // Slightly smaller bubble when pinned
+                    x: 0,
                     y: 0,
+                    xPercent,
+                    yPercent,
                     opacity: 1,
                     duration: 0.4,
                     ease: "back.out(1.7)",
-                }).to(
+                };
+
+                gsap.set(this.bubble, startVars);
+
+                tl.to(this.bubble, endVars).to(
                     this.bubbleText,
                     {
                         duration: message.length * this.CONFIG.typingSpeed,
@@ -218,7 +298,6 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
                     "<",
                 );
 
-                // Auto-hide
                 const delay =
                     message.length * this.CONFIG.typingSpeed * 1000 +
                     this.CONFIG.readingTime;
@@ -230,9 +309,9 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
         private animateBubbleHide(onComplete?: () => void) {
             this.ctx?.add(() => {
+                // Simple generic fade out works for all positions
                 gsap.to(this.bubble, {
                     scale: 0.8,
-                    y: -5,
                     opacity: 0,
                     duration: 0.3,
                     ease: "power2.in",
@@ -362,10 +441,8 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
     .bio-image {
         padding: 0;
-        /* Transitions for sticky movement */
-        transition:
-            width 0.3s ease,
-            height 0.3s ease;
+        /* Width/Height/Top/Right managed by GSAP for sticky behavior. 
+           Transitions removed to prevent jitter during scroll. */
         perspective: 100px;
         transform-style: preserve-3d;
         display: flex;
@@ -415,15 +492,12 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         pointer-events: none; /* Let clicks pass to button */
     }
 
-    /* Speech Bubble */
+    /* --- SPEECH BUBBLE BASE --- */
     .speech-bubble {
         position: absolute;
-        bottom: 100%;
-        left: 50%;
-        margin-bottom: 15px;
-        transform: translateX(-50%) scale(0);
-        opacity: 0;
+        z-index: 9;
 
+        /* Box Model */
         background-color: #fff;
         color: #111;
         padding: 12px 18px;
@@ -431,23 +505,92 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         font-size: 14px;
         font-weight: 600;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        z-index: 9;
+
+        /* Layout limits */
+        max-width: 240px;
+        min-width: 120px;
         white-space: pre-wrap;
         text-align: center;
         line-height: 1.4;
-        max-width: 240px;
-        min-width: 120px;
+
+        /* Default state for animation */
+        opacity: 0;
         pointer-events: none;
+
+        /* Ensure no transition on placement properties so it snaps instantly */
+        transition: none;
     }
 
+    /* --- TAIL BASE --- */
     .bubble-tail {
         position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+    }
+
+    /* ---------------------------------------------------------
+   VARIANTS: TOP (Default), BOTTOM, LEFT, RIGHT
+--------------------------------------------------------- */
+
+    /* 1. TOP (Standard) */
+    .speech-bubble.pos-top {
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%); /* Centered Horizontally */
+        margin-bottom: 15px;
+    }
+    .speech-bubble.pos-top .bubble-tail {
         top: 100%;
         left: 50%;
         margin-left: -12px;
-        border-style: solid;
         border-width: 12px 12px 0 12px;
         border-color: #fff transparent transparent transparent;
+    }
+
+    /* 2. BOTTOM (Fallback) */
+    .speech-bubble.pos-bottom {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%); /* Centered Horizontally */
+        margin-top: 15px;
+    }
+    .speech-bubble.pos-bottom .bubble-tail {
+        bottom: 100%;
+        left: 50%;
+        margin-left: -12px;
+        border-width: 0 12px 12px 12px;
+        border-color: transparent transparent #fff transparent;
+    }
+
+    /* 3. LEFT (Preferred Side) */
+    .speech-bubble.pos-left {
+        top: 50%;
+        right: 100%;
+        transform: translateY(-50%); /* Centered Vertically */
+        margin-right: 15px;
+    }
+    .speech-bubble.pos-left .bubble-tail {
+        top: 50%;
+        left: 100%; /* Attach to right side of bubble */
+        margin-top: -12px;
+        border-width: 12px 0 12px 12px;
+        border-color: transparent transparent transparent #fff;
+    }
+
+    /* 4. RIGHT (Alternative Side) */
+    .speech-bubble.pos-right {
+        top: 50%;
+        left: 100%;
+        transform: translateY(-50%); /* Centered Vertically */
+        margin-left: 15px;
+    }
+    .speech-bubble.pos-right .bubble-tail {
+        top: 50%;
+        right: 100%; /* Attach to left side of bubble */
+        margin-top: -12px;
+        border-width: 12px 12px 12px 0;
+        border-color: transparent #fff transparent transparent;
     }
 
     @media (width <= 1000px) {
