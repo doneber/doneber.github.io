@@ -2,14 +2,21 @@
 import Avatar from "@/assets/avatar.svg";
 import { getI18N } from "@/i18n";
 
+interface Props {
+    messages?: string[];
+    isFixed?: boolean;
+}
+
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
-const messagesArr = i18n.CHARACTER.MESSAGES;
+
+const { messages = i18n.CHARACTER.MESSAGES } = Astro.props;
 ---
 
 <astro-character
     class="character-container"
-    data-messages={JSON.stringify(messagesArr)}
+    data-messages={JSON.stringify(messages)}
+    data-fixed={Astro.props.isFixed ? "true" : "false"}
 >
     <div class="float-shape"></div>
 
@@ -42,11 +49,11 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         private isPinned: boolean = false;
 
         // DOM Elements
-        private bioImage: HTMLElement;
-        private svg: SVGElement;
-        private bubble: HTMLElement;
-        private bubbleText: HTMLElement;
-        private floatShape: HTMLElement;
+        private bioImage!: HTMLElement;
+        private svg!: SVGElement;
+        private bubble!: HTMLElement;
+        private bubbleText!: HTMLElement;
+        private floatShape!: HTMLElement;
 
         // Constants
         private CONFIG = {
@@ -135,14 +142,16 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
             const rect = this.floatShape.getBoundingClientRect();
             const parentRect = this.parentElement.getBoundingClientRect();
 
+            const isForceFixed = this.dataset.fixed === "true";
+
             // Calculate sticky top position
             let top = Math.max(0, rect.top);
 
             // Constrain to parent bottom
-            // Note: rect.height is the spacer height (140px)
             top = Math.min(top, parentRect.bottom - rect.height);
 
-            const isSticky = rect.top < this.CONFIG.stickyTop - 50;
+            const isSticky =
+                isForceFixed || rect.top < this.CONFIG.stickyTop - 50;
             this.isPinned = isSticky;
 
             // If sticky, we snap to specific top value

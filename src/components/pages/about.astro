@@ -10,7 +10,7 @@ const i18n = getI18N({ currentLocale });
   <div>
     <h1>{i18n.ABOUT.TITLE}</h1>
 
-    <Character />
+    <Character messages={i18n.ABOUT.CHARACTER_MESSAGES} />
     <p>
       {i18n.ABOUT.DESCRIPTION}
     </p>

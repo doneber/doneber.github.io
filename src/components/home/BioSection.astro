@@ -19,7 +19,7 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
             <h3 class="short-description">
                 {shortDescription}
             </h3>
-            <Character />
+            <Character messages={i18n.HOME.BIO.CHARACTER_MESSAGES} />
             <p class="bio-text">
                 {fullDescription}
             </p>

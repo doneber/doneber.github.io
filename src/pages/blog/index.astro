@@ -1,38 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getCollection } from "astro:content";
-import FormattedDate from "@/components/FormattedDate.astro";
-import SectionContainer from "@/components/portfolio/SectionContainer.astro";
 import { getI18N } from "@/i18n";
+import Blog from "@/components/pages/blog.astro";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
-
-const posts = (await getCollection("blog")).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
-);
 ---
 
 <Layout title={i18n.BLOG_PAGE.TITLE}>
-	<SectionContainer>
-		<h1>{i18n.BLOG_PAGE.HEADING}</h1>
-		<p>{i18n.BLOG_PAGE.DESCRIPTION}</p>
-		<ul>
-			{
-				posts.map((post) => (
-					<li>
-						<a
-							href={`/blog/${post.id}/`}
-							style="display:flex; gap: 1rem; align-items:center;"
-						>
-							<h4 class="title">{post.data.title}</h4> |
-							<p class="date">
-								<FormattedDate date={post.data.pubDate} />
-							</p>
-						</a>
-					</li>
-				))
-			}
-		</ul>
-	</SectionContainer>
+	<Blog />
 </Layout>

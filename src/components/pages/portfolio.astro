@@ -4,11 +4,13 @@ import Hero from "@/components/portfolio/Hero.astro";
 import SectionContainer from "../portfolio/SectionContainer.astro";
 import Projects from "@/components/portfolio/Projects.astro";
 import Experience from "@/components/portfolio/Experience.astro";
+import Character from "@/components/Character.astro";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
+<Character messages={i18n.PORTFOLIO.CHARACTER_MESSAGES} isFixed />
 <SectionContainer>
   <Hero />
 </SectionContainer>

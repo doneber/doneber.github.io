@@ -1,0 +1,38 @@
+---
+import Character from "@/components/Character.astro";
+import SectionContainer from "@/components/portfolio/SectionContainer.astro";
+import { getI18N } from "@/i18n";
+import { getCollection } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+
+const posts = (await getCollection("blog")).sort(
+    (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
+);
+---
+
+<Character messages={i18n.BLOG_PAGE.CHARACTER_MESSAGES} isFixed />
+
+<SectionContainer>
+    <h1>{i18n.BLOG_PAGE.HEADING}</h1>
+    <p>{i18n.BLOG_PAGE.DESCRIPTION}</p>
+    <ul>
+        {
+            posts.map((post) => (
+                <li>
+                    <a
+                        href={`/blog/${post.id}/`}
+                        style="display:flex; gap: 1rem; align-items:center;"
+                    >
+                        <h4 class="title">{post.data.title}</h4> |
+                        <p class="date">
+                            <FormattedDate date={post.data.pubDate} />
+                        </p>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</SectionContainer>

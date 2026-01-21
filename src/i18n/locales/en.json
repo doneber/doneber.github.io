@@ -3,7 +3,12 @@
     "BIO": {
       "CONTACT_ME": "Contact me",
       "SEE_MORE": "About me",
-      "SHORT_DESCRIPTION": "Fullstack Developer"
+      "SHORT_DESCRIPTION": "Fullstack Developer",
+      "CHARACTER_MESSAGES": [
+        "Hi there! 👋",
+        "Check out my bio below",
+        "Feel free to reach out!"
+      ]
     },
     "BLOG": {
       "SEE_MORE": "Go to blog",
@@ -89,11 +94,21 @@
     ],
     "ABOUT_TITLE": "About Me",
     "ABOUT_DESCRIPTION": "I’m Eber, a fullstack developer with experience in JavaScript, NodeJs, React, Next.js, and Nest.js. I studied Computer Science and create educational content on social media. In my free time, I enjoy playing volleyball, running, and sometimes going to the gym. My goal is to foster collaborative learning, and I firmly believe that discipline surpasses natural talent. Feel free to contact me for inquiries.",
-    "CONTACT_TITLE": "Contact"
+    "CONTACT_TITLE": "Contact",
+    "CHARACTER_MESSAGES": [
+      "Check out my work!",
+      "I love building things",
+      "Projects, experience and more"
+    ]
   },
   "ABOUT": {
     "TITLE": "About me",
     "DESCRIPTION": "My name is Eber, a developer with experience in JavaScript ecosystem. I love developing unique applications that respond to real needs. I also often create educational content on my social media accounts.",
+    "CHARACTER_MESSAGES": [
+      "Welcome to my portfolio",
+      "I'm Doneber",
+      "I'm a developer"
+    ],
     "PROFESIONAL_EXPERIENCE_TITLE": "Professional experience",
     "PROFESIONAL_EXPERIENCE_DESCRIPTION": "I have had the opportunity to work at the Electronic Government and Information and Communication Technologies Agency as a fullstack developer, where I deepened my experience in technologies such as JavaScript, NodeJs, React, Next.js and Nest.js, in addition to strengthening my control skills. of versions with Git and GitHub.",
     "EDUCATION_TITLE": "Education",
@@ -139,12 +154,22 @@
         "DESCRIPTION_COMPONENT": "Comfort without luxury, ideal for long hours of work."
       }
     ],
-    "MESSAGE": "This setup, although simple, has allowed me to develop projects, learn and create content effectively. The important thing is not the cost, but how you use it!"
+    "MESSAGE": "This setup, although simple, has allowed me to develop projects, learn and create content effectively. The important thing is not the cost, but how you use it!",
+    "CHARACTER_MESSAGES": [
+      "This is my workspace",
+      "Simple but effective",
+      "Wanna see my gear?"
+    ]
   },
   "BLOG_PAGE": {
     "TITLE": "Blog - doneber.dev",
     "HEADING": "Recent posts",
-    "DESCRIPTION": "Here are my latest posts"
+    "DESCRIPTION": "Here are my latest posts",
+    "CHARACTER_MESSAGES": [
+      "Welcome to my blog",
+      "I write about code",
+      "Hope you enjoy it!"
+    ]
   },
   "CHARACTER": {
     "MESSAGES": [
