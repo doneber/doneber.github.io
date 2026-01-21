@@ -1,10 +1,5 @@
 ---
 import { getI18N } from "@/i18n";
-import {
-  getLangFromUrl,
-  useTranslations,
-  useTranslatedPath,
-} from "@/i18n/utils.ts";
 
 import LineVertical from "@/assets/lines/line-vertical.svg";
 import LineHorizontal1 from "@/assets/lines/line-horizontal-1.svg";
@@ -12,7 +7,6 @@ import LineHorizontal2 from "@/assets/lines/line-horizontal-2.svg";
 import LineHorizontal3 from "@/assets/lines/line-horizontal-3.svg";
 import LineHorizontal4 from "@/assets/lines/line-horizontal-4.svg";
 import LineHorizontal5 from "@/assets/lines/line-horizontal-5.svg";
-import BentoLayout from "@/layouts/BentoLayout.astro";
 
 // New Section Components
 import BioSection from "../home/BioSection.astro";
@@ -238,7 +232,7 @@ const i18n = getI18N({ currentLocale });
     }
   }
 
-  /* Prevent FOUC: Handled by BentoLayout critical CSS */
+  /* Prevent FOUC: Handled by Layout critical CSS */
 </style>
 
 <script>

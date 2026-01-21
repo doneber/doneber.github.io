@@ -94,7 +94,12 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
         padding: 0.75rem;
         border-radius: 8px;
         border: 1px solid var(--border-line, #ccc);
-        background: var(--primary-bg, #f5f5f5);
+        background-color: color-mix(
+            in srgb,
+            var(--primary-bg) 60%,
+            transparent 40%
+        );
+        z-index: 9;
         color: inherit;
         font-family: inherit;
     }

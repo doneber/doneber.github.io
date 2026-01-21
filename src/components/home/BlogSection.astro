@@ -13,7 +13,7 @@ const posts = (await getCollection("blog"))
     .slice(0, NUMBER_LAST_POSTS);
 ---
 
-<div class="blog box">
+<section class="blog box">
     <h2>{i18n.HOME.BLOG.TITLE}</h2>
     <ul class="post-list">
         {
@@ -32,7 +32,7 @@ const posts = (await getCollection("blog"))
     <div class="see-more">
         <a href="/blog">{i18n.HOME.BLOG.SEE_MORE}</a>
     </div>
-</div>
+</section>
 
 <style>
     .blog .post-list {

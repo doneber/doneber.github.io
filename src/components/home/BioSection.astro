@@ -12,7 +12,7 @@ import { getI18N } from "@/i18n";
 const i18n = getI18N({ currentLocale: Astro.currentLocale });
 ---
 
-<div class="bio box">
+<section class="bio box">
     <div class="bio-content">
         <h1>@doneber</h1>
         <div>
@@ -50,7 +50,7 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
     <div class="see-more">
         <a href="/about">{i18n.HOME.BIO.SEE_MORE}</a>
     </div>
-</div>
+</section>
 
 <style>
     button {

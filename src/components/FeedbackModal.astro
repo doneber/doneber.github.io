@@ -136,7 +136,7 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
         text-align: center;
         font-size: 0.9rem;
         color: var(--primary-text);
-        opacity: 0.6;
+        opacity: 0.9;
         margin-bottom: 1.5rem;
     }
 
@@ -155,11 +155,16 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
         padding: 1.25rem 0.75rem;
         border-radius: 12px;
         border: 1px solid var(--border-line);
-        background-color: var(--primary-bg);
+        background-color: color-mix(
+            in srgb,
+            var(--primary-bg) 60%,
+            transparent 40%
+        );
         text-decoration: none;
         color: var(--primary-text);
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         text-align: center;
+        z-index: 9;
     }
 
     .option-card:hover {
@@ -197,7 +202,7 @@ const i18n = getI18N({ currentLocale: Astro.currentLocale });
     .footer-note {
         margin-top: 2rem;
         color: var(--primary-text);
-        opacity: 0.4;
+        opacity: 0.8;
         font-size: 0.7rem;
         display: flex;
         align-items: center;

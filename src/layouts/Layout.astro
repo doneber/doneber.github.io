@@ -142,8 +142,6 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
             :root {
                 --primary-bg: #f5f5f5;
                 --primary-text: #333;
-                --primary-bg-inverted: #333;
-                --primary-text-inverted: #f5f5f5;
                 --bg-container: #ffffff;
                 --primar-text: #000000;
                 --link-color: #0066cc;
@@ -264,10 +262,8 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
                     20px 20px;
             }
             html.dark {
-                --primary-bg: #333;
+                --primary-bg: #222;
                 --primary-text: #eee;
-                --primary-bg-inverted: #f5f5f5;
-                --primary-text-inverted: #333;
                 --paper-opacity: 0;
                 --accent-blue: #549eff;
 
@@ -363,6 +359,9 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
                 .see-more {
                     margin-top: 1rem;
                 }
+            }
+            section {
+                position: relative;
             }
         </style>
 

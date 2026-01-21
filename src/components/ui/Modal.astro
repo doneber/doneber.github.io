@@ -1,5 +1,6 @@
 ---
 import CornerTopLeft from "@/assets/corner-top-left.svg";
+import drawWallpaper from "@/assets/draw-wallpaper.png";
 
 interface Props {
     id: string;
@@ -42,7 +43,7 @@ const { id, title } = Astro.props;
     </div>
 </dialog>
 
-<style>
+<style define:vars={{ drawWallpaper: `url("${drawWallpaper.src}")` }}>
     svg:first-child {
         transform: rotate(90deg);
         position: absolute;
@@ -50,6 +51,7 @@ const { id, title } = Astro.props;
         right: -1.3px;
         width: 3rem;
         height: 3rem;
+        z-index: 1;
     }
     dialog * {
         font-family: monospace;
@@ -116,20 +118,11 @@ const { id, title } = Astro.props;
         overflow: hidden;
     }
     .modal-content {
-        /* Bento Design Styles */
         position: relative;
         border-radius: 7px;
-        background-color: var(--primary-bg);
         color: var(--primary-text);
         padding: clamp(1.5rem, 5vw, 2rem);
-
-        /* Sketchy Border */
         border: 1px solid var(--border-line);
-        /* box-shadow: inset 0 0 5px 3px
-            color-mix(in srgb, transparent 80%, var(--border-line) 20%); */
-
-        /* Box Shadow for depth */
-        /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); */
     }
 
     .modal-header {
@@ -168,6 +161,24 @@ const { id, title } = Astro.props;
         display: block;
         width: 70%;
         height: 70%;
+    }
+
+    .modal-content::before {
+        content: "123";
+        position: absolute;
+        inset: 0;
+        background-image: var(--drawWallpaper);
+        background-size: 500px;
+        background-repeat: repeat;
+        opacity: 0.1;
+        /* z-index: -1; */
+        pointer-events: none;
+        filter: invert(1);
+    }
+
+    :global(.dark) .modal-content::before {
+        filter: invert(0);
+        opacity: 0.08;
     }
 </style>
 

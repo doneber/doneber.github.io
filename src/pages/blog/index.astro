@@ -1,5 +1,5 @@
 ---
-import BentoLayout from "@/layouts/BentoLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import SectionContainer from "@/components/portfolio/SectionContainer.astro";
@@ -13,7 +13,7 @@ const posts = (await getCollection("blog")).sort(
 );
 ---
 
-<BentoLayout title={i18n.BLOG_PAGE.TITLE}>
+<Layout title={i18n.BLOG_PAGE.TITLE}>
 	<SectionContainer>
 		<h1>{i18n.BLOG_PAGE.HEADING}</h1>
 		<p>{i18n.BLOG_PAGE.DESCRIPTION}</p>
@@ -35,4 +35,4 @@ const posts = (await getCollection("blog")).sort(
 			}
 		</ul>
 	</SectionContainer>
-</BentoLayout>
+</Layout>
