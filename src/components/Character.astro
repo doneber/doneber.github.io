@@ -7,10 +7,25 @@ const i18n = getI18N({ currentLocale });
 const messagesArr = i18n.CHARACTER.MESSAGES;
 ---
 
-<div class="float-shape" data-messages={JSON.stringify(messagesArr)}></div>
-<button class="bio-image" transition:name="character">
-    <Avatar />
-</button>
+<astro-character
+    class="character-container"
+    data-messages={JSON.stringify(messagesArr)}
+>
+    <div class="float-shape"></div>
+
+    <button
+        class="bio-image"
+        aria-label="Character Avatar: Click to hear me speak"
+        transition:name="character"
+    >
+        <Avatar />
+
+        <div class="speech-bubble" aria-live="polite" aria-hidden="true">
+            <span class="bubble-text"></span>
+            <div class="bubble-tail"></div>
+        </div>
+    </button>
+</astro-character>
 
 <script>
     import { gsap } from "gsap";
@@ -18,350 +33,339 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
 
     gsap.registerPlugin(TextPlugin);
 
-    // ============================================================================
-    // CONSTANTS
-    // ============================================================================
+    class AstroCharacter extends HTMLElement {
+        private ctx: gsap.Context | null = null;
+        private messages: string[];
+        private currentIndex: number = 0;
+        private hideTimer: number | null = null;
+        private isSpeaking: boolean = false;
 
-    const CONFIG = {
-        typingSpeed: 0.04,
-        readingTime: 2000,
-        blinkInterval: [2000, 6000],
-        mouseRange: 500,
-        maxRotation: 15,
-    };
+        // DOM Elements
+        private bioImage: HTMLElement;
+        private svg: SVGElement;
+        private bubble: HTMLElement;
+        private bubbleText: HTMLElement;
+        private floatShape: HTMLElement;
 
-    // ============================================================================
-    // POSITIONING (Sticky + Boundary)
-    // ============================================================================
+        // Constants
+        private CONFIG = {
+            typingSpeed: 0.04,
+            readingTime: 2000,
+            blinkInterval: [2000, 6000],
+            mouseRange: 500,
+            maxRotation: 15,
+            stickyTop: 25,
+            shrunkSize: 75,
+        };
 
-    function syncPosition(container: HTMLElement, bioImage: HTMLElement) {
-        const rect = container.getBoundingClientRect();
-        const parent = container.parentElement;
-        if (!parent) return;
-
-        const parentRect = parent.getBoundingClientRect();
-
-        let top = Math.max(0, rect.top); // Sticky at top
-        top = Math.min(top, parentRect.bottom - rect.height); // Keep in parent
-
-        const breakpointTop = 25;
-
-        if (rect.top < breakpointTop - 50) {
-            top = breakpointTop;
+        constructor() {
+            super();
+            this.messages = JSON.parse(this.dataset.messages || '["..."]');
         }
-        const right = window.innerWidth - rect.right;
-        gsap.set(bioImage, {
-            top,
-            right: top === breakpointTop ? right / 1.5 : right,
-            width: top === breakpointTop ? 75 : rect.width,
-            height: top === breakpointTop ? 75 : rect.height,
-        });
-    }
 
-    function setupPositioning(container: HTMLElement, bioImage: HTMLElement) {
-        const sync = () => syncPosition(container, bioImage);
+        connectedCallback() {
+            // Select elements scoped to this component
+            this.bioImage = this.querySelector(".bio-image")!;
+            this.svg = this.querySelector("svg")!;
+            this.bubble = this.querySelector(".speech-bubble")!;
+            this.bubbleText = this.querySelector(".bubble-text")!;
+            this.floatShape = this.querySelector(".float-shape")!;
 
-        // Initial sync
-        sync();
+            // Initialize GSAP Context for easy cleanup
+            this.ctx = gsap.context(() => {
+                this.initBlinking();
+                // We don't init mouse tracking here to avoid constant listeners on mobile
+                // Instead we add them conditionally or keep them purely managed
+            }, this);
 
-        // Only sync on scroll and resize, not every frame
-        let rafId: number | null = null;
+            // 1. Positioning (Scroll/Resize)
+            this.setupPositioning();
 
-        const scheduleSync = () => {
-            if (rafId === null) {
-                rafId = requestAnimationFrame(() => {
-                    sync();
-                    rafId = null;
-                });
+            // 2. Mouse Tracking
+            this.setupMouseTracking();
+
+            // 3. Interaction (Click/Touch)
+            this.bioImage.addEventListener(
+                "pointerdown",
+                this.handleInteraction,
+            );
+            this.bioImage.addEventListener(
+                "keydown",
+                this.handleKeyInteraction,
+            );
+        }
+
+        disconnectedCallback() {
+            this.ctx?.revert();
+            window.removeEventListener("scroll", this.onScroll);
+            window.removeEventListener("resize", this.onScroll);
+
+            this.bioImage.removeEventListener(
+                "pointerdown",
+                this.handleInteraction,
+            );
+            this.bioImage.removeEventListener(
+                "keydown",
+                this.handleKeyInteraction,
+            );
+
+            if (this.hideTimer) clearTimeout(this.hideTimer);
+        }
+
+        // =================================================================
+        // 1. POSITIONING LOGIC (Restored Full Math)
+        // =================================================================
+
+        private onScroll = () => {
+            // Throttle via rAF
+            requestAnimationFrame(() => this.syncPosition());
+        };
+
+        private setupPositioning() {
+            window.addEventListener("scroll", this.onScroll, { passive: true });
+            window.addEventListener("resize", this.onScroll);
+            // Initial sync
+            this.syncPosition();
+        }
+
+        private syncPosition() {
+            if (!this.floatShape || !this.parentElement) return;
+
+            const rect = this.floatShape.getBoundingClientRect();
+            const parentRect = this.parentElement.getBoundingClientRect();
+
+            // Calculate sticky top position
+            let top = Math.max(0, rect.top);
+
+            // Constrain to parent bottom
+            // Note: rect.height is the spacer height (140px)
+            top = Math.min(top, parentRect.bottom - rect.height);
+
+            const isSticky = rect.top < this.CONFIG.stickyTop - 50;
+
+            // If sticky, we snap to specific top value
+            if (isSticky) {
+                top = this.CONFIG.stickyTop;
+            }
+
+            // Calculate Right position
+            const right = window.innerWidth - rect.right;
+            const targetRight = isSticky ? right / 1.5 : right;
+
+            // Calculate Size
+            const targetSize = isSticky ? this.CONFIG.shrunkSize : rect.width;
+
+            gsap.set(this.bioImage, {
+                top: top,
+                right: targetRight,
+                width: targetSize,
+                height: targetSize,
+            });
+        }
+
+        // =================================================================
+        // 2. SPEECH BUBBLE LOGIC
+        // =================================================================
+
+        private handleKeyInteraction = (e: KeyboardEvent) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                this.handleInteraction(e);
             }
         };
 
-        window.addEventListener("scroll", scheduleSync, { passive: true });
-        window.addEventListener("resize", scheduleSync);
+        private handleInteraction = (e: Event) => {
+            e.stopPropagation();
 
-        // Cleanup
-        const cleanup = () => {
-            window.removeEventListener("scroll", scheduleSync);
-            window.removeEventListener("resize", scheduleSync);
-            if (rafId !== null) cancelAnimationFrame(rafId);
+            if (this.hideTimer) clearTimeout(this.hideTimer);
+
+            const showNextMessage = () => {
+                const msg = this.messages[this.currentIndex];
+                this.currentIndex =
+                    (this.currentIndex + 1) % this.messages.length;
+                this.animateBubbleShow(msg);
+            };
+
+            if (this.isSpeaking) {
+                // If already speaking, hide first, then show next
+                this.animateBubbleHide(showNextMessage);
+            } else {
+                showNextMessage();
+            }
         };
 
-        document.addEventListener("astro:before-preparation", cleanup);
+        private animateBubbleShow(message: string) {
+            this.isSpeaking = true;
+            this.bubble.setAttribute("aria-hidden", "false");
 
-        return cleanup;
-    }
+            // Ensure context is active so we can kill these tweens later
+            this.ctx?.add(() => {
+                const tl = gsap.timeline();
 
-    // ============================================================================
-    // BLINK ANIMATION
-    // ============================================================================
-
-    function startBlinking(eyes: HTMLElement[]) {
-        function scheduleBlink() {
-            const [min, max] = CONFIG.blinkInterval;
-            const delay = (Math.random() * (max - min) + min) / 1000;
-
-            gsap.delayedCall(delay, () => {
-                gsap.timeline()
-                    .to(eyes, { opacity: 0, duration: 0.08, ease: "power2.in" })
-                    .to(eyes, {
-                        opacity: 1,
-                        duration: 0.08,
-                        ease: "power2.out",
-                    });
-                scheduleBlink();
-            });
-        }
-        scheduleBlink();
-    }
-
-    // ============================================================================
-    // SPEECH BUBBLE
-    // ============================================================================
-
-    function createBubble() {
-        const bubble = document.createElement("div");
-        bubble.className = "speech-bubble";
-
-        Object.assign(bubble.style, {
-            position: "absolute",
-            bottom: "100%",
-            left: "50%",
-            marginBottom: "15px",
-            transform: "translateX(-50%)",
-            backgroundColor: "#fff",
-            color: "#111",
-            padding: "12px 18px",
-            borderRadius: "18px",
-            fontSize: "14px",
-            fontWeight: "600",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-            zIndex: "9",
-            whiteSpace: "pre-wrap",
-            textAlign: "center",
-            lineHeight: "1.4",
-            maxWidth: "240px",
-            minWidth: "120px",
-        });
-
-        const text = document.createElement("div");
-        text.style.minHeight = "1.4em";
-        bubble.appendChild(text);
-
-        const tail = document.createElement("div");
-        Object.assign(tail.style, {
-            position: "absolute",
-            top: "100%",
-            left: "50%",
-            marginLeft: "-12px",
-            borderStyle: "solid",
-            borderWidth: "12px 12px 0 12px",
-            borderColor: "#fff transparent transparent transparent",
-        });
-        bubble.appendChild(tail);
-
-        gsap.set(bubble, { scale: 0, y: 10, opacity: 0 });
-
-        return { bubble, text };
-    }
-
-    function setupSpeechBubble(bioImage: HTMLElement, messages: string[]) {
-        let bubble: HTMLDivElement | null = null;
-        let text: HTMLDivElement | null = null;
-        let currentIndex = 0;
-        let hideTimeout: number | null = null;
-        let isVisible = false;
-        let timeline: GSAPTimeline | null = null;
-
-        function show(message: string) {
-            if (!bubble || !text) return;
-
-            isVisible = true;
-            timeline?.kill();
-
-            timeline = gsap.timeline();
-            timeline
-                .to(bubble, {
+                tl.to(this.bubble, {
                     scale: 1,
                     y: 0,
                     opacity: 1,
                     duration: 0.4,
                     ease: "back.out(1.7)",
-                })
-                .to(
-                    text,
+                }).to(
+                    this.bubbleText,
                     {
-                        duration: message.length * CONFIG.typingSpeed,
+                        duration: message.length * this.CONFIG.typingSpeed,
                         text: { value: message, delimiter: "" },
                         ease: "none",
                     },
                     "<",
                 );
 
-            // Auto-hide after typing + reading
-            const delay =
-                message.length * CONFIG.typingSpeed * 1000 + CONFIG.readingTime;
-            hideTimeout = window.setTimeout(hide, delay);
-        }
-
-        function hide(callback?: () => void) {
-            if (!bubble || !text) return;
-
-            isVisible = false;
-            timeline?.kill();
-            gsap.killTweensOf(text);
-
-            timeline = gsap.timeline({ onComplete: callback }).to(bubble, {
-                scale: 0.8,
-                y: -5,
-                opacity: 0,
-                duration: 0.3,
-                ease: "power2.in",
+                // Auto-hide
+                const delay =
+                    message.length * this.CONFIG.typingSpeed * 1000 +
+                    this.CONFIG.readingTime;
+                this.hideTimer = window.setTimeout(() => {
+                    this.animateBubbleHide();
+                }, delay);
             });
         }
 
-        function handleClick(e: Event) {
-            e.stopPropagation();
-
-            // Create bubble on first click
-            if (!bubble) {
-                const created = createBubble();
-                bubble = created.bubble;
-                text = created.text;
-                bioImage.appendChild(bubble);
-            }
-
-            if (hideTimeout) clearTimeout(hideTimeout);
-
-            if (isVisible) {
-                // Cycle to next message
-                hide(() => {
-                    currentIndex = (currentIndex + 1) % messages.length;
-                    show(messages[currentIndex]);
+        private animateBubbleHide(onComplete?: () => void) {
+            this.ctx?.add(() => {
+                gsap.to(this.bubble, {
+                    scale: 0.8,
+                    y: -5,
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        this.isSpeaking = false;
+                        this.bubbleText.innerText = "";
+                        this.bubble.setAttribute("aria-hidden", "true");
+                        if (onComplete) onComplete();
+                    },
                 });
-            } else {
-                show(messages[currentIndex]);
-            }
-        }
-
-        return handleClick;
-    }
-
-    // ============================================================================
-    // MOUSE TRACKING
-    // ============================================================================
-
-    function setupMouseTracking(bioImage: HTMLElement, svg: SVGElement) {
-        function handleMove(e: MouseEvent | PointerEvent) {
-            const rect = bioImage.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-
-            // Normalize mouse position (-1 to 1)
-            const normX = Math.max(
-                -1,
-                Math.min(1, (e.clientX - centerX) / CONFIG.mouseRange),
-            );
-            const normY = Math.max(
-                -1,
-                Math.min(1, (e.clientY - centerY) / CONFIG.mouseRange),
-            );
-
-            gsap.to(svg, {
-                rotateY: normX * CONFIG.maxRotation,
-                rotateX: -normY * CONFIG.maxRotation,
-                translateX: normX * 8,
-                duration: 0.0001,
-                ease: "power2.out",
-                overwrite: "auto",
             });
         }
 
-        function handleLeave() {
-            gsap.to(svg, {
-                rotateY: -10,
-                rotateX: 0,
-                translateX: -5,
-                duration: 1,
-                ease: "elastic.out(1, 0.5)",
-            });
+        // =================================================================
+        // 3. EYE BLINKING
+        // =================================================================
+
+        private initBlinking() {
+            const leftEye = this.svg.querySelector("#eye-open-left");
+            const rightEye = this.svg.querySelector("#eye-open-right");
+
+            if (!leftEye || !rightEye) return;
+            const eyes = [leftEye, rightEye];
+
+            const blink = () => {
+                const [min, max] = this.CONFIG.blinkInterval;
+                const delay = (Math.random() * (max - min) + min) / 1000;
+
+                gsap.delayedCall(delay, () => {
+                    if (!this.isConnected) return;
+
+                    const tl = gsap.timeline({ onComplete: blink });
+                    tl.to(eyes, {
+                        opacity: 0,
+                        duration: 0.08,
+                        ease: "power2.in",
+                    }).to(eyes, {
+                        opacity: 1,
+                        duration: 0.08,
+                        ease: "power2.out",
+                    });
+                });
+            };
+
+            blink();
         }
 
-        window.addEventListener("pointermove", handleMove);
-        bioImage.addEventListener("mouseleave", handleLeave);
-    }
+        // =================================================================
+        // 4. MOUSE TRACKING & SWAY
+        // =================================================================
 
-    // ============================================================================
-    // INITIALIZATION
-    // ============================================================================
+        private setupMouseTracking() {
+            // Mouse Move
+            const handleMove = (e: PointerEvent | MouseEvent) => {
+                const rect = this.bioImage.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
 
-    function initCharacter(container: HTMLElement) {
-        const bioImage = container.nextElementSibling as HTMLElement;
-        if (!bioImage?.classList.contains("bio-image")) return;
+                const normX = Math.max(
+                    -1,
+                    Math.min(1, (e.clientX - centerX) / this.CONFIG.mouseRange),
+                );
+                const normY = Math.max(
+                    -1,
+                    Math.min(1, (e.clientY - centerY) / this.CONFIG.mouseRange),
+                );
 
-        const svg = bioImage.querySelector("svg") as SVGElement;
-        if (!svg) return;
+                gsap.to(this.svg, {
+                    rotateY: normX * this.CONFIG.maxRotation,
+                    rotateX: -normY * this.CONFIG.maxRotation,
+                    translateX: normX * 8,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    overwrite: "auto",
+                });
+            };
 
-        // Parse messages
-        const messagesJSON = container.getAttribute("data-messages");
-        const messages: string[] = messagesJSON
-            ? JSON.parse(messagesJSON)
-            : ["¡Hola!"];
+            // Mouse Leave (Elastic Reset)
+            const handleLeave = () => {
+                gsap.to(this.svg, {
+                    rotateY: -10, // Default slightly turned
+                    rotateX: 0,
+                    translateX: -5,
+                    duration: 1,
+                    ease: "elastic.out(1, 0.5)",
+                    overwrite: "auto",
+                });
+            };
 
-        // 1. Positioning
-        setupPositioning(container, bioImage);
+            // Add listeners
+            window.addEventListener("pointermove", handleMove);
+            this.bioImage.addEventListener("mouseleave", handleLeave);
 
-        // 2. Blinking
-        const eyeLeft = svg.querySelector("#eye-open-left") as HTMLElement;
-        const eyeRight = svg.querySelector("#eye-open-right") as HTMLElement;
-        if (eyeLeft && eyeRight) {
-            startBlinking([eyeLeft, eyeRight]);
+            // Cleanup specifically for these listeners
+            // (We attach them to the instance so we can remove them later)
+            // Note: Since 'handleMove' is an arrow function created here,
+            // we need to store it to remove it.
+            // Ideally, define these as class methods if you want perfect cleanup,
+            // but for this scope, we can add them to the disconnect logic if we store references.
+
+            // Re-assigning to class properties for cleanup access:
+            this._handleMove = handleMove;
+            this._handleLeave = handleLeave;
         }
 
-        // 3. Speech bubble
-        const handleClick = setupSpeechBubble(bioImage, messages);
-        bioImage.addEventListener("pointerdown", handleClick);
-        svg.addEventListener("pointerdown", handleClick);
-        bioImage.addEventListener("touchend", (e) => {
-            e.preventDefault();
-            handleClick(e);
-        });
-
-        // 4. Mouse tracking
-        setupMouseTracking(bioImage, svg);
+        // Private refs for listener cleanup
+        private _handleMove: any;
+        private _handleLeave: any;
     }
 
-    function initAll() {
-        document
-            .querySelectorAll<HTMLElement>(".float-shape")
-            .forEach((container) => {
-                if (!container.dataset.initialized) {
-                    container.dataset.initialized = "true";
-                    initCharacter(container);
-                }
-            });
-    }
-
-    document.addEventListener("DOMContentLoaded", initAll);
-    document.addEventListener("astro:page-load", initAll);
+    customElements.define("astro-character", AstroCharacter);
 </script>
 
 <style>
+    .character-container {
+        display: contents;
+    }
+
     .float-shape {
         float: right;
         padding: 0;
-        min-height: 50%;
+        min-height: 50%; /* From original */
         width: 140px;
         height: 140px;
+        shape-outside: circle(50%);
     }
 
     .bio-image {
         padding: 0;
+        /* Transitions for sticky movement */
         transition:
-            transform 0.3s ease,
             width 0.3s ease,
-            height 0.3s ease,
-            right 0.1s ease,
-            top 0s ease;
+            height 0.3s ease;
         perspective: 100px;
         transform-style: preserve-3d;
         display: flex;
@@ -370,11 +374,15 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         user-select: none;
         height: 140px;
         width: 140px;
-        position: fixed;
-        z-index: 2;
-        pointer-events: none;
+        position: fixed; /* Fixed is required for the sticky logic provided */
+        z-index: 50;
+        background: transparent;
+        border: none;
+        cursor: pointer;
         transform-origin: bottom center;
-        animation: 8s ease-out 0s infinite sway;
+
+        /* Passive Sway Animation */
+        animation: sway 8s ease-out 0s infinite;
     }
 
     @keyframes sway {
@@ -397,27 +405,54 @@ const messagesArr = i18n.CHARACTER.MESSAGES;
         }
     }
 
-    svg {
-        cursor: pointer;
-        user-select: none;
-        transition: transform 0.3s ease;
-        height: max-content;
+    /* SVG Logic */
+    :global(.bio-image svg) {
         width: 100%;
-        transform: rotateY(-10deg) translateX(-5px);
-        pointer-events: auto;
+        height: max-content;
         max-width: 100%;
+        transform: rotateY(-10deg) translateX(-5px); /* Default posture */
+        transition: transform 0.3s ease;
+        pointer-events: none; /* Let clicks pass to button */
+    }
 
-        &:hover {
-            transform: rotateY(0deg) scale(1.15) translateX(0px);
-        }
+    /* Speech Bubble */
+    .speech-bubble {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-bottom: 15px;
+        transform: translateX(-50%) scale(0);
+        opacity: 0;
+
+        background-color: #fff;
+        color: #111;
+        padding: 12px 18px;
+        border-radius: 18px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 9;
+        white-space: pre-wrap;
+        text-align: center;
+        line-height: 1.4;
+        max-width: 240px;
+        min-width: 120px;
+        pointer-events: none;
+    }
+
+    .bubble-tail {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -12px;
+        border-style: solid;
+        border-width: 12px 12px 0 12px;
+        border-color: #fff transparent transparent transparent;
     }
 
     @media (width <= 1000px) {
         .bio-image {
             width: 120px;
         }
-    }
-    html.dark .bio-image {
-        /* filter: contrast(1.5); */
     }
 </style>

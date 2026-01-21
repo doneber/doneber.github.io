@@ -264,9 +264,42 @@ const i18n = getI18N({ currentLocale });
     );
 
     // --- INITIAL STATES ---
-    // Hide Lines
+    // Instead of hiding EVERYTHING, we only hide what we are about to animate
+    // to prevent invisibility issues when resizing across breakpoints.
+
+    // Hide Sections (Only for active layout)
+    if (isDesktop) {
+      gsap.set(desktopSections, { opacity: 0, visibility: "visible" });
+      gsap.set(mobileSections, {
+        opacity: 1,
+        visibility: "visible",
+        clearProps: "all",
+      });
+    } else {
+      gsap.set(mobileSections, { opacity: 0, visibility: "visible" });
+      gsap.set(desktopSections, {
+        opacity: 1,
+        visibility: "visible",
+        clearProps: "all",
+      });
+    }
+
+    // Hide Lines (Only for active layout)
     allPaths.forEach((line) => {
       const path = line as SVGPathElement;
+      const isMobilePath = path.closest(".neo-mobile");
+      const isCurrentlyActive = isDesktop ? !isMobilePath : !!isMobilePath;
+
+      if (!isCurrentlyActive) {
+        gsap.set(path, {
+          strokeDashoffset: 0,
+          opacity: 1,
+          visibility: "visible",
+          clearProps: "all",
+        });
+        return;
+      }
+
       if (path.getTotalLength) {
         try {
           const length = path.getTotalLength();
@@ -274,16 +307,13 @@ const i18n = getI18N({ currentLocale });
             strokeDasharray: length,
             strokeDashoffset: length,
             opacity: 1,
+            visibility: "visible",
           });
         } catch (e) {
           console.warn("GSAP: Could not measure path length", line);
         }
       }
     });
-
-    // Hide Sections (Desktop & Mobile)
-    const allSections = [...desktopSections, ...mobileSections];
-    gsap.set(allSections, { opacity: 0 });
 
     // REVEAL CONTAINER: Content is ready, children are hidden by GSAP, now show the container
     document.body.classList.add("loaded");
@@ -384,6 +414,33 @@ const i18n = getI18N({ currentLocale });
   }
 
   function setupWithoutAnimation() {
+    // Reset any existing triggers to prevent conflicts
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+
+    const allPaths = document.querySelectorAll(
+      '.line-vertical svg path, [class^="line-horizontal-"] svg path',
+    );
+    const allSections = document.querySelectorAll(
+      '.neo-left > :not([class^="line-"]), .neo > :not([class^="line-"]), .neo-mobile > :not([class^="line-"])',
+    );
+
+    // Ensure all content is visible immediately and clear any GSAP transforms
+    gsap.set(allSections, {
+      opacity: 1,
+      visibility: "visible",
+      clearProps: "all",
+    });
+
+    allPaths.forEach((line) => {
+      const path = line as SVGPathElement;
+      gsap.set(path, {
+        strokeDashoffset: 0,
+        opacity: 1,
+        visibility: "visible",
+        clearProps: "all",
+      });
+    });
+
     document.body.classList.add("loaded");
   }
   // Run after all resources (images, fonts) are loaded for the initial visit
@@ -396,10 +453,22 @@ const i18n = getI18N({ currentLocale });
   // Re-run after view transitions (Astro's navigation)
   document.addEventListener("astro:after-swap", setupWithoutAnimation);
 
+  // Handle resize and breakpoint changes
+  const breakpoint = window.matchMedia("(min-width: 1001px)");
+  breakpoint.addEventListener("change", () => {
+    // Re-initialize animations when switching between desktop and mobile layout
+    setupAnimations();
+  });
+
+  // Regular resize logic for when elements change size but stay in the same layout
+  window.addEventListener("resize", () => {
+    ScrollTrigger.refresh();
+  });
+
   // Safety Fallback: Ensure page is visible if something hangs
   setTimeout(() => {
     if (!document.body.classList.contains("loaded")) {
-      document.body.classList.add("loaded");
+      setupWithoutAnimation();
     }
   }, 3000);
 </script>
