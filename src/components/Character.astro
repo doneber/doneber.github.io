@@ -62,8 +62,8 @@ const { messages = i18n.CHARACTER.MESSAGES } = Astro.props;
             blinkInterval: [2000, 6000],
             mouseRange: 500,
             maxRotation: 15,
-            stickyTop: 25,
-            shrunkSize: 75,
+            stickyTop: 35,
+            shrunkSize: 80,
         };
 
         constructor() {
@@ -169,8 +169,8 @@ const { messages = i18n.CHARACTER.MESSAGES } = Astro.props;
             gsap.set(this.bioImage, {
                 top: top,
                 right: targetRight,
-                width: targetSize,
-                height: targetSize,
+                width: targetSize - 10,
+                height: targetSize - 10,
             });
         }
 
@@ -469,6 +469,17 @@ const { messages = i18n.CHARACTER.MESSAGES } = Astro.props;
 
         /* Passive Sway Animation */
         animation: sway 8s ease-out 0s infinite;
+        transition: scale 0.3s ease;
+
+        &:hover svg {
+            scale: 1.05;
+
+            transition: filter 0.3s ease;
+            filter: drop-shadow(
+                0 0 8px
+                    color-mix(in sRGB, 95% transparent, 5% var(--primary-text))
+            );
+        }
     }
 
     @keyframes sway {

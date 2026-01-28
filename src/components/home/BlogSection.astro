@@ -8,7 +8,9 @@ const i18n = getI18N({ currentLocale });
 
 const NUMBER_LAST_POSTS = 4;
 
-const posts = (await getCollection("blog"))
+const posts = (await getCollection("blog", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+}))
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, NUMBER_LAST_POSTS);
 ---

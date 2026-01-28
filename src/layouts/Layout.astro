@@ -6,7 +6,7 @@ import BorderLight from "@/assets/border-light.svg";
 import CornerTopRight from "@/assets/corner-top-right.svg";
 import CornerTopLeft from "@/assets/corner-top-left.svg";
 import HomeSmile from "@/assets/home-smile.svg";
-import Feedback from "@/assets/feedback.svg";
+import BugFlag from "@/assets/flag-bug.svg";
 import { ClientRouter } from "astro:transitions";
 
 import ThemeToggleButton from "@/components/ThemeToggleButton.astro";
@@ -424,6 +424,7 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
 
             .feedback-button {
                 position: fixed;
+                padding: 0.8rem;
                 bottom: 1rem;
                 right: 1rem;
                 z-index: 9999;
@@ -499,7 +500,7 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
             commandfor="feedback-modal"
             command="show-modal"
         >
-            <Feedback />
+            <BugFlag />
         </button>
         <FeedbackModal />
     </body>
