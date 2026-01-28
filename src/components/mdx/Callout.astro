@@ -1,0 +1,93 @@
+---
+interface Props {
+  type?: "info" | "warning" | "error" | "success" | "tip";
+  title?: string;
+}
+
+const { type = "info", title } = Astro.props;
+
+const icons = {
+  info: "ℹ️",
+  warning: "⚠️",
+  error: "🚫",
+  success: "✅",
+  tip: "💡",
+};
+
+const icon = icons[type];
+---
+
+<div class={`callout callout-${type}`}>
+  <div class="callout-header">
+    <span class="callout-icon">{icon}</span>
+    {title && <span class="callout-title">{title}</span>}
+  </div>
+  <div class="callout-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .callout {
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border-left-width: 4px;
+    border-left-style: solid;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-family: 'Excalifont', sans-serif;
+  }
+  
+  /* If no title, maybe pull icon inline with content or keep header? 
+     Let's keep header structure for consistency if title exists.
+     If no title, the icon still sits above content in this design.
+  */
+
+  .callout-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .callout-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* INFO */
+  .callout-info {
+    background-color: rgba(0, 102, 204, 0.05); /* Blue tint */
+    border-left-color: #0066cc;
+  }
+
+  /* WARNING */
+  .callout-warning {
+    background-color: rgba(255, 165, 0, 0.05); /* Orange tint */
+    border-left-color: #ffa500;
+  }
+
+  /* ERROR */
+  .callout-error {
+    background-color: rgba(255, 69, 58, 0.05); /* Red tint */
+    border-left-color: #ff453a;
+  }
+
+  /* SUCCESS */
+  .callout-success {
+    background-color: rgba(50, 205, 50, 0.05); /* Green tint */
+    border-left-color: #32cd32;
+  }
+  
+  /* TIP */
+  .callout-tip {
+    background-color: rgba(255, 215, 0, 0.05); /* Yellow/Gold tint */
+    border-left-color: #ffd700;
+  }
+</style>

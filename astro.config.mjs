@@ -1,13 +1,11 @@
 import { defineConfig } from 'astro/config';
 
+import mdx from '@astrojs/mdx';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://doneber.dev',
 
-  // TODO: update this to use updated blog content config
-  legacy: {
-    collectionsBackwardsCompat: true,
-  },
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
@@ -17,5 +15,7 @@ export default defineConfig({
     fallback: {
       en: 'es'
     }
-  }
+  },
+
+  integrations: [mdx()]
 });

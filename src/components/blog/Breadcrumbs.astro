@@ -1,0 +1,95 @@
+---
+import { getI18N } from "@/i18n";
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+
+interface Props {
+  className?: string;
+  items?: { label: string; href: string }[];
+}
+
+const { className, items = [] } = Astro.props;
+
+const defaultItems = [
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+];
+
+const breadcrumbItems = [...defaultItems, ...items];
+---
+
+<nav aria-label="Breadcrumb" class:list={["breadcrumbs", className]}>
+  <ol>
+    {
+      breadcrumbItems.map((item, index) => (
+        <li>
+          {index > 0 && <span class="separator">/</span>}
+          {index === breadcrumbItems.length - 1 ? (
+            <span class="current" aria-current="page">
+              {item.label}
+            </span>
+          ) : (
+            <a href={item.href}>{item.label}</a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    font-size: 0.9rem;
+    color: var(--primary-text);
+    opacity: 0.7;
+    margin-bottom: 2rem;
+  }
+
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a:hover {
+    color: var(--accent-blue);
+    text-decoration: underline;
+  }
+
+  .separator {
+    color: var(--border-line);
+  }
+
+  .current {
+    font-weight: 500;
+    opacity: 1;
+    color: var(--primary-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+  }
+  
+  @media (max-width: 600px) {
+    .current {
+        max-width: 150px;
+    }
+  }
+</style>

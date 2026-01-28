@@ -1,0 +1,51 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "TL;DR" } = Astro.props;
+---
+
+<div class="tldr-box">
+  <div class="tldr-title">
+    <span class="icon">📝</span> {title}
+  </div>
+  <div class="tldr-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .tldr-box {
+    background-color: var(--primary-bg);
+    border: 1px solid var(--border-line);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .tldr-title {
+    font-family: 'Excalifont', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-text);
+  }
+
+  .tldr-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--primary-text);
+    opacity: 0.9;
+  }
+  
+  /* Reset some default prose styles inside TLDR if needed */
+  .tldr-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

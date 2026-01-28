@@ -1,37 +1,54 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
+import BlogLayout from "@/layouts/BlogLayout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import SectionContainer from "@/components/portfolio/SectionContainer.astro";
+import Breadcrumbs from "@/components/blog/Breadcrumbs.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags, author } = Astro.props;
 ---
 
-<Layout title={title} description={description}>
+<BlogLayout title={title} description={description}>
   <SectionContainer>
-    <article>
-      <div class="hero-image">
-        {heroImage && <img width="100%" height="auto" src={heroImage} alt="" />}
-      </div>
-      <div class="prose">
-        <div class="title">
-          <h1>{title}</h1>
-          <div class="date">
-            <FormattedDate date={pubDate} />
-            {
-              updatedDate && (
-                <div class="last-updated-on">
-                  Last updated on <FormattedDate date={updatedDate} />
-                </div>
-              )
-            }
+    <div style="margin-top: 2rem;">
+        <Breadcrumbs items={[{ label: title, href: Astro.url.pathname }]} />
+    </div>
+    <article class="blog-post">
+      <header class="post-header">
+        {heroImage && (
+          <div class="hero-image-container">
+            <img src={heroImage} alt={`Cover for ${title}`} class="hero-image" />
           </div>
-          <hr />
+        )}
+        
+        <div class="header-content">
+          <div class="meta">
+            <span class="date">
+              <FormattedDate date={pubDate} />
+            </span>
+            {updatedDate && (
+              <span class="updated-date">
+                (Actualizado: <FormattedDate date={updatedDate} />)
+              </span>
+            )}
+            {author && <span class="author">by {author}</span>}
+          </div>
+
+          <h1 class="title">{title}</h1>
+          
+          {tags && (
+             <div class="tags">
+               {tags.map((tag: string) => <span class="tag">#{tag}</span>)}
+             </div>
+          )}
+          <hr class="header-divider"/>
         </div>
+      </header>
+
+      <div class="prose">
         <slot />
       </div>
     </article>
-  </SectionContainer>
-</Layout>
+</BlogLayout>
