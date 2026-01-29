@@ -1,3 +1,7 @@
+h2, h3, h4 {
+    font-family: Comic Shanns, system-ui, Arial, sans-serif;
+}
+
 p {
     text-wrap: auto;
 }
@@ -90,7 +94,7 @@ p {
 .prose h3,
 .prose h4 {
     color: var(--primary-text);
-    font-family: 'Excalifont', sans-serif;
+    /* font-family: 'Excalifont', sans-serif; */
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     line-height: 1.3;

@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
@@ -19,7 +20,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags, author } = As
       <header class="post-header">
         {heroImage && (
           <div class="hero-image-container">
-            <img src={heroImage} alt={`Cover for ${title}`} class="hero-image" />
+            <Image src={heroImage} alt={`Cover for ${title}`} class="hero-image" />
           </div>
         )}
         
