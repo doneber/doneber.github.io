@@ -1,0 +1,64 @@
+---
+title: "Por qué el framework Astro"
+description: "Si estás empezando en el desarrollo web y no sabes por dónde entrar a los frameworks, esta es mi opinión sincera: empieza por Astro."
+pubDate: 2026-02-26
+author: "Eber"
+tags: ["astro", "frameworks", "desarrollo web", "principiantes"]
+draft: true
+heroImage: "../../assets/blogs/post02/land-post02.webp"
+---
+
+import TLDR from "@/components/mdx/TLDR.astro";
+import Callout from "@/components/mdx/Callout.astro";
+import { Image } from "astro:assets";
+import htmlToAstroImage from "@/assets/blogs/post02/html-to-astro.webp";
+
+<TLDR title="Resumen Rápido">
+  Después de mucho tiempo probando diferentes frameworks llegué a Astro y hoy se volvió mi favorito. Lo considero el mejor primer framework para quien empieza en el mundo del desarrollo web: tiene una gran comunidad, es sencillo de usar y la experiencia de desarrollo es muy agradable.
+</TLDR>
+
+Como muchos, empecé haciendo páginas web sin frameworks. El control y la personalización que llegas a tener eran agradables, pero honestamente no era muy práctico e incluso llegaba a ser tedioso: cambiar una sola cosa del menú significaba repetir el mismo cambio en todos los archivos, uno por uno, lo cual era cansador.
+
+Probé otros frameworks y herramientas como Pug o Vue.js, las cuales honestamente me gustaron muchísimo, aunque aún no encajaban completamente con las páginas web que hacía en ese entonces. Eso hasta que probé Astro. Me sorprendió lo sencillo que fue migrar un proyecto viejo: prácticamente solo tuve que cambiarle la extensión a los archivos.
+
+<div style="margin: 2rem 0; text-align: center;">
+  <Image
+    src={htmlToAstroImage}
+    alt="Ilustración de un archivo .html transformándose en un archivo .astro"
+    style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+  />
+</div>
+
+Cuento esto porque es justo el camino largo que mucha gente que empieza no necesita recorrer.
+
+## Por qué creo que es el mejor primer framework
+
+Si alguien que está empezando me pregunta por dónde entrar al mundo de los frameworks, le digo Astro. Por delante de React, Vue o Angular.
+
+No porque esos sean malos, todo lo contrario. Sino porque están pensados para resolver problemas que un principiante todavía no tiene. Te piden aprender una forma nueva de pensar antes de mostrar algo que funcione. Astro hace lo opuesto: si ya escribiste algo de HTML, ya sabes casi todo lo que necesitas para empezar. La curva de aprendizaje es bajísima.
+
+Y eso, cuando estás aprendiendo, lo es todo. Ver tu sitio funcionar rápido es lo que te mantiene con ganas de seguir.
+
+<Callout type="note" title="Y crece contigo">
+  Empezar fácil no significa quedarte corto. Cuando necesites interactividad de verdad, Astro te deja meter componentes de React, Vue o Svelte justo donde los necesites, sin reescribir todo.
+</Callout>
+
+## Pero cuidado, no es una bala de plata que solucione todos tus problemas
+
+En mi experiencia no he tenido nada malo que decir; hace lo que promete. Pero la comunidad coincide en un patrón: Astro brilla en sitios de contenido (blogs, portafolios, documentación, landing pages), pero cuando necesitas autenticación, sesiones o mucha interacción en tiempo real, te toca armar más cosas a mano que con [otros frameworks como Next.js](https://www.kunalganglani.com/blog/astro-vs-nextjs-2026).
+
+Si el proyecto ya pasa de mediano a grande, continuar con Astro puede volverse más complejo, sobre todo en aplicaciones muy interactivas del estilo Discord, Notion o Google Maps. Ahí quizás convenga tener un backend dedicado y buscar otras alternativas. Aunque para tiendas online, por ejemplo, considero que Astro sigue siendo suficiente.
+
+## Mi opinión
+
+No te digo que Astro sea el mejor framework del mundo, porque eso depende de qué construyas. Lo que sí creo es que es el mejor lugar para *empezar*.
+
+Si estás dando tus primeros pasos en desarrollo web, o ni siquiera los diste, te ahorras el camino largo que recorrí. Empiezas por donde yo habría querido empezar. Eso sí, los fundamentos siempre son lo más importante: HTML, CSS y JS.
+
+Además, recientemente Cloudflare adquirió Astro, así que podemos intuir que se vienen nuevas mejoras al proyecto. Lejos de verlo como algo negativo, me parece que ahora hay una gran empresa detrás y que habrá muchas novedades; espero que todas para bien de la comunidad.
+
+---
+
+Si llegaste hasta aquí, gracias por leer. Si te animas, el [tutorial oficial de Astro](https://astro.build/) se hace en un ratito.
+
+Nos vemos en el próximo. Atentamente, tu amigable vecino [Eber](/about/)
