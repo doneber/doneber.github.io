@@ -1,0 +1,80 @@
+---
+title: "\"Eso lo hace la IA en cinco minutos\""
+description: "La IA es extraordinaria, pero 'se siente rápido' y 'está resuelto' no son lo mismo. Una reflexión sobre por qué todavía no es tan mágica como creemos, y por qué eso no es algo malo."
+pubDate: 2026-03-30
+author: "Eber"
+tags: ["blog", "ia", "desarrollo"]
+draft: false
+heroImage: "../../assets/blogs/post03/land-post03.webp"
+---
+
+import TLDR from "@/components/mdx/TLDR.astro";
+import Callout from "@/components/mdx/Callout.astro";
+import { Image } from 'astro:assets';
+import bannerImage from "@/assets/blogs/post03/desktop.webp";
+
+<TLDR title="Resumen Rápido">
+  La IA se volvió tan buena que es fácil pensar que cualquier problema se resuelve en cinco minutos con el prompt correcto. Este es un post sobre por qué la IA, aun siendo extraordinaria, todavía no es tan mágica como a veces creemos, y por qué eso no es algo malo.
+</TLDR>
+
+He escuchado en reuniones y en mensajes de Slack "la IA lo hace en 5 minutos". Inluso tal vez yo mismo lo digo ocacionalmente. Y lo curioso es que casi siempre tiene algo de verdad: para un montón de cosas, la IA de hoy es asombrosamente rápida. Negarlo sería absurdo, sobre todo en 2026.
+
+El problema no es la frase. Es lo que asume sin darse cuenta: que la parte difícil de un problema es escribir el código. Y muchas veces no lo es. La parte difícil es entender el lugar donde ese código tiene que vivir, con todo lo que ya hay alrededor.
+
+Así que la pregunta que quiero explorar es esta: ¿qué pasa cuando confundimos "la IA puede generar esto" con "esto ya está resuelto"?
+
+## Lo rápido que se siente no es lo rápido que es
+
+Hay una trampa sutil en trabajar con IA, y no tiene que ver con la calidad del modelo. Tiene que ver con nosotros.
+
+La IA hace que el trabajo *se sienta* fluido. Escribes un prompt, aparece una respuesta convincente, y tienes la sensación física de estar avanzando. El problema es que esa sensación no siempre coincide con el resultado real. De hecho, hay [estudios que sugieren](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) que solemos sentirnos bastante más productivos con IA de lo que realmente somos.
+
+Es como el GPS, hace que ir a un lugar que no conocemos se sienta facilísimo. Pero a cambio, tu sentido de orientación se atrofia sin que lo notes. La IA puede hacer algo parecido con el trabajo: lo vuelve cómodo, pero "cómodo" y "resuelto" no son sinónimos.
+
+<div style="margin: 2rem 0; text-align: center;">
+    <Image src={bannerImage} alt="La comodidad de avanzar guiado por una herramienta mientras el camino real es más enredado de lo que parece" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+</div>
+
+Pero... ¿Por qué? La IA brilla en lo que está bien delimitado: un prototipo, una función aislada, el boilerplate de siempre, ese script que nunca te acuerdas cómo se escribe. En ese terreno es excelente.
+
+Donde tropieza es en lo grande. En los codebases enormes, en el mantenimiento, en las decisiones de arquitectura, en integrarse con todo lo que ya existe y nadie documentó. Como lo resume bien [un análisis sobre los agentes de código](https://codeconductor.ai/blog/why-ai-coding-agents-arent-production-ready/): la IA entiende fragmentos, no sistemas. Le falta justo lo que sobra en un proyecto real: contexto, dependencias, restricciones, y la pequeña historia de por qué las cosas están como están.
+
+<Callout type="tip" title="La idea en una frase">
+  Una respuesta de IA es una dirección prometedora, no una solución implementable. La primera la genera un prompt en segundos. La segunda tiene que sobrevivir al mundo real, y eso todavía cuesta.
+</Callout>
+
+## Cuando abrí el proyecto
+
+Hace no mucho pasé por una situación de esas.
+
+Me asignaron una migración de una _library_. Llegó acompañada de un prompt, según me dijeron, demostraba que el problema ya estaba resuelto y que solo faltaba implementarlo. Y confieso que al principio yo también pensé que sería algo rápido.
+
+Hasta que abrí el proyecto.
+
+Aparecieron incompatibilidades técnicas. La solución propuesta implicaba perder funcionalidades importantes del reproductor de video (de eso iba la _feature_). No había tests. Y desde el inicio intenté no quedarme en el cómodo "no se puede": propuse alternativas viables y expliqué los compromisos que tendríamos que asumir.
+
+Pero lo que de verdad me hizo pensar no fue el debate técnico. Fue cómo la conversación se fue desplazando. En algún momento dejamos de discutir tecnologías y restricciones, y empezamos a discutir si *yo* estaba abordando bien el problema, mientras tanto algunos encargados defendían la viabilidad de la migración ya que ChatGPT decía que era posible.
+
+Eso tiene nombre, y está estudiado. Se llama [automation bias](https://thedecisionlab.com/biases/automation-bias): la tendencia a aceptar y favorecer la respuesta de un sistema automático, incluso cuando tenemos información que la contradice. No es un defecto de nadie en particular, seguro nos pasa a todos.
+
+<Callout type="note" title="Un apunte honesto">
+  A veces ese "pregúntale a la IA" termina ocupando el lugar de la documentación o la conversación que en realidad hacía falta. Me parece un síntoma de la misma idea: pensar que la herramienta sustituye al contexto.
+</Callout>
+
+## La buena noticia: el ecosistema apenas empieza
+
+Podría sonar a que estoy en contra de la IA. Es exactamente lo contrario.
+
+Que la IA no sea magia *hoy* no es una mala noticia. Es la señal de que estamos en una etapa muy temprana de algo enorme. Y lo interesante es que el famoso "fallo" de los agentes muchas veces no es de la idea, sino del ecosistema que recién se está construyendo a su alrededor: la memoria, el manejo de contexto, las herramientas que los rodean. Ese ecosistema, además, [está creciendo rapidísimo](https://codeconductor.ai/blog/why-ai-coding-agents-arent-production-ready/).
+
+Así que la pregunta que de verdad me entusiasma no es si la IA va a reemplazar el criterio humano. Es cómo los dos, juntos, se están volviendo un sistema cada vez más complejo e interesante.
+
+Y si me llevo una sola idea de todo esto, es que el reto de hoy no es aprender a promptear más rápido. Es algo más sutil: saber distinguir cuándo una respuesta es una buena dirección y cuándo todavía necesita el filtro de alguien que conoce el terreno.
+
+La IA lo hace en cinco minutos, sí. Lo que no siempre cabe en esos cinco minutos es todo lo demás.
+
+---
+
+Si llegaste hasta aquí, gracias por leer. Nos vemos en el próximo post.
+
+Atentamente, tu amigable vecino [Eber](/about/)
