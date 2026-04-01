@@ -3,7 +3,9 @@ import Character from "@/components/Character.astro";
 import SectionContainer from "@/components/portfolio/SectionContainer.astro";
 import { getI18N } from "@/i18n";
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import FormattedDate from "@/components/FormattedDate.astro";
+import "@/styles/blog-index.css";
 
 const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
@@ -19,23 +21,51 @@ const posts = (await getCollection("blog", ({ data }) => {
 <Character messages={i18n.BLOG_PAGE.CHARACTER_MESSAGES} isFixed />
 
 <SectionContainer>
-    <h1>{i18n.BLOG_PAGE.HEADING}</h1>
-    <p>{i18n.BLOG_PAGE.DESCRIPTION}</p>
-    <ul>
-        {
-            posts.map((post) => (
-                <li>
-                    <a
-                        href={`/blog/${post.id}/`}
-                        style="display:flex; gap: 1rem; align-items:center;"
-                    >
-                        <h4 class="title">{post.data.title}</h4> |
-                        <p class="date">
-                            <FormattedDate date={post.data.pubDate} />
-                        </p>
-                    </a>
-                </li>
-            ))
-        }
-    </ul>
+    <section class="blog-index" aria-labelledby="blog-title">
+        <div class="blog-hero">
+            <span class="blog-kicker">doneber.dev / blog</span>
+            <h1 id="blog-title">{i18n.BLOG_PAGE.HEADING}</h1>
+            <p class="intro">{i18n.BLOG_PAGE.DESCRIPTION}</p>
+        </div>
+
+        <div class="posts-list">
+            {
+                posts.map((post) => {
+                    const topic = post.data.tags?.slice(0, 2).join(" · ");
+
+                    return (
+                        <article class="post-card">
+                            <a class="post-link" href={`/blog/${post.id}/`}>
+                                {post.data.heroImage && (
+                                    <div class="post-banner" aria-hidden="true">
+                                        <Image
+                                            src={post.data.heroImage}
+                                            alt=""
+                                            width={900}
+                                            height={240}
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                )}
+
+                                <div class="post-content">
+                                    <h2 class="post-title">{post.data.title}</h2>
+                                    <p class="post-description">
+                                        {post.data.description}
+                                    </p>
+
+                                    <footer class="post-footer">
+                                        {topic && <span class="post-topic">{topic}</span>}
+                                        <span class="post-date">
+                                            <FormattedDate date={post.data.pubDate} />
+                                        </span>
+                                    </footer>
+                                </div>
+                            </a>
+                        </article>
+                    );
+                })
+            }
+        </div>
+    </section>
 </SectionContainer>

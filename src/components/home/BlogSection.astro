@@ -22,9 +22,14 @@ const posts = (await getCollection("blog", ({ data }) => {
             posts.map((post) => (
                 <li>
                     <a href={`/blog/${post.id}/`}>
-                        <span class="post-title">{post.data.title}</span>
-                        <span class="post-date">
-                            <FormattedDate date={post.data.pubDate} />
+                        <span class="post-header">
+                            <span class="post-title">{post.data.title}</span>
+                            <span class="post-date">
+                                <FormattedDate date={post.data.pubDate} />
+                            </span>
+                        </span>
+                        <span class="post-description">
+                            {post.data.description}
                         </span>
                     </a>
                 </li>
@@ -57,14 +62,50 @@ const posts = (await getCollection("blog", ({ data }) => {
         }
     }
 
+    .post-header {
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+        max-width: 65ch;
+    }
+
     .post-title {
         font-weight: bold;
-        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+        flex: 0 1 auto;
+    }
+
+    .post-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        overflow: hidden;
+        font-size: 0.9rem;
+        opacity: 0.85;
+        margin-top: 0.15rem;
+        max-width: 65ch;
     }
 
     .post-date {
+        flex-shrink: 0;
         font-size: 0.85rem;
-        opacity: 0.8;
-        margin-left: 1rem;
+        opacity: 0.65;
+        white-space: nowrap;
+    }
+
+    @media (width <= 768px) {
+        .post-header {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+            gap: 0.15rem;
+        }
+
+        .post-title {
+            white-space: normal;
+        }
     }
 </style>
