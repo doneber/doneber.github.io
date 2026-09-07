@@ -36,6 +36,14 @@
     "EXPERIENCE_TITLE": "Experience",
     "EXPERIENCE_LIST": [
       {
+        "TITLE_JOB": "Frontend Developer",
+        "DESCRIPTION_JOB": "I maintained the website and community platform for EDTeam, I also worked in the CMS of the platform.",
+        "COMPANY_NAME": "EDTeam",
+        "LOCATION": "",
+        "START_DATE": "",
+        "END_DATE": ""
+      },
+      {
         "TITLE_JOB": "Frontend Engineer",
         "DESCRIPTION_JOB": "I developed user interfaces, optimizing the performance and accessibility of web applications. I also implemented best practices in the team's development standards.",
         "COMPANY_NAME": "NVD",
@@ -62,6 +70,13 @@
     ],
     "PROJECTS_TITLE": "Projects",
     "PROJECTS_LIST": [
+      {
+        "PROJECT_NAME": "CanIApply",
+        "DESCRIPTION": "Application to improve and organize your CVs. It allows you to create personalized CVs for different jobs and manage your applications.",
+        "URL": "https://caniapply.cv",
+        "LOGO_PATH": "/images/projects/caniapply-logo.svg",
+        "REPOSITORY": "https://github.com/doneber/caniapply"
+      },
       {
         "PROJECT_NAME": "Uwuntu OS",
         "DESCRIPTION": "Operating system based on Ubuntu Linux with integrated terminal using only web technologies.",
@@ -93,7 +108,7 @@
       }
     ],
     "ABOUT_TITLE": "About Me",
-    "ABOUT_DESCRIPTION": "I’m Eber, a fullstack developer with experience in JavaScript, NodeJs, React, Next.js, and Nest.js. I studied Computer Science and create educational content on social media. In my free time, I enjoy playing volleyball, running, and sometimes going to the gym. My goal is to foster collaborative learning, and I firmly believe that discipline surpasses natural talent. Feel free to contact me for inquiries.",
+    "ABOUT_DESCRIPTION": "Hello, my name is Eber: idea builder and Fullstack developer focused on the web. I am passionate about creating software with a positive impact on society and sharing digital content for the community. Outside the screen, I enjoy running, playing volleyball, and taking on new challenges. If I can help you with anything, don't hesitate to contact me!",
     "CONTACT_TITLE": "Contact",
     "CHARACTER_MESSAGES": [
       "Check out my work!",

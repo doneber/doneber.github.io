@@ -105,19 +105,19 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
                 borderLight: `url("${BorderLight.src}")`,
             }}
         >
-            /* Critical CSS: Start hidden to prevent FOUC */
-            body:not(.loaded) .container {
+            /* Critical CSS: Start hidden to prevent FOUC (home page only) */
+            body.home:not(.loaded) .container {
                 opacity: 0;
-                visibility: hidden;
+                visibility: visible;
             }
-            body.loaded .container {
+            body.home.loaded .container {
                 opacity: 1;
                 visibility: visible;
                 transition: opacity 0.5s ease-out;
             }
 
             /* No-JS Fallback */
-            noscript body .container {
+            noscript body.home .container {
                 opacity: 1 !important;
                 visibility: visible !important;
             }
@@ -463,7 +463,7 @@ const isHome = getRouteFromUrl(Astro.url) === "/";
             gtag("config", "G-WJSJQ78QYQ");
         </script>
     </head>
-    <body style={!isHome ? "height: max-content" : ""}>
+    <body class:list={[{ home: isHome }]} style={!isHome ? "height: max-content" : ""}>
         <style>
             .options {
                 display: flex;

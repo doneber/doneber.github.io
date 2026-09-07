@@ -23,9 +23,16 @@ const i18n = getI18N({ currentLocale });
 <style>
   .container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     justify-content: center;
-    gap: 1rem;
-    margin: 1rem;
+    gap: 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      grid-template-columns: 1fr;
+      margin: 1rem 0;
+    }
   }
 </style>

@@ -36,6 +36,14 @@
     "EXPERIENCE_TITLE": "Experiencia",
     "EXPERIENCE_LIST": [
       {
+        "TITLE_JOB": "Desarrollador Frontend",
+        "DESCRIPTION_JOB": "Mantuve la plataforma de la comunidad y el sitio web para EDTeam, también trabajé en el CMS de la plataforma.",
+        "COMPANY_NAME": "EDTeam",
+        "LOCATION": "",
+        "START_DATE": "",
+        "END_DATE": ""
+      },
+      {
         "TITLE_JOB": "Ingeniero Frontend",
         "DESCRIPTION_JOB": "Desarrollé interfaces de usuario, optimizando el rendimiento y la accesibilidad de las aplicaciones web. También implementé estándares de desarrollo del equipo.",
         "COMPANY_NAME": "NVD",
@@ -62,6 +70,13 @@
     ],
     "PROJECTS_TITLE": "Proyectos",
     "PROJECTS_LIST": [
+      {
+        "PROJECT_NAME": "CanIApply",
+        "DESCRIPTION": "Aplicación para mejorar y organizar tus CVs. Te permite crear CVs personalizados para diferentes trabajos y gestionar tus postulaciones.",
+        "URL": "https://caniapply.cv",
+        "LOGO_PATH": "/images/projects/caniapply-logo.svg",
+        "REPOSITORY": "https://github.com/doneber/caniapply"
+      },
       {
         "PROJECT_NAME": "Uwuntu OS",
         "DESCRIPTION": "Sistema Operativo basado en Ubuntu Linux con terminal integrada usando únicamente tecnologías web.",
@@ -93,7 +108,7 @@
       }
     ],
     "ABOUT_TITLE": "Sobre mí",
-    "ABOUT_DESCRIPTION": "Soy Eber, un desarrollador fullstack con experiencia en JavaScript, NodeJs, React, Next.js y Nest.js. Estudié Informática y creo contenido educativo en redes sociales. En mi tiempo libre, practico volleyball, running y a veces voy al gimnasio. Mi objetivo es fomentar el aprendizaje colaborativo, y creo firmemente que la disciplina supera al talento natural. Para consultas, no dudes en contactarme.",
+    "ABOUT_DESCRIPTION": "Hola, mi nombre es Eber: constructor de ideas y desarrollador Fullstack enfocado en el mundo web. Me apasiona crear software con impacto positivo en la sociedad y compartir contenido digital para la comunidad. Fuera de la pantalla, disfruto salir a correr, jugar volleyball y asumir nuevos desafíos. Si puedo ayudarte en algo, ¡no dudes en contactarme!",
     "CONTACT_TITLE": "Contacto",
     "CHARACTER_MESSAGES": [
       "¡Mira mi trabajo!",

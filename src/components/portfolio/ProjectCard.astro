@@ -13,7 +13,7 @@ const { currentLocale } = Astro;
 const i18n = getI18N({ currentLocale });
 ---
 
-<article>
+<article class="card">
   <div class="container-card">
     <div class="logo-container">
       <img
@@ -30,20 +30,46 @@ const i18n = getI18N({ currentLocale });
       <p class="description">{description}</p>
     </div>
     <footer>
-      <a href={url} class="link" target="_blank">{i18n.COMMON.SEE_ONLINE}</a>
+      <span class="link">{i18n.COMMON.SEE_ONLINE}</span>
     </footer>
   </div>
+  <a
+    href={url}
+    class="card-link"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`${i18n.COMMON.SEE_ONLINE} ${title}`}
+  ></a>
 </article>
 
 <style>
   h3 {
     font-family: monospace;
   }
-  article {
-    box-shadow: 0px 0px 2px var(--primary);
+
+  .card {
+    position: relative;
+    border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent);
     border-radius: 7px;
     text-align: center;
-    /* max-width: 200px; */
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      background: color-mix(in srgb, var(--primary) 4%, transparent);
+
+      .link {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 7px;
   }
 
   .container-card {
@@ -72,6 +98,7 @@ const i18n = getI18N({ currentLocale });
   .description-container {
     /* background: green; */
   }
+
   .description {
     margin: 0;
     font-size: 0.9rem;
@@ -88,8 +115,5 @@ const i18n = getI18N({ currentLocale });
   .link {
     color: var(--primary);
     text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
   }
 </style>
